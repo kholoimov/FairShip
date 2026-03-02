@@ -26,6 +26,11 @@ def evExit():
         # Prevent the FairEventManager destructor from being called
         ROOT.SetOwnership(fMan, False)
 
+def save_event_display_pdf(out="event_display.pdf"):
+    v = ROOT.gEve.GetDefaultGLViewer()
+    v.SavePicture("tmp_eve.png")
+    from PIL import Image
+    Image.open("tmp_eve.png").convert("RGB").save(out)
 
 atexit.register(evExit)
 
@@ -737,6 +742,7 @@ class IO:
             self.n = i
         self.contents.set(self.n)
         SHiPDisplay.NextEvent(self.n)
+        save_event_display_pdf(f"event_{self.n}.pdf")
 
     def toggleMCTracks(self):
         tl = fRun.GetMainTask().GetListOfTasks()

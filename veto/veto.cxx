@@ -636,7 +636,7 @@ void veto::AddBlock(TGeoVolumeAssembly* tInnerWall,
                                              zi_x2 - zi_x1,
                                              kMagenta - 10,
                                              vetoMed,
-                                             true);
+                                             false);
         ttLiSc->AddNode(LiSc_S4,
                         liscId("LiSc_S4", blockNr, Zlayer, 0, 1),
                         new TGeoCombiTrans(zi_x1, -(zi_y1 - zi_y1_Step), tZ, new TGeoRotation("r", 0, 0, 0)));
@@ -657,7 +657,7 @@ void veto::AddBlock(TGeoVolumeAssembly* tInnerWall,
                                              zi_x2 - zi_x1,
                                              kMagenta - 10,
                                              vetoMed,
-                                             true);
+                                             false);
         ttLiSc->AddNode(LiSc_S6,
                         liscId("LiSc_S6", blockNr, Zlayer, ny, 1),
                         new TGeoCombiTrans(zi_x1, (zi_y1 - zi_y1_Step), tZ, new TGeoRotation("r", 0, 0, 0)));
@@ -691,7 +691,7 @@ void veto::AddBlock(TGeoVolumeAssembly* tInnerWall,
                                                zi_y2 - zi_y1,
                                                kMagenta - 10,
                                                vetoMed,
-                                               true);
+                                               false);
                 ttLiSc->AddNode(LiScY,
                                 liscId("LiScY", blockNr, Zlayer, i, 1),
                                 new TGeoCombiTrans(zi_x1, zi_y1, tZ, new TGeoRotation("r", 0, 0, 0)));
@@ -724,7 +724,7 @@ void veto::AddBlock(TGeoVolumeAssembly* tInnerWall,
                                              zi_y2 - zi_y1,
                                              kMagenta - 10,
                                              vetoMed,
-                                             true);
+                                             false);
         ttLiSc->AddNode(LiSc_S3,
                         liscId("LiSc_S3", blockNr, Zlayer, 0, 1),
                         new TGeoCombiTrans(-(zi_x1 - zi_x1_Step), zi_y1, tZ, new TGeoRotation("r", 0, 0, 0)));
@@ -746,7 +746,7 @@ void veto::AddBlock(TGeoVolumeAssembly* tInnerWall,
                                              zi_y2 - zi_y1,
                                              kMagenta - 10,
                                              vetoMed,
-                                             true);
+                                             false);
         ttLiSc->AddNode(LiSc_S5,
                         liscId("LiSc_S5", blockNr, Zlayer, nx, 1),
                         new TGeoCombiTrans((zi_x1 - zi_x1_Step), zi_y1, tZ, new TGeoRotation("r", 0, 0, 0)));
@@ -779,7 +779,7 @@ void veto::AddBlock(TGeoVolumeAssembly* tInnerWall,
                                                zi_y2 - zi_y1,
                                                kMagenta - 10,
                                                vetoMed,
-                                               true);
+                                               false);
                 ttLiSc->AddNode(LiScX,
                                 liscId("LiScX", blockNr, Zlayer, i, 1),
                                 new TGeoCombiTrans(zi_x1, zi_y1, tZ, new TGeoRotation("r", 0, 0, 0)));
@@ -909,6 +909,28 @@ TGeoVolume* veto::MakeSegments()
     tTankVol->AddNode(tVerticalRib, 0, new TGeoTranslation(0, 0, 0));
     tTankVol->AddNode(tLongitRib, 0, new TGeoTranslation(0, 0, 0));
     tTankVol->AddNode(ttLiSc, 0, new TGeoTranslation(0, 0, 0));
+
+    // ------------------------------------------------------------
+    // Thin plane at the end of veto volume (local z = 50 m)
+    // Full transverse size: 5 x 7 m^2, thickness: 0.1 mm
+    // Medium: decayVolumeMed (configured via DecayVolumeMedium)
+    // ------------------------------------------------------------
+    const Double_t planeDX = 2.5 * m;     // half-size in X
+    const Double_t planeDY = 3.5 * m;     // half-size in Y
+    const Double_t planeDZ = 0.05 * mm;   // half-thickness in Z (0.1 mm total)
+
+    // 'z2' at this point is 50*m (end of Block2)
+    // Place plane just AFTER the end to avoid overlaps:
+    const Double_t zPlane = z2 + planeDZ;
+
+    TGeoBBox* planeShape = new TGeoBBox("VetoExitPlaneShape", planeDX, planeDY, planeDZ);
+    TGeoVolume* planeVol = new TGeoVolume("VetoExitPlane", planeShape, decayVolumeMed);
+
+    planeVol->SetLineColor(kAzure + 1);
+    planeVol->SetTransparency(80);   // optional, helps visibility
+
+    tTankVol->AddNode(planeVol, 1, new TGeoTranslation(0., 0., zPlane));
+
 
     return tTankVol;
 }
@@ -1076,6 +1098,7 @@ void veto::ConstructGeometry()
         const char* Cavern = "Cavern";
         const char* Ain = "AbsorberAdd";
         const char* Aout = "AbsorberAddCore";
+        const char* OutPlane = "VetoExitPlane";
         TObjArray* volumelist = gGeoManager->GetListOfVolumes();
         int lastvolume = volumelist->GetLast();
         int volumeiterator = 0;
@@ -1083,7 +1106,7 @@ void veto::ConstructGeometry()
             const char* volumename = volumelist->At(volumeiterator)->GetName();
             const char* classname = volumelist->At(volumeiterator)->ClassName();
             if (strstr(classname, Vol)) {
-                if (strstr(volumename, Cavern) || strstr(volumename, Ain) || strstr(volumename, Aout)) {
+                if (strstr(volumename, Ain) || strstr(volumename, Aout) || strstr(volumename, OutPlane)) {
                     AddSensitiveVolume(gGeoManager->GetVolume(volumename));
                     LOG(INFO) << "veto: made sensitive for following muons: " << volumename;
                 }

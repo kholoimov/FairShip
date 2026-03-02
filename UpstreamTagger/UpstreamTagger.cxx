@@ -565,16 +565,39 @@ void UpstreamTagger::ConstructGeometry()
   module[10][2] = z_layer_4;
 
   // Add detector nodes
-  for (auto &&i: TSeq(1, n_modules + 1)) {
-    if(i%5 == 1 || i%5 == 3) {
-      // skip unneeded modules to have 3 instead of 5
-      continue;
-    }
-    UpstreamTagger_fulldet->AddNode(Rpc_module_upstream1, i, new TGeoTranslation(module[i][0], module[i][1], module[i][2]));
-    UpstreamTagger_fulldet->AddNode(Rpc_module_upstream, i + n_modules, new TGeoTranslation(module[i][0], module[i][1], -module[n_modules + 1 - i][2]));
-  }
+  // for (auto &&i: TSeq(1, n_modules + 1)) {
+  //   if(i%5 == 1 || i%5 == 3) {
+  //     // skip unneeded modules to have 3 instead of 5
+  //     continue;
+  //   }
+  //   UpstreamTagger_fulldet->AddNode(Rpc_module_upstream1, i, new TGeoTranslation(module[i][0], module[i][1], module[i][2]));
+  //   UpstreamTagger_fulldet->AddNode(Rpc_module_upstream, i + n_modules, new TGeoTranslation(module[i][0], module[i][1], -module[n_modules + 1 - i][2]));
+  // }
 
-  top->AddNode(UpstreamTagger_fulldet, 1, new TGeoTranslation(0.0, 0.0, det_zPos));
+  // ------------------------------------------------------------
+  // Thin plane at the end of veto volume (local z = 50 m) FIXME
+  // Full transverse size: 5 x 7 m^2, thickness: 0.1 mm
+  // Medium: decayVolumeMed (configured via DecayVolumeMedium)
+  // ------------------------------------------------------------
+  const Double_t planeDX = 6 * m;     // half-size in X
+  const Double_t planeDY = 7.5 * m;     // half-size in Y
+  const Double_t planeDZ = 0.05 * 0.001 * cm;   // half-thickness in Z (0.1 mm total)
+
+  InitMedium("vacuums");
+  auto decayVolumeMed = gGeoManager->GetMedium("vacuums");   // decay volume, air/helium/vacuum
+
+  TGeoBBox* planeShape = new TGeoBBox("UpstreamTaggerShape", planeDX, planeDY, planeDZ);
+  TGeoVolume* planeVol = new TGeoVolume("UpstreamTaggerPlane", planeShape, decayVolumeMed);
+
+  planeVol->SetLineColor(kAzure + 1);
+  planeVol->SetTransparency(80);   // optional, helps visibility
+
+  AddSensitiveVolume(planeVol);
+
+  LOG(INFO) << "Upstream: Added sensitive volume at UpstreamTaggerPlane";
+
+  // top->AddNode(UpstreamTagger_fulldet, 1, new TGeoTranslation(0.0, 0.0, det_zPos));
+  top->AddNode(planeVol, 1, new TGeoTranslation(0.0, 0.0, det_zPos));
 
   cout << " Z Position (Upstream Tagger1) " << det_zPos << endl;
   //////////////////////////////////////////////////////////////////
