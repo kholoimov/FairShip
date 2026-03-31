@@ -1031,7 +1031,7 @@ void ShipMuonShield::ConstructGeometry()
       }
 
       // Place in origin of SHiP coordinate system as subnodes placed correctly
-      top->AddNode(tShield, 1);
+      // top->AddNode(tShield, 1);
 
     } else {
      Fatal("ShipMuonShield","Design %i does not match implemented designs",fDesign);

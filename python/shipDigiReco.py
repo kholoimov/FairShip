@@ -6,6 +6,7 @@ import rootUtils as ut
 from array import array
 import sys
 from math import fabs
+import TrackExtrapolateTool
 stop  = ROOT.TVector3()
 start = ROOT.TVector3()
 
@@ -21,6 +22,8 @@ class ShipDigiReco:
     f = ROOT.TFile(fout)
     sTree = f.cbmsim
     if sTree.GetBranch("FitTracks"): sTree.SetBranchStatus("FitTracks",0)
+    if sTree.GetBranch("PropagatedPos"): sTree.SetBranchStatus("PropagatedPos",0)
+    if sTree.GetBranch("PropagatedMom"): sTree.SetBranchStatus("PropagatedMom",0)
     if sTree.GetBranch("goodTracks"): sTree.SetBranchStatus("goodTracks",0)
     if sTree.GetBranch("VetoHitOnTrack"): sTree.SetBranchStatus("VetoHitOnTrack",0)
     if sTree.GetBranch("Particles"): sTree.SetBranchStatus("Particles",0)
@@ -64,6 +67,12 @@ class ShipDigiReco:
   self.goodTracksBranch      = self.sTree.Branch("goodTracks",self.goodTracksVect,32000,-1)
   self.fTrackletsArray = ROOT.TClonesArray("Tracklet")
   self.Tracklets   = self.sTree.Branch("Tracklets",  self.fTrackletsArray,32000,-1)
+
+  self.propagated_pos  = ROOT.std.vector('TVector3')() # ADDED
+  self.propagated_mom  = ROOT.std.vector('TVector3')() # ADDED
+
+  self.propagated_posBranch= self.sTree.Branch("PropagatedPos", self.propagated_pos, 32000, -1) # ADDED
+  self.propagated_momBranch = self.sTree.Branch("PropagatedMom", self.propagated_mom, 32000, -1) # ADDED
 #
   self.digiStraw    = ROOT.TClonesArray("strawtubesHit")
   self.digiStrawBranch   = self.sTree.Branch("Digi_StrawtubesHits",self.digiStraw,32000,-1)
@@ -809,6 +818,8 @@ class ShipDigiReco:
   self.fGenFitArray.Clear()
   self.fTrackletsArray.Delete()
   self.fitTrack2MC.clear()
+  self.propagated_mom.clear()
+  self.propagated_pos.clear()
 
 #
   if global_variables.withT0:
@@ -977,6 +988,22 @@ class ShipDigiReco:
 # make track persistent
     nTrack   = self.fGenFitArray.GetEntries()
     self.fGenFitArray[nTrack] = theTrack
+
+    z_extra = -2512  # example
+
+    ok_prop, pos_prop, mom_prop = TrackExtrapolateTool.extrapolateToPlane(theTrack, z_extra)
+    # pos_prop, mom_prop = None, None
+
+    if pos_prop is not None:
+        print("TRACK PROPAGATED PROPERLY")
+        self.propagated_pos.push_back(pos_prop)
+        self.propagated_mom.push_back(mom_prop)
+    else:
+        print("TRACK PROPAGATED WRONGLY")
+        self.propagated_pos.push_back(ROOT.TVector3(float('nan'), float('nan'), float('nan')))
+        self.propagated_mom.push_back(ROOT.TVector3(float('nan'), float('nan'), float('nan')))
+
+
     # self.fitTrack2MC.push_back(atrack)
     if global_variables.debug:
      print('save track',theTrack,chi2,nmeas,fitStatus.isFitConverged())
@@ -997,6 +1024,9 @@ class ShipDigiReco:
   self.Tracklets.Fill()
   self.fitTracks.Fill()
   self.mcLink.Fill()
+  self.propagated_posBranch.Fill() # ADDED
+  self.propagated_momBranch.Fill() # ADDED
+
 # debug
   if global_variables.debug:
    print('save tracklets:')
