@@ -166,8 +166,9 @@ def test_build_has_no_warnings_or_errors(tmp_path):
         + ("\n..." if len(warning_matches) > 50 else "")
     )
 
-    assert alienv_package in stdout, (
+    assert alienv_package in combined_output, (
         "Expected aliBuild environment name was not mentioned in build output\n"
         f"Expected package: {alienv_package}\n\n"
-        f"STDOUT:\n{stdout}"
+        f"STDOUT:\n{stdout}\n\n"
+        f"STDERR:\n{stderr}"
     )
