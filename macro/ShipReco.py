@@ -69,7 +69,7 @@ parser.add_argument(
       TemplateMatching               : Tracks are searched for based on the template: track seed + hits within a window around the seed.",
     required=False,
     choices=["FH", "AR", "TemplateMatching"],
-    default="",
+    default="AR",
 )
 parser.add_argument("-dy", dest="dy", help="Max height of tank", required=False, default=None, type=int)
 parser.add_argument("--Debug", dest="Debug", help="Switch on debugging", required=False, action="store_true")
