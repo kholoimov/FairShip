@@ -159,9 +159,7 @@ class ShipDigiReco:
             atrack_stereo12 = atrack["stereo12"]
             atrack_y34 = atrack["y34"]
             atrack_stereo34 = atrack["stereo34"]
-            atrack_smeared_hits = (
-                list(atrack_y12) + list(atrack_stereo12) + list(atrack_y34) + list(atrack_stereo34)
-            )
+            atrack_smeared_hits = list(atrack_y12) + list(atrack_stereo12) + list(atrack_y34) + list(atrack_stereo34)
             # Store PatRec track parameters for seeding the fitter
             trackParams[i_track] = {
                 "k_y12": atrack.get("k_y12"),
