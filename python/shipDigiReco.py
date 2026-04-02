@@ -150,7 +150,7 @@ class ShipDigiReco:
         trackCandidates = []
 
         # Do pattern recognition
-        track_hits = shipPatRec.execute(self.SmearedHits, global_variables.ShipGeo, global_variables.realPR)
+        track_hits = shipPatRec.execute(self.SmearedHits, global_variables.ShipGeo, global_variables.patRec)
         logger.debug("PatRec returned %d track candidates", len(track_hits))
         # Create hitPosLists for track fit
         for i_track in track_hits:
