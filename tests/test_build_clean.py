@@ -46,14 +46,24 @@ def _build_workdir():
     return cwd
 
 
-def _git_branch_name(workdir):
+def _repo_root():
+    repo_root = os.environ.get("FAIRSHIP_REPO_ROOT")
+    if repo_root:
+        return Path(repo_root)
+    cwd = Path.cwd()
+    if cwd.name == "FairShip":
+        return cwd
+    return cwd / "FairShip"
+
+
+def _git_branch_name(repo_root):
     branch = os.environ.get("FAIRSHIP_GIT_BRANCH")
     if branch:
         return branch
 
     result = subprocess.run(
         ["git", "branch", "--show-current"],
-        cwd=workdir,
+        cwd=repo_root,
         capture_output=True,
         text=True,
         check=True,
@@ -65,11 +75,11 @@ def _defaults_name():
     return os.environ.get("FAIRSHIP_ALIENV_DEFAULTS", "release")
 
 
-def _alienv_package_name(workdir):
+def _alienv_package_name(repo_root):
     package = os.environ.get("FAIRSHIP_ALIENV_PACKAGE")
     if package:
         return package
-    branch = _git_branch_name(workdir)
+    branch = _git_branch_name(repo_root)
     defaults = _defaults_name()
     return f"FairShip/latest-{branch}-{defaults}"
 
@@ -109,8 +119,9 @@ def test_build_has_no_warnings_or_errors(tmp_path):
 
     command = _build_command()
     workdir = _build_workdir()
+    repo_root = _repo_root()
     allowlist = _warning_allowlist()
-    alienv_package = _alienv_package_name(workdir)
+    alienv_package = _alienv_package_name(repo_root)
 
     result = subprocess.run(
         command,
