@@ -40,7 +40,10 @@ def _build_workdir():
     workdir = os.environ.get("FAIRSHIP_BUILD_TEST_WORKDIR")
     if workdir:
         return Path(workdir)
-    return Path.cwd()
+    cwd = Path.cwd()
+    if cwd.name == "FairShip":
+        return cwd.parent
+    return cwd
 
 
 def _git_branch_name(workdir):
