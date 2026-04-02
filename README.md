@@ -11,6 +11,7 @@
     - [Build instructions using CVMFS](#build-instructions-using-cvmfs)
     - [Local build, without access to CVMFS](#local-build-without-access-to-cvmfs)
     - [Run instructions](#run-instructions)
+    - [Testing](#testing)
     - [Docker instructions](#docker-instructions)
     - [Troubleshooting information](#troubleshooting-information)
     - [Documentation](#documentation)
@@ -179,6 +180,40 @@ python -i $FAIRSHIP/macro/eventDisplay.py -f sim_my-simulation.root -r sim_my-si
 // use SHiP Event Display GUI
 Use quit() or Ctrl-D (i.e. EOF) to exit
 ```
+
+## Testing
+
+FairShip includes an integration-style validation suite under [tests/](/Users/vkholoimov/Documents/SHIP/FairShip/tests).
+
+The suite covers:
+
+- build validation
+- muon-background simulation validation
+- strict I/O checks for muon-background and particle-gun runs
+- Pythia8 validation
+- EvtGen validation
+- tracking benchmark validation
+
+Run the full sequence with:
+
+```bash
+python3 tests/run_validation_sequence.py
+```
+
+Run an individual test with:
+
+```bash
+pytest -v tests/test_simulation_validation.py
+```
+
+The detailed test documentation, including:
+
+- the exact command shape used by each test
+- how each validation step works
+- reference-generation commands
+- debug flags and useful overrides
+
+is available in [tests/README.md](/Users/vkholoimov/Documents/SHIP/FairShip/tests/README.md).
 
 ## Docker instructions
 

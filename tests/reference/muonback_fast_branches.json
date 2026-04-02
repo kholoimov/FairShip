@@ -1,0 +1,11 @@
+{
+  "branches_present": [
+    "MCEventHeader.",
+    "MCTrack",
+    "TimeDetPoint",
+    "UpstreamTaggerPoint",
+    "splitcalPoint",
+    "strawtubesPoint",
+    "vetoPoint"
+  ]
+}

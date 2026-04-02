@@ -18,12 +18,20 @@ ROOT.gSystem.Load("libpythia8")
 ROOT.gSystem.Load("libG4clhep")
 
 # GenFit 02-03-00 no longer ships rootmap or unified PCM files, so ROOT's
-# autoloading cannot discover genfit classes.  Load the library, point Cling
-# at the headers, and explicitly parse those used at runtime.
-genfit_root = os.environ.get("GENFIT_ROOT", os.environ.get("GENFIT", ""))
-if genfit_root:
-    ROOT.gSystem.Load("libgenfit2")
-    ROOT.gInterpreter.AddIncludePath(os.path.join(genfit_root, "include"))
+# autoloading cannot discover genfit classes reliably. Load the library and
+# try a few ways to expose the headers to Cling.
+genfit_root = os.environ.get("GENFIT_ROOT", os.environ.get("GENFIT", os.environ.get("GENFIT2_ROOT", "")))
+genfit_load_rc = ROOT.gSystem.Load("libgenfit2")
+if genfit_load_rc >= 0:
+    include_candidates = []
+    if genfit_root:
+        include_candidates.append(os.path.join(genfit_root, "include"))
+    include_candidates.extend(filter(None, os.environ.get("ROOT_INCLUDE_PATH", "").split(":")))
+
+    for include_path in include_candidates:
+        if os.path.isdir(include_path):
+            ROOT.gInterpreter.AddIncludePath(include_path)
+
     ROOT.gInterpreter.Declare(
         """
 #include "DAF.h"
