@@ -1,9 +1,20 @@
 import json
 import os
 import subprocess
+import urllib.request
 from pathlib import Path
 
 import pytest
+
+
+DEFAULT_INPUT_FILE = Path(
+    "/tmp/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root"
+)
+DEFAULT_INPUT_URL = (
+    "https://cernbox.cern.ch/remote.php/dav/public-files/vdwtXtgM5P2Z0S5/"
+    "pythia8_Geant4_10.0_withCharmandBeauty0_mu.root"
+)
+DEFAULT_REFERENCE_JSON = Path("tests/reference/muonback_fast_100.json")
 
 
 def _repo_root():
@@ -54,21 +65,28 @@ def _alienv_package_name(repo_root):
 
 def _required_input_file():
     input_file = os.environ.get("SHIP_TEST_INPUT")
-    if not input_file:
-        pytest.fail("SHIP_TEST_INPUT is not set. Point it to a valid simulation input ROOT file.")
-    path = Path(input_file)
+    if input_file:
+        path = Path(input_file)
+    else:
+        path = DEFAULT_INPUT_FILE
+        if not path.exists():
+            urllib.request.urlretrieve(DEFAULT_INPUT_URL, path)
     if not path.exists():
-        pytest.fail(f"SHIP_TEST_INPUT does not exist: {path}")
+        pytest.fail(
+            "Simulation input file does not exist.\n"
+            f"Checked path: {path}\n"
+            "Override it with SHIP_TEST_INPUT if needed."
+        )
     return path
 
 
 def _reference_summary_file():
     reference = os.environ.get("FAIRSHIP_SIM_TEST_REFERENCE_JSON")
-    if not reference:
-        return None
-    path = Path(reference)
+    path = Path(reference) if reference else (_repo_root() / DEFAULT_REFERENCE_JSON)
     if not path.exists():
-        pytest.fail(f"FAIRSHIP_SIM_TEST_REFERENCE_JSON does not exist: {path}")
+        if reference:
+            pytest.fail(f"FAIRSHIP_SIM_TEST_REFERENCE_JSON does not exist: {path}")
+        return None
     return path
 
 
