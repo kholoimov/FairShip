@@ -62,6 +62,46 @@ def _required_input_file():
     return path
 
 
+def _debug_enabled():
+    return os.environ.get("FAIRSHIP_SIM_TEST_DEBUG", "").lower() in {"1", "true", "yes", "on"}
+
+
+def _run_shell_command(command, workdir, timeout):
+    if not _debug_enabled():
+        return subprocess.run(
+            command,
+            cwd=workdir,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            shell=True,
+            executable="/bin/bash",
+        )
+
+    print(f"\n[simulation-test] running in {workdir}")
+    print(f"[simulation-test] command:\n{command}\n")
+
+    process = subprocess.Popen(
+        command,
+        cwd=workdir,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        shell=True,
+        executable="/bin/bash",
+    )
+
+    combined_output = []
+    assert process.stdout is not None
+    for line in process.stdout:
+        print(line, end="")
+        combined_output.append(line)
+
+    returncode = process.wait(timeout=timeout)
+    output = "".join(combined_output)
+    return subprocess.CompletedProcess(command, returncode, stdout=output, stderr="")
+
+
 def _simulation_command(tmp_path, tag):
     repo_root = _repo_root()
     input_file = _required_input_file()
@@ -104,15 +144,7 @@ def test_run_simulation_and_validate_output(tmp_path):
     tag = os.environ.get("FAIRSHIP_SIM_TEST_TAG", "pytest_validation")
 
     sim_command = _simulation_command(tmp_path, tag)
-    sim_result = subprocess.run(
-        sim_command,
-        cwd=workdir,
-        capture_output=True,
-        text=True,
-        timeout=7200,
-        shell=True,
-        executable="/bin/bash",
-    )
+    sim_result = _run_shell_command(sim_command, workdir, 7200)
 
     (tmp_path / "simulation.stdout").write_text(sim_result.stdout)
     (tmp_path / "simulation.stderr").write_text(sim_result.stderr)
@@ -136,15 +168,7 @@ def test_run_simulation_and_validate_output(tmp_path):
     assert par_file.exists(), f"Missing parameter output file: {par_file}"
 
     validation_command = _validation_command(tmp_path, tag)
-    validation_result = subprocess.run(
-        validation_command,
-        cwd=workdir,
-        capture_output=True,
-        text=True,
-        timeout=3600,
-        shell=True,
-        executable="/bin/bash",
-    )
+    validation_result = _run_shell_command(validation_command, workdir, 3600)
 
     (tmp_path / "validation.stdout").write_text(validation_result.stdout)
     (tmp_path / "validation.stderr").write_text(validation_result.stderr)
