@@ -62,6 +62,16 @@ def _required_input_file():
     return path
 
 
+def _reference_summary_file():
+    reference = os.environ.get("FAIRSHIP_SIM_TEST_REFERENCE_JSON")
+    if not reference:
+        return None
+    path = Path(reference)
+    if not path.exists():
+        pytest.fail(f"FAIRSHIP_SIM_TEST_REFERENCE_JSON does not exist: {path}")
+    return path
+
+
 def _debug_enabled():
     return os.environ.get("FAIRSHIP_SIM_TEST_DEBUG", "").lower() in {"1", "true", "yes", "on"}
 
@@ -136,12 +146,38 @@ def _validation_command(tmp_path, tag):
     )
 
 
+def _compare_against_reference(summary, reference):
+    assert summary["n_events"] == reference["n_events"], (
+        f"Event count mismatch: expected {reference['n_events']}, got {summary['n_events']}"
+    )
+
+    assert summary["branches_present"] == reference["branches_present"], (
+        "Branch list mismatch\n"
+        f"Expected: {reference['branches_present']}\n"
+        f"Got: {summary['branches_present']}"
+    )
+
+    assert summary["metrics"].keys() == reference["metrics"].keys(), (
+        "Metric set mismatch\n"
+        f"Expected: {sorted(reference['metrics'])}\n"
+        f"Got: {sorted(summary['metrics'])}"
+    )
+
+    for metric_name, metric in reference["metrics"].items():
+        assert summary["metrics"][metric_name] == metric, (
+            f"Metric mismatch for {metric_name}\n"
+            f"Expected: {json.dumps(metric, indent=2, sort_keys=True)}\n"
+            f"Got: {json.dumps(summary['metrics'][metric_name], indent=2, sort_keys=True)}"
+        )
+
+
 @pytest.mark.integration
 @pytest.mark.timeout(7200)
 def test_run_simulation_and_validate_output(tmp_path):
     repo_root = _repo_root()
     workdir = _run_workdir()
     tag = os.environ.get("FAIRSHIP_SIM_TEST_TAG", "pytest_validation")
+    reference_summary_file = _reference_summary_file()
 
     sim_command = _simulation_command(tmp_path, tag)
     sim_result = _run_shell_command(sim_command, workdir, 7200)
@@ -206,3 +242,7 @@ def test_run_simulation_and_validate_output(tmp_path):
 
     assert "Validation summary for" in validation_result.stdout
     assert str(sim_file) in validation_result.stdout
+
+    if reference_summary_file is not None:
+        reference_summary = json.loads(reference_summary_file.read_text())
+        _compare_against_reference(summary, reference_summary)
