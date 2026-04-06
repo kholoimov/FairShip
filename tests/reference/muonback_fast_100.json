@@ -1,0 +1,51 @@
+{
+  "branches_present": [
+    "MCEventHeader.",
+    "MCTrack",
+    "TimeDetPoint",
+    "UpstreamTaggerPoint",
+    "splitcalPoint",
+    "strawtubesPoint",
+    "vetoPoint"
+  ],
+  "input_file": "/tmp/fairship_reference/sim_muonback_fast_100.root",
+  "metrics": {
+    "mc_tracks": {
+      "max_per_event": 13,
+      "mean_per_event": 7.725,
+      "nonempty_events": 40,
+      "total": 309
+    },
+    "sbt_hits": {
+      "max_per_event": 2,
+      "mean_per_event": 1.1,
+      "nonempty_events": 40,
+      "total": 44
+    },
+    "splitcal_hits": {
+      "max_per_event": 0,
+      "mean_per_event": 0.0,
+      "nonempty_events": 0,
+      "total": 0
+    },
+    "straw_hits": {
+      "max_per_event": 0,
+      "mean_per_event": 0.0,
+      "nonempty_events": 0,
+      "total": 0
+    },
+    "timedet_hits": {
+      "max_per_event": 0,
+      "mean_per_event": 0.0,
+      "nonempty_events": 0,
+      "total": 0
+    },
+    "ubt_hits": {
+      "max_per_event": 2,
+      "mean_per_event": 0.325,
+      "nonempty_events": 11,
+      "total": 13
+    }
+  },
+  "n_events": 40
+}

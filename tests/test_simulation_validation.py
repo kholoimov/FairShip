@@ -142,10 +142,13 @@ def _simulation_command(tmp_path, tag):
         f"alienv load { _alienv_package_name(repo_root) } && "
         f"python3 {repo_root / 'macro' / 'run_simScript.py'} "
         f"-n {n_events} "
+        f"-i 100 "
         f"{extra_args} "
         f"-f {input_file} "
         f"-o {tmp_path} "
-        f"--tag {tag}"
+        f"--tag {tag} "
+        f"--sameSeed 42 "
+        f"--seed 42"
     )
 
 

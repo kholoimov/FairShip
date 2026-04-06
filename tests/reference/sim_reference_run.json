@@ -1,0 +1,51 @@
+{
+  "branches_present": [
+    "MCEventHeader.",
+    "MCTrack",
+    "TimeDetPoint",
+    "UpstreamTaggerPoint",
+    "splitcalPoint",
+    "strawtubesPoint",
+    "vetoPoint"
+  ],
+  "input_file": "output/sim_reference_run.root",
+  "metrics": {
+    "mc_tracks": {
+      "max_per_event": 11,
+      "mean_per_event": 7.166666666666667,
+      "nonempty_events": 30,
+      "total": 215
+    },
+    "sbt_hits": {
+      "max_per_event": 2,
+      "mean_per_event": 1.1333333333333333,
+      "nonempty_events": 30,
+      "total": 34
+    },
+    "splitcal_hits": {
+      "max_per_event": 0,
+      "mean_per_event": 0.0,
+      "nonempty_events": 0,
+      "total": 0
+    },
+    "straw_hits": {
+      "max_per_event": 0,
+      "mean_per_event": 0.0,
+      "nonempty_events": 0,
+      "total": 0
+    },
+    "timedet_hits": {
+      "max_per_event": 0,
+      "mean_per_event": 0.0,
+      "nonempty_events": 0,
+      "total": 0
+    },
+    "ubt_hits": {
+      "max_per_event": 1,
+      "mean_per_event": 0.36666666666666664,
+      "nonempty_events": 11,
+      "total": 11
+    }
+  },
+  "n_events": 30
+}
