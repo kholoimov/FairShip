@@ -1,0 +1,55 @@
+test:
+  id: evtgen_summary
+  package_envs:
+    - FAIRSHIP_EVTGEN_ALIENV_PACKAGE
+    - FAIRSHIP_ALIENV_PACKAGE
+  workdir_env: FAIRSHIP_EVTGEN_TEST_WORKDIR
+  debug_env: FAIRSHIP_EVTGEN_TEST_DEBUG
+  timeout: 7200
+  context:
+    tag:
+      env: FAIRSHIP_EVTGEN_TEST_TAG
+      default: pytest_evtgen
+    n_events:
+      env: FAIRSHIP_EVTGEN_TEST_EVENTS
+      default: 1000
+      type: int
+    debug_level:
+      env: FAIRSHIP_EVTGEN_TEST_FAIRLOGGER_DEBUG
+      default: 0
+    reference_yaml:
+      env: FAIRSHIP_EVTGEN_REFERENCE_YAML
+      default: "{repo_root}/tests/reference/evtgen_reference_run.yaml"
+  runs:
+    - name: evtgen
+      timeout: 7200
+      command: >
+        python3 {repo_root}/macro/run_simScript.py
+        --EvtGenDecayer
+        -t
+        -n {n_events}
+        --debug {debug_level}
+        -o {tmp_path}
+        --tag {tag}
+        --seed 42
+      outputs:
+        - "{tmp_path}/sim_{tag}.root"
+        - "{tmp_path}/geo_{tag}.root"
+        - "{tmp_path}/params_{tag}.root"
+    - name: evtgen_validation
+      timeout: 3600
+      command: >
+        python3 {repo_root}/macro/validate_simulation_output.py
+        -f {tmp_path}/sim_{tag}.root
+        -o {tmp_path}/sim_{tag}.validation.json
+      outputs:
+        - "{tmp_path}/sim_{tag}.validation.json"
+  validations:
+    - type: yaml_snapshot
+      source: "{tmp_path}/sim_{tag}.validation.json"
+      source_format: json
+      reference: "{reference_yaml}"
+      artifact: "{tmp_path}/sim_{tag}.validation.yaml"
+      normalize:
+        drop_keys:
+          - input_file

@@ -22,7 +22,7 @@ DEFAULT_INPUT_URL = (
 
 
 def _repo_root():
-    return Path(__file__).resolve().parent.parent
+    return Path(__file__).resolve().parent.parent.parent
 
 
 def _workdir(repo_root):

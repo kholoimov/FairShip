@@ -3,13 +3,16 @@
 # SPDX-FileCopyrightText: Copyright CERN for the benefit of the SHiP Collaboration
 
 from pathlib import Path
+import sys
 
 import pytest
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from fairship_validation_runner import load_pytest_cases, run_validation_case
 
 
-CONFIG_PATH = Path(__file__).with_name("fairship_validation_cases.yaml")
+CONFIG_PATH = Path(__file__).with_name("cases")
 
 
 @pytest.mark.parametrize("case", load_pytest_cases(CONFIG_PATH))

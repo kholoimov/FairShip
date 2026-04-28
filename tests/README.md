@@ -2,9 +2,9 @@
 
 The runtime validation suite is now driven by:
 
-- one shared runner: [tests/fairship_validation_runner.py](/Users/vkholoimov/Documents/SHIP/FairShip/tests/fairship_validation_runner.py)
-- one YAML test matrix: [tests/fairship_validation_cases.yaml](/Users/vkholoimov/Documents/SHIP/FairShip/tests/fairship_validation_cases.yaml)
-- one parametrized pytest entrypoint: [tests/test_fairship_validation_matrix.py](/Users/vkholoimov/Documents/SHIP/FairShip/tests/test_fairship_validation_matrix.py)
+- one shared runner: [tests/python/fairship_validation_runner.py](/Users/vkholoimov/Documents/SHIP/FairShip/tests/python/fairship_validation_runner.py)
+- one YAML file per runtime case under [tests/python/cases](/Users/vkholoimov/Documents/SHIP/FairShip/tests/python/cases)
+- one parametrized pytest entrypoint: [tests/python/test_fairship_validation_matrix.py](/Users/vkholoimov/Documents/SHIP/FairShip/tests/python/test_fairship_validation_matrix.py)
 
 This replaces the old pattern of having one dedicated pytest file per simulation mode.
 
@@ -31,6 +31,10 @@ The YAML matrix currently covers:
 - Pythia8 summary validation
 - EvtGen summary validation
 
+Each of those lives in its own YAML file in:
+
+- [tests/python/cases](/Users/vkholoimov/Documents/SHIP/FairShip/tests/python/cases)
+
 Summary-style tests compare a normalized YAML snapshot against reference files in:
 
 - [tests/reference/muonback_fast_100.yaml](/Users/vkholoimov/Documents/SHIP/FairShip/tests/reference/muonback_fast_100.yaml)
@@ -43,8 +47,8 @@ Strict ROOT I/O tests still use the existing ROOT references.
 
 The following tests remain separate because they are not part of the runtime simulation matrix:
 
-- [tests/test_build_clean.py](/Users/vkholoimov/Documents/SHIP/FairShip/tests/test_build_clean.py)
-- [tests/test_tracking_benchmark.py](/Users/vkholoimov/Documents/SHIP/FairShip/tests/test_tracking_benchmark.py)
+- [tests/python/test_build_clean.py](/Users/vkholoimov/Documents/SHIP/FairShip/tests/python/test_build_clean.py)
+- [tests/python/test_tracking_benchmark.py](/Users/vkholoimov/Documents/SHIP/FairShip/tests/python/test_tracking_benchmark.py)
 - C++ I/O tests from [tests/CMakeLists.txt](/Users/vkholoimov/Documents/SHIP/FairShip/tests/CMakeLists.txt)
 
 ## Running The Tests
@@ -52,19 +56,19 @@ The following tests remain separate because they are not part of the runtime sim
 Run the runtime matrix:
 
 ```bash
-python3 -m pytest -v tests/test_fairship_validation_matrix.py
+python3 -m pytest -v tests/python/test_fairship_validation_matrix.py
 ```
 
 Run one case only:
 
 ```bash
-python3 -m pytest -v tests/test_fairship_validation_matrix.py -k muonback_summary
+python3 -m pytest -v tests/python/test_fairship_validation_matrix.py -k muonback_summary
 ```
 
 Run the full Python validation sequence:
 
 ```bash
-python3 tests/run_validation_sequence.py
+python3 tests/tools/run_validation_sequence.py
 ```
 
 ## Environment Assumptions
@@ -98,17 +102,24 @@ Examples:
 
 Case-specific workdir, tag, debug, and reference overrides are defined directly in:
 
-- [tests/fairship_validation_cases.yaml](/Users/vkholoimov/Documents/SHIP/FairShip/tests/fairship_validation_cases.yaml)
+- [tests/python/cases](/Users/vkholoimov/Documents/SHIP/FairShip/tests/python/cases)
 
 ## Regenerating References
 
 Use:
 
 ```bash
-python3 tests/regenerate_simulation_references.py
+python3 tests/tools/regenerate_simulation_references.py
 ```
 
 This now regenerates:
 
 - normalized YAML summary references
 - strict ROOT references for the I/O comparison cases
+
+## Layout
+
+- `tests/python`: Python tests and shared runtime harness code
+- `tests/python/cases`: one YAML definition per runtime validation case
+- `tests/tools`: helper scripts for running or regenerating the validation suite
+- `tests/reference`: checked-in ROOT and YAML reference artifacts

@@ -15,7 +15,7 @@ def run_stage(name, command, repo_root):
 
 
 def main():
-    repo_root = Path(__file__).resolve().parent.parent
+    repo_root = Path(__file__).resolve().parent.parent.parent
     reports_dir = repo_root / "test_reports"
     reports_dir.mkdir(exist_ok=True)
 
@@ -27,7 +27,7 @@ def main():
         "-rA",
         "--tb=short",
         f"--junitxml={reports_dir / 'build.xml'}",
-        "tests/test_build_clean.py",
+        "tests/python/test_build_clean.py",
     ]
     build_result = run_stage("Build Validation", build_command, repo_root)
     stages.append(build_result)
@@ -37,12 +37,12 @@ def main():
             (
                 "FairShip Runtime Validations",
                 reports_dir / "fairship_validations.xml",
-                "tests/test_fairship_validation_matrix.py",
+                "tests/python/test_fairship_validation_matrix.py",
             ),
             (
                 "Tracking Benchmark Validation",
                 reports_dir / "tracking.xml",
-                "tests/test_tracking_benchmark.py",
+                "tests/python/test_tracking_benchmark.py",
             ),
         ]
 
@@ -58,8 +58,8 @@ def main():
             stages.append(run_stage(name, command, repo_root))
     else:
         for name, test_path in (
-            ("FairShip Runtime Validations", "tests/test_fairship_validation_matrix.py"),
-            ("Tracking Benchmark Validation", "tests/test_tracking_benchmark.py"),
+            ("FairShip Runtime Validations", "tests/python/test_fairship_validation_matrix.py"),
+            ("Tracking Benchmark Validation", "tests/python/test_tracking_benchmark.py"),
         ):
             stages.append(
                 {

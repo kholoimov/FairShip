@@ -1,0 +1,51 @@
+test:
+  id: muonback_io
+  package_envs:
+    - FAIRSHIP_SIM_IO_ALIENV_PACKAGE
+    - FAIRSHIP_ALIENV_PACKAGE
+  workdir_env: FAIRSHIP_SIM_IO_TEST_WORKDIR
+  debug_env: FAIRSHIP_SIM_IO_TEST_DEBUG
+  timeout: 7200
+  context:
+    tag:
+      env: FAIRSHIP_SIM_IO_TEST_TAG
+      default: pytest_io
+    n_events:
+      env: FAIRSHIP_SIM_IO_TEST_EVENTS
+      default: 100
+      type: int
+      max: 100
+      max_message: "{env} must be <= {max} for event-by-event IO comparison, got {value}"
+    extra_args:
+      env: FAIRSHIP_SIM_IO_TEST_EXTRA_ARGS
+      default: --MuonBack --FollowMuon --FastMuon
+    input_file:
+      source: required_input_file
+    reference_root:
+      env: FAIRSHIP_SIM_IO_REFERENCE_ROOT
+      default: "{repo_root}/tests/reference/muonback_fast_100.root"
+  runs:
+    - name: simulation_io
+      timeout: 7200
+      command: >
+        python3 {repo_root}/macro/run_simScript.py
+        -n {n_events}
+        -i 100
+        {extra_args}
+        -f {input_file}
+        -o {tmp_path}
+        --tag {tag}
+        --sameSeed 42
+        --seed 42
+      outputs:
+        - "{tmp_path}/sim_{tag}.root"
+    - name: root_compare
+      timeout: 3600
+      command: >
+        python3 {repo_root}/macro/compare_simulation_root_files.py
+        -r {reference_root}
+        -c {tmp_path}/sim_{tag}.root
+  validations:
+    - type: step_stdout
+      step: root_compare
+      endswith: "ROOT file comparison passed."

@@ -282,10 +282,11 @@ def _validate_file_exists(validation: dict[str, Any], context: dict[str, Any]) -
     assert path.exists(), f"Missing expected file: {path}"
 
 
-def load_pytest_cases(config_path: Path) -> list[Any]:
-    config = yaml.safe_load(config_path.read_text())
+def load_pytest_cases(config_dir: Path) -> list[Any]:
     parameters = []
-    for case in config["tests"]:
+    for config_path in sorted(config_dir.glob("*.yaml")):
+        config = yaml.safe_load(config_path.read_text())
+        case = config["test"]
         marks = [pytest.mark.integration]
         timeout = case.get("timeout")
         if timeout is not None:

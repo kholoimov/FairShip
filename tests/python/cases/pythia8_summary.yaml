@@ -1,0 +1,55 @@
+test:
+  id: pythia8_summary
+  package_envs:
+    - FAIRSHIP_PYTHIA8_ALIENV_PACKAGE
+    - FAIRSHIP_ALIENV_PACKAGE
+  workdir_env: FAIRSHIP_PYTHIA8_TEST_WORKDIR
+  debug_env: FAIRSHIP_PYTHIA8_TEST_DEBUG
+  timeout: 7200
+  context:
+    tag:
+      env: FAIRSHIP_PYTHIA8_TEST_TAG
+      default: pytest_pythia8
+    n_events:
+      env: FAIRSHIP_PYTHIA8_TEST_EVENTS
+      default: 1000
+      type: int
+    debug_level:
+      env: FAIRSHIP_PYTHIA8_TEST_FAIRLOGGER_DEBUG
+      default: 0
+    reference_yaml:
+      env: FAIRSHIP_PYTHIA8_REFERENCE_YAML
+      default: "{repo_root}/tests/reference/pythia8_reference_run.yaml"
+  runs:
+    - name: pythia8
+      timeout: 7200
+      command: >
+        python3 {repo_root}/macro/run_simScript.py
+        --Pythia8
+        -t
+        -n {n_events}
+        --debug {debug_level}
+        -o {tmp_path}
+        --tag {tag}
+        --seed 42
+      outputs:
+        - "{tmp_path}/sim_{tag}.root"
+        - "{tmp_path}/geo_{tag}.root"
+        - "{tmp_path}/params_{tag}.root"
+    - name: pythia8_validation
+      timeout: 3600
+      command: >
+        python3 {repo_root}/macro/validate_simulation_output.py
+        -f {tmp_path}/sim_{tag}.root
+        -o {tmp_path}/sim_{tag}.validation.json
+      outputs:
+        - "{tmp_path}/sim_{tag}.validation.json"
+  validations:
+    - type: yaml_snapshot
+      source: "{tmp_path}/sim_{tag}.validation.json"
+      source_format: json
+      reference: "{reference_yaml}"
+      artifact: "{tmp_path}/sim_{tag}.validation.yaml"
+      normalize:
+        drop_keys:
+          - input_file
