@@ -51,6 +51,9 @@ test:
     - name: tracking_benchmark
       timeout: 7200
       command: >
+        export FAIRSHIP={repo_root} &&
+        export PYTHONPATH={repo_root}/python${PYTHONPATH:+:$PYTHONPATH} &&
+        cd {tmp_path} &&
         python3 {repo_root}/macro/run_tracking_benchmark.py
         -n {n_events}
         --seed {seed}
