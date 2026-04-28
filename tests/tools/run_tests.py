@@ -148,18 +148,6 @@ def _runtime_stage_command(reports_dir: Path, jobs: int | None, test_name: str |
     command += ["-k", test_filter]
     command.append("tests/python/test_fairship_validation_matrix.py")
     return command
-
-
-def _tracking_stage_command(reports_dir: Path) -> list[str]:
-    return _pytest_executable() + [
-        "-v",
-        "-rA",
-        "--tb=short",
-        f"--junitxml={reports_dir / 'tracking.xml'}",
-        "tests/python/test_tracking_benchmark.py",
-    ]
-
-
 def _print_summary(stages: list[dict[str, object]], report_paths: list[Path], combined_report: Path | None) -> None:
     print("\n=== Test Summary ===")
     for stage in stages:
@@ -184,7 +172,6 @@ def _list_tests(repo_root: Path) -> int:
     print("Available tests:")
     for case_id in _load_matrix_case_ids(repo_root):
         print(f"  {case_id}")
-    print("  tracking_benchmark")
     return 0
 
 
@@ -218,7 +205,7 @@ def main() -> int:
     case_map = _case_id_map(repo_root)
     matrix_case_ids = list(case_map)
     runtime_case_ids = [case_id for case_id in matrix_case_ids if case_id != "build_clean"]
-    all_tests = {"tracking_benchmark", *matrix_case_ids}
+    all_tests = set(matrix_case_ids)
 
     if args.list:
         return _list_tests(repo_root)
@@ -233,7 +220,6 @@ def main() -> int:
 
     build_report = reports_dir / "build.xml"
     runtime_report = reports_dir / "runtime.xml"
-    tracking_report = reports_dir / "tracking.xml"
     combined_report_path = reports_dir / "all_tests.xml"
 
     build_result = _run_stage("Build Validation", _build_stage_command(reports_dir), repo_root)
@@ -263,22 +249,6 @@ def main() -> int:
         _print_summary(stages, report_paths, combined_report)
         return 0
 
-    if args.test == "tracking_benchmark":
-        stages.append(
-            _run_stage(
-                "Tracking Benchmark Validation",
-                _tracking_stage_command(reports_dir),
-                repo_root,
-            )
-        )
-        report_paths.append(tracking_report)
-        combined_report = _combine_junit_reports(report_paths, combined_report_path)
-        _print_summary(stages, report_paths, combined_report)
-        return next(
-            (int(stage["returncode"]) for stage in stages if stage["returncode"] not in (0, None)),
-            0,
-        )
-
     selected_runtime_cases: list[str] | None = None
     if args.test in runtime_case_ids:
         selected_runtime_cases = [
@@ -304,16 +274,6 @@ def main() -> int:
         )
     )
     report_paths.append(runtime_report)
-
-    if args.test is None:
-        stages.append(
-            _run_stage(
-                "Tracking Benchmark Validation",
-                _tracking_stage_command(reports_dir),
-                repo_root,
-            )
-        )
-        report_paths.append(tracking_report)
 
     combined_report = _combine_junit_reports(report_paths, combined_report_path)
     _print_summary(stages, report_paths, combined_report)

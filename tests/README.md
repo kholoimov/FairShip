@@ -31,6 +31,7 @@ The YAML matrix currently covers:
 - particle-gun strict ROOT I/O validation
 - Pythia8 summary validation
 - EvtGen summary validation
+- tracking benchmark validation
 
 Each of those lives in its own YAML file in:
 
@@ -48,10 +49,9 @@ Strict ROOT I/O tests still use the existing ROOT references.
 
 ## Other Tests
 
-The following tests remain separate because they are not part of the runtime simulation matrix:
+The following tests remain separate from the Python matrix:
 
 - [tests/python/test_build_clean.py](/Users/vkholoimov/Documents/SHIP/FairShip/tests/python/test_build_clean.py)
-- [tests/python/test_tracking_benchmark.py](/Users/vkholoimov/Documents/SHIP/FairShip/tests/python/test_tracking_benchmark.py)
 - C++ I/O tests from [tests/CMakeLists.txt](/Users/vkholoimov/Documents/SHIP/FairShip/tests/CMakeLists.txt)
 
 ## Running The Tests
@@ -80,7 +80,7 @@ List available test names:
 python3 tests/tools/run_tests.py --list
 ```
 
-Run only one named test after the build succeeds:
+Run only one named matrix test after the build succeeds:
 
 ```bash
 python3 tests/tools/run_tests.py --test muonback_summary

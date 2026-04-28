@@ -1,0 +1,117 @@
+test:
+  id: tracking_benchmark
+  depends_on:
+    - build_clean
+  timeout: 7200
+  package_envs:
+    - FAIRSHIP_TRACKING_ALIENV_PACKAGE
+    - FAIRSHIP_ALIENV_PACKAGE
+  workdir_env: FAIRSHIP_TRACKING_TEST_WORKDIR
+  debug_env: FAIRSHIP_TRACKING_TEST_DEBUG
+  context:
+    tag:
+      env: FAIRSHIP_TRACKING_TEST_TAG
+      default: ci-benchmark
+    n_events:
+      env: FAIRSHIP_TRACKING_TEST_EVENTS
+      default: 1000
+      type: int
+    seed:
+      env: FAIRSHIP_TRACKING_TEST_SEED
+      default: 42
+    debug_level:
+      env: FAIRSHIP_TRACKING_TEST_FAIRLOGGER_DEBUG
+      default: 0
+    pid:
+      env: FAIRSHIP_TRACKING_TEST_PID
+      default: 13
+    estart:
+      env: FAIRSHIP_TRACKING_TEST_ESTART
+      default: 1.0
+    eend:
+      env: FAIRSHIP_TRACKING_TEST_EEND
+      default: 100.0
+    vz:
+      env: FAIRSHIP_TRACKING_TEST_VZ
+      default: 8300.0
+    dx:
+      env: FAIRSHIP_TRACKING_TEST_DX
+      default: 200.0
+    dy:
+      env: FAIRSHIP_TRACKING_TEST_DY
+      default: 300.0
+    n_tracks:
+      env: FAIRSHIP_TRACKING_TEST_NTRACKS
+      default: 1
+      type: int
+    tracking_reference:
+      env: FAIRSHIP_TRACKING_REFERENCE_JSON
+      default: ""
+  runs:
+    - name: tracking_benchmark
+      timeout: 7200
+      command: >
+        python3 {repo_root}/macro/run_tracking_benchmark.py
+        -n {n_events}
+        --seed {seed}
+        --debug {debug_level}
+        --tag {tag}
+        --output-json {tmp_path}/tracking_metrics.json
+        -o {tmp_path}
+        --pID {pid}
+        --Estart {estart}
+        --Eend {eend}
+        --Vz {vz}
+        --Dx {dx}
+        --Dy {dy}
+        --nTracks {n_tracks}
+      outputs:
+        - "{tmp_path}/sim_{tag}.root"
+        - "{tmp_path}/geo_{tag}.root"
+        - "{tmp_path}/sim_{tag}_rec.root"
+        - "{tmp_path}/tracking_metrics.json"
+        - "{tmp_path}/tracking_benchmark_histos.root"
+  validations:
+    - type: json_expectations
+      source: "{tmp_path}/tracking_metrics.json"
+      source_format: json
+      expect:
+        - path: "tracking_benchmark"
+          exists: true
+        - path: "tracking_benchmark.n_events.value"
+          equals: "{n_events}"
+        - path: "tracking_benchmark.n_reconstructible.value"
+          greater_than: 0
+        - path: "tracking_benchmark.n_total_reco.value"
+          greater_than: 0
+        - path: "tracking_benchmark.efficiency.value"
+          greater_or_equal: 0.0
+        - path: "tracking_benchmark.efficiency.value"
+          less_or_equal: 1.0
+        - path: "tracking_benchmark.clone_rate.value"
+          greater_or_equal: 0.0
+        - path: "tracking_benchmark.clone_rate.value"
+          less_or_equal: 1.0
+        - path: "tracking_benchmark.ghost_rate.value"
+          greater_or_equal: 0.0
+        - path: "tracking_benchmark.ghost_rate.value"
+          less_or_equal: 1.0
+        - path: "tracking_benchmark.dp_over_p_sigma.value"
+          exists: true
+        - path: "tracking_benchmark.dx_rms.value"
+          exists: true
+        - path: "tracking_benchmark.dy_rms.value"
+          exists: true
+        - path: "tracking_benchmark.dtx_rms.value"
+          exists: true
+        - path: "tracking_benchmark.dty_rms.value"
+          exists: true
+    - type: file_exists
+      path: "{tmp_path}/tracking_benchmark_histos.root"
+    - type: yaml_snapshot
+      source: "{tmp_path}/tracking_metrics.json"
+      source_format: json
+      reference: "{tracking_reference}"
+      reference_format: json
+      artifact: "{tmp_path}/tracking_metrics.yaml"
+      skip_if_missing_reference: true

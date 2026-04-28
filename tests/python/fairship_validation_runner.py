@@ -241,9 +241,17 @@ def _validate_yaml_snapshot(
     context: dict[str, Any],
 ) -> None:
     source_path = Path(_render_template(validation["source"], context))
-    reference_path = Path(_render_template(validation["reference"], context))
+    reference_value = _render_template(validation["reference"], context)
+    if not reference_value:
+        if validation.get("skip_if_missing_reference"):
+            return
+        raise AssertionError("Reference path rendered to an empty value")
+    reference_path = Path(reference_value)
     assert source_path.exists(), f"Missing validation source file: {source_path}"
-    assert reference_path.exists(), f"Missing validation reference file: {reference_path}"
+    if not reference_path.exists():
+        if validation.get("skip_if_missing_reference"):
+            return
+        raise AssertionError(f"Missing validation reference file: {reference_path}")
 
     payload = _load_structured_file(source_path, validation.get("source_format"))
     normalized = _normalize_payload(payload, validation.get("normalize", {}))
@@ -253,7 +261,8 @@ def _validate_yaml_snapshot(
     if artifact_path:
         Path(_render_template(artifact_path, context)).write_text(actual_text)
 
-    expected_text = reference_path.read_text()
+    reference_payload = _load_structured_file(reference_path, validation.get("reference_format"))
+    expected_text = _dump_yaml_text(_normalize_payload(reference_payload, validation.get("normalize", {})))
     assert actual_text == expected_text, (
         f"YAML snapshot mismatch for {source_path}\n"
         f"Reference: {reference_path}\n"
@@ -282,6 +291,54 @@ def _validate_step_stdout(validation: dict[str, Any], step_results: dict[str, su
 def _validate_file_exists(validation: dict[str, Any], context: dict[str, Any]) -> None:
     path = Path(_render_template(validation["path"], context))
     assert path.exists(), f"Missing expected file: {path}"
+
+
+def _lookup_json_path(payload: Any, path: str) -> Any:
+    current = payload
+    for part in path.split("."):
+        if not isinstance(current, dict) or part not in current:
+            raise AssertionError(f"Missing JSON path '{path}'")
+        current = current[part]
+    return current
+
+
+def _validate_json_expectations(validation: dict[str, Any], context: dict[str, Any]) -> None:
+    source_path = Path(_render_template(validation["source"], context))
+    payload = _load_structured_file(source_path, validation.get("source_format"))
+
+    for expectation in validation.get("expect", []):
+        value = _lookup_json_path(payload, expectation["path"])
+        equals_value = expectation.get("equals")
+        if isinstance(equals_value, str):
+            rendered = _render_template(equals_value, context)
+            try:
+                equals_value = int(rendered)
+            except ValueError:
+                try:
+                    equals_value = float(rendered)
+                except ValueError:
+                    equals_value = rendered
+
+        if expectation.get("exists"):
+            continue
+        if "equals" in expectation:
+            assert value == equals_value, (
+                f"JSON value mismatch at {expectation['path']}\n"
+                f"Expected: {equals_value}\n"
+                f"Got: {value}"
+            )
+        if "greater_than" in expectation:
+            assert value > expectation["greater_than"], (
+                f"JSON value at {expectation['path']} must be > {expectation['greater_than']}, got {value}"
+            )
+        if "greater_or_equal" in expectation:
+            assert value >= expectation["greater_or_equal"], (
+                f"JSON value at {expectation['path']} must be >= {expectation['greater_or_equal']}, got {value}"
+            )
+        if "less_or_equal" in expectation:
+            assert value <= expectation["less_or_equal"], (
+                f"JSON value at {expectation['path']} must be <= {expectation['less_or_equal']}, got {value}"
+            )
 
 
 def load_case_definitions(config_dir: Path) -> list[dict[str, Any]]:
@@ -376,5 +433,7 @@ def run_validation_case(case: dict[str, Any], tmp_path: Path) -> None:
             _validate_step_stdout(validation, step_results)
         elif validation_type == "file_exists":
             _validate_file_exists(validation, context)
+        elif validation_type == "json_expectations":
+            _validate_json_expectations(validation, context)
         else:
             raise ValueError(f"Unknown validation type: {validation_type}")
