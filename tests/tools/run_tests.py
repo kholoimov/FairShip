@@ -12,10 +12,11 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 
 
+# we want to build and run FairShip from the parent directory of the FairShip folder
 def _repo_root() -> Path:
     return Path(__file__).resolve().parent.parent.parent
 
-
+# making sure that folder for the test reports exists
 def _reports_dir(repo_root: Path) -> Path:
     reports_dir = repo_root / "test_reports"
     reports_dir.mkdir(exist_ok=True)
@@ -25,7 +26,7 @@ def _reports_dir(repo_root: Path) -> Path:
 def _python_tests_dir(repo_root: Path) -> Path:
     return repo_root / "tests" / "python"
 
-
+# load all available tests from the "tests/python/cases"
 def _load_matrix_cases(repo_root: Path) -> list[dict[str, object]]:
     python_dir = _python_tests_dir(repo_root)
     sys.path.insert(0, str(python_dir))
@@ -38,11 +39,19 @@ def _load_matrix_cases(repo_root: Path) -> list[dict[str, object]]:
 def _load_matrix_case_ids(repo_root: Path) -> list[str]:
     return [str(case["id"]) for case in _load_matrix_cases(repo_root)]
 
+"""
+build map based on case name in a format
 
+{
+    "build_clean": {...},
+    "muonback_summary": {...},
+    "pythia8_summary": {...},
+}
+"""
 def _case_id_map(repo_root: Path) -> dict[str, dict[str, object]]:
     return {str(case["id"]): case for case in _load_matrix_cases(repo_root)}
 
-
+# tests dependence map
 def _dependency_closure(case_map: dict[str, dict[str, object]], selected: str) -> list[str]:
     ordered: list[str] = []
     visited: set[str] = set()
@@ -89,7 +98,7 @@ def _sum_junit_attributes(suites: list[ET.Element]) -> dict[str, str]:
         "time": f"{total_time:.3f}",
     }
 
-
+# combining all test results into one report file
 def _combine_junit_reports(report_paths: list[Path], output_path: Path) -> Path | None:
     existing_reports = [path for path in report_paths if path.exists()]
     if not existing_reports:
