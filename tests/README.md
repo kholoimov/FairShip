@@ -94,6 +94,10 @@ Run runtime cases in parallel after the build succeeds:
 python3 tests/tools/run_tests.py --jobs 2
 ```
 
+The launcher writes per-stage JUnit XML files only for stages that actually ran, and also produces one combined report:
+
+- `test_reports/all_tests.xml`
+
 ## Environment Assumptions
 
 Runtime tests assume:

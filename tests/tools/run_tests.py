@@ -9,6 +9,7 @@ import os
 import subprocess
 import sys
 from pathlib import Path
+import xml.etree.ElementTree as ET
 
 
 def _repo_root() -> Path:
@@ -69,6 +70,52 @@ def _run_stage(name: str, command: list[str], repo_root: Path, env: dict[str, st
     return {"name": name, "command": command, "returncode": result.returncode}
 
 
+def _sum_junit_attributes(suites: list[ET.Element]) -> dict[str, str]:
+    totals = {
+        "tests": 0,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+    }
+    total_time = 0.0
+
+    for suite in suites:
+        for key in totals:
+            totals[key] += int(float(suite.attrib.get(key, "0") or "0"))
+        total_time += float(suite.attrib.get("time", "0") or "0")
+
+    return {
+        **{key: str(value) for key, value in totals.items()},
+        "time": f"{total_time:.3f}",
+    }
+
+
+def _combine_junit_reports(report_paths: list[Path], output_path: Path) -> Path | None:
+    existing_reports = [path for path in report_paths if path.exists()]
+    if not existing_reports:
+        return None
+
+    combined_root = ET.Element("testsuites")
+    suites: list[ET.Element] = []
+
+    for report_path in existing_reports:
+        root = ET.parse(report_path).getroot()
+        if root.tag == "testsuite":
+            suites.append(root)
+        elif root.tag == "testsuites":
+            suites.extend(root.findall("testsuite"))
+        else:
+            raise ValueError(f"Unsupported JUnit XML root tag in {report_path}: {root.tag}")
+
+    for suite in suites:
+        combined_root.append(suite)
+
+    combined_root.attrib.update(_sum_junit_attributes(suites))
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    ET.ElementTree(combined_root).write(output_path, encoding="utf-8", xml_declaration=True)
+    return output_path
+
+
 def _build_stage_command(reports_dir: Path) -> list[str]:
     return _pytest_executable() + [
         "-v",
@@ -104,7 +151,7 @@ def _tracking_stage_command(reports_dir: Path) -> list[str]:
     ]
 
 
-def _print_summary(stages: list[dict[str, object]], reports_dir: Path) -> None:
+def _print_summary(stages: list[dict[str, object]], report_paths: list[Path], combined_report: Path | None) -> None:
     print("\n=== Test Summary ===")
     for stage in stages:
         returncode = stage["returncode"]
@@ -117,9 +164,11 @@ def _print_summary(stages: list[dict[str, object]], reports_dir: Path) -> None:
         print(f"{status:7} {stage['name']}")
 
     print("\nJUnit reports:")
-    print(f"  {reports_dir / 'build.xml'}")
-    print(f"  {reports_dir / 'runtime.xml'}")
-    print(f"  {reports_dir / 'tracking.xml'}")
+    for report_path in report_paths:
+        if report_path.exists():
+            print(f"  {report_path}")
+    if combined_report is not None and combined_report.exists():
+        print(f"  {combined_report}")
 
 
 def _list_tests(repo_root: Path) -> int:
@@ -171,13 +220,21 @@ def main() -> int:
         return 2
 
     stages: list[dict[str, object]] = []
+    report_paths: list[Path] = []
+
+    build_report = reports_dir / "build.xml"
+    runtime_report = reports_dir / "runtime.xml"
+    tracking_report = reports_dir / "tracking.xml"
+    combined_report_path = reports_dir / "all_tests.xml"
 
     build_result = _run_stage("Build Validation", _build_stage_command(reports_dir), repo_root)
     stages.append(build_result)
+    report_paths.append(build_report)
 
     if build_result["returncode"] != 0:
         if args.test and args.test == "build_clean":
-            _print_summary(stages, reports_dir)
+            combined_report = _combine_junit_reports(report_paths, combined_report_path)
+            _print_summary(stages, report_paths, combined_report)
             return int(build_result["returncode"])
 
         target_name = args.test or "runtime/tracking tests"
@@ -188,11 +245,13 @@ def main() -> int:
                 "returncode": None,
             }
         )
-        _print_summary(stages, reports_dir)
+        combined_report = _combine_junit_reports(report_paths, combined_report_path)
+        _print_summary(stages, report_paths, combined_report)
         return int(build_result["returncode"])
 
     if args.test == "build_clean":
-        _print_summary(stages, reports_dir)
+        combined_report = _combine_junit_reports(report_paths, combined_report_path)
+        _print_summary(stages, report_paths, combined_report)
         return 0
 
     if args.test == "tracking_benchmark":
@@ -203,7 +262,9 @@ def main() -> int:
                 repo_root,
             )
         )
-        _print_summary(stages, reports_dir)
+        report_paths.append(tracking_report)
+        combined_report = _combine_junit_reports(report_paths, combined_report_path)
+        _print_summary(stages, report_paths, combined_report)
         return next(
             (int(stage["returncode"]) for stage in stages if stage["returncode"] not in (0, None)),
             0,
@@ -233,6 +294,7 @@ def main() -> int:
             env=runtime_env,
         )
     )
+    report_paths.append(runtime_report)
 
     if args.test is None:
         stages.append(
@@ -242,8 +304,10 @@ def main() -> int:
                 repo_root,
             )
         )
+        report_paths.append(tracking_report)
 
-    _print_summary(stages, reports_dir)
+    combined_report = _combine_junit_reports(report_paths, combined_report_path)
+    _print_summary(stages, report_paths, combined_report)
     return next(
         (int(stage["returncode"]) for stage in stages if stage["returncode"] not in (0, None)),
         0,
