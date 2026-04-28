@@ -1,5 +1,7 @@
 test:
   id: evtgen_summary
+  depends_on:
+    - build_clean
   package_envs:
     - FAIRSHIP_EVTGEN_ALIENV_PACKAGE
     - FAIRSHIP_ALIENV_PACKAGE

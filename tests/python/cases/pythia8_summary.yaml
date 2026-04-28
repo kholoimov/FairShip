@@ -1,5 +1,7 @@
 test:
   id: pythia8_summary
+  depends_on:
+    - build_clean
   package_envs:
     - FAIRSHIP_PYTHIA8_ALIENV_PACKAGE
     - FAIRSHIP_ALIENV_PACKAGE

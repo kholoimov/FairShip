@@ -1,0 +1,4 @@
+test:
+  id: build_clean
+  runner: build_clean
+  timeout: 7200

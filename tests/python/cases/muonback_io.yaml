@@ -1,5 +1,7 @@
 test:
   id: muonback_io
+  depends_on:
+    - build_clean
   package_envs:
     - FAIRSHIP_SIM_IO_ALIENV_PACKAGE
     - FAIRSHIP_ALIENV_PACKAGE

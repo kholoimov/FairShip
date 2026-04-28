@@ -25,23 +25,47 @@ def _python_tests_dir(repo_root: Path) -> Path:
     return repo_root / "tests" / "python"
 
 
-def _load_runtime_case_ids(repo_root: Path) -> list[str]:
+def _load_matrix_cases(repo_root: Path) -> list[dict[str, object]]:
     python_dir = _python_tests_dir(repo_root)
     sys.path.insert(0, str(python_dir))
     from fairship_validation_runner import load_case_definitions
 
     config_dir = python_dir / "cases"
-    return [case["id"] for case in load_case_definitions(config_dir)]
+    return load_case_definitions(config_dir)
+
+
+def _load_matrix_case_ids(repo_root: Path) -> list[str]:
+    return [str(case["id"]) for case in _load_matrix_cases(repo_root)]
+
+
+def _case_id_map(repo_root: Path) -> dict[str, dict[str, object]]:
+    return {str(case["id"]): case for case in _load_matrix_cases(repo_root)}
+
+
+def _dependency_closure(case_map: dict[str, dict[str, object]], selected: str) -> list[str]:
+    ordered: list[str] = []
+    visited: set[str] = set()
+
+    def visit(case_id: str) -> None:
+        if case_id in visited:
+            return
+        visited.add(case_id)
+        for dependency in case_map[case_id].get("depends_on", []):
+            visit(str(dependency))
+        ordered.append(case_id)
+
+    visit(selected)
+    return ordered
 
 
 def _pytest_executable() -> list[str]:
     return [sys.executable, "-m", "pytest"]
 
 
-def _run_stage(name: str, command: list[str], repo_root: Path) -> dict[str, object]:
+def _run_stage(name: str, command: list[str], repo_root: Path, env: dict[str, str] | None = None) -> dict[str, object]:
     print(f"\n=== {name} ===")
     print("Command:", " ".join(command))
-    result = subprocess.run(command, cwd=repo_root)
+    result = subprocess.run(command, cwd=repo_root, env=env)
     return {"name": name, "command": command, "returncode": result.returncode}
 
 
@@ -64,8 +88,8 @@ def _runtime_stage_command(reports_dir: Path, jobs: int | None, test_name: str |
     ]
     if jobs and jobs > 1:
         command += ["-n", str(jobs)]
-    if test_name:
-        command += ["-k", test_name]
+    test_filter = test_name if test_name else "not build_clean"
+    command += ["-k", test_filter]
     command.append("tests/python/test_fairship_validation_matrix.py")
     return command
 
@@ -100,8 +124,7 @@ def _print_summary(stages: list[dict[str, object]], reports_dir: Path) -> None:
 
 def _list_tests(repo_root: Path) -> int:
     print("Available tests:")
-    print("  build_clean")
-    for case_id in _load_runtime_case_ids(repo_root):
+    for case_id in _load_matrix_case_ids(repo_root):
         print(f"  {case_id}")
     print("  tracking_benchmark")
     return 0
@@ -134,8 +157,10 @@ def main() -> int:
     args = _parse_args()
     repo_root = _repo_root()
     reports_dir = _reports_dir(repo_root)
-    runtime_case_ids = _load_runtime_case_ids(repo_root)
-    all_tests = {"build_clean", "tracking_benchmark", *runtime_case_ids}
+    case_map = _case_id_map(repo_root)
+    matrix_case_ids = list(case_map)
+    runtime_case_ids = [case_id for case_id in matrix_case_ids if case_id != "build_clean"]
+    all_tests = {"tracking_benchmark", *matrix_case_ids}
 
     if args.list:
         return _list_tests(repo_root)
@@ -184,12 +209,28 @@ def main() -> int:
             0,
         )
 
-    runtime_filter = args.test if args.test in runtime_case_ids else None
+    selected_runtime_cases: list[str] | None = None
+    if args.test in runtime_case_ids:
+        selected_runtime_cases = [
+            case_id
+            for case_id in _dependency_closure(case_map, args.test)
+            if case_id != "build_clean"
+        ]
+
+    runtime_filter = None
+    if selected_runtime_cases:
+        runtime_filter = " or ".join(selected_runtime_cases)
+
+    runtime_env = os.environ.copy()
+    passed_tests = [entry for entry in runtime_env.get("FAIRSHIP_PASSED_TESTS", "").split(",") if entry]
+    passed_tests.append("build_clean")
+    runtime_env["FAIRSHIP_PASSED_TESTS"] = ",".join(sorted(set(passed_tests)))
     stages.append(
         _run_stage(
             "FairShip Runtime Tests",
             _runtime_stage_command(reports_dir, args.jobs, runtime_filter),
             repo_root,
+            env=runtime_env,
         )
     )
 

@@ -25,6 +25,7 @@ That lets one case run FairShip once or twice, depending on what needs to be val
 
 The YAML matrix currently covers:
 
+- build-clean validation
 - muon-background summary validation
 - muon-background strict ROOT I/O validation
 - particle-gun strict ROOT I/O validation
@@ -34,6 +35,8 @@ The YAML matrix currently covers:
 Each of those lives in its own YAML file in:
 
 - [tests/python/cases](/Users/vkholoimov/Documents/SHIP/FairShip/tests/python/cases)
+
+The dependency model is also defined there. Right now the runtime cases depend on `build_clean`.
 
 Summary-style tests compare a normalized YAML snapshot against reference files in:
 
@@ -82,6 +85,8 @@ Run only one named test after the build succeeds:
 ```bash
 python3 tests/tools/run_tests.py --test muonback_summary
 ```
+
+If that test depends on other matrix tests, the launcher includes those dependencies automatically.
 
 Run runtime cases in parallel after the build succeeds:
 

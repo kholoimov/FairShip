@@ -1,5 +1,7 @@
 test:
   id: particle_gun_io
+  depends_on:
+    - build_clean
   package_envs:
     - FAIRSHIP_PARTICLE_GUN_ALIENV_PACKAGE
     - FAIRSHIP_ALIENV_PACKAGE

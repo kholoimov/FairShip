@@ -14,6 +14,8 @@ from typing import Any
 import pytest
 import yaml
 
+from build_clean_runner import run_build_clean_validation
+
 
 DEFAULT_INPUT_FILE = Path("/tmp/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root")
 DEFAULT_INPUT_URL = (
@@ -283,11 +285,36 @@ def _validate_file_exists(validation: dict[str, Any], context: dict[str, Any]) -
 
 
 def load_case_definitions(config_dir: Path) -> list[dict[str, Any]]:
-    cases = []
+    cases_by_id = {}
     for config_path in sorted(config_dir.glob("*.yaml")):
         config = yaml.safe_load(config_path.read_text())
-        cases.append(config["test"])
-    return cases
+        case = config["test"]
+        cases_by_id[case["id"]] = case
+
+    visiting: set[str] = set()
+    visited: set[str] = set()
+    ordered: list[dict[str, Any]] = []
+
+    def visit(case_id: str) -> None:
+        if case_id in visited:
+            return
+        if case_id in visiting:
+            raise ValueError(f"Cyclic dependency detected at test case '{case_id}'")
+        if case_id not in cases_by_id:
+            raise ValueError(f"Unknown dependency '{case_id}' referenced by test cases")
+
+        visiting.add(case_id)
+        case = cases_by_id[case_id]
+        for dependency in case.get("depends_on", []):
+            visit(dependency)
+        visiting.remove(case_id)
+        visited.add(case_id)
+        ordered.append(case)
+
+    for case_id in sorted(cases_by_id):
+        visit(case_id)
+
+    return ordered
 
 
 def load_pytest_cases(config_dir: Path) -> list[Any]:
@@ -302,6 +329,10 @@ def load_pytest_cases(config_dir: Path) -> list[Any]:
 
 
 def run_validation_case(case: dict[str, Any], tmp_path: Path) -> None:
+    if case.get("runner") == "build_clean":
+        run_build_clean_validation(tmp_path)
+        return
+
     repo_root = _repo_root()
     workdir = _run_workdir(case, repo_root)
     debug = _debug_enabled(case)

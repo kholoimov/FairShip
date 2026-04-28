@@ -1,5 +1,7 @@
 test:
   id: muonback_summary
+  depends_on:
+    - build_clean
   package_envs:
     - FAIRSHIP_ALIENV_PACKAGE
   workdir_env: FAIRSHIP_SIM_TEST_WORKDIR
