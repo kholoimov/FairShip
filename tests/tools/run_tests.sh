@@ -9,9 +9,4 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 cd "${REPO_ROOT}"
 
-echo "Running build validation test..."
-pytest -v tests/python/test_build_clean.py
-
-echo
-echo "Running FairShip runtime validation matrix..."
-pytest -v tests/python/test_fairship_validation_matrix.py
+python3 tests/tools/run_tests.py "$@"

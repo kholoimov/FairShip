@@ -65,10 +65,28 @@ Run one case only:
 python3 -m pytest -v tests/python/test_fairship_validation_matrix.py -k muonback_summary
 ```
 
-Run the full Python validation sequence:
+Run the build-gated test launcher:
 
 ```bash
-python3 tests/tools/run_validation_sequence.py
+python3 tests/tools/run_tests.py
+```
+
+List available test names:
+
+```bash
+python3 tests/tools/run_tests.py --list
+```
+
+Run only one named test after the build succeeds:
+
+```bash
+python3 tests/tools/run_tests.py --test muonback_summary
+```
+
+Run runtime cases in parallel after the build succeeds:
+
+```bash
+python3 tests/tools/run_tests.py --jobs 2
 ```
 
 ## Environment Assumptions
