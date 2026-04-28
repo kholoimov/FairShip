@@ -35,29 +35,9 @@ def main():
     if build_result["returncode"] == 0:
         validation_stages = [
             (
-                "Simulation Validation",
-                reports_dir / "simulation.xml",
-                "tests/test_simulation_validation.py",
-            ),
-            (
-                "Simulation IO Validation",
-                reports_dir / "simulation_io.xml",
-                "tests/test_simulation_io.py",
-            ),
-            (
-                "Particle Gun IO Validation",
-                reports_dir / "particle_gun_io.xml",
-                "tests/test_particle_gun_io.py",
-            ),
-            (
-                "Pythia8 Validation",
-                reports_dir / "pythia8.xml",
-                "tests/test_pythia8_validation.py",
-            ),
-            (
-                "EvtGen Validation",
-                reports_dir / "evtgen.xml",
-                "tests/test_evtgen_validation.py",
+                "FairShip Runtime Validations",
+                reports_dir / "fairship_validations.xml",
+                "tests/test_fairship_validation_matrix.py",
             ),
             (
                 "Tracking Benchmark Validation",
@@ -78,11 +58,7 @@ def main():
             stages.append(run_stage(name, command, repo_root))
     else:
         for name, test_path in (
-            ("Simulation Validation", "tests/test_simulation_validation.py"),
-            ("Simulation IO Validation", "tests/test_simulation_io.py"),
-            ("Particle Gun IO Validation", "tests/test_particle_gun_io.py"),
-            ("Pythia8 Validation", "tests/test_pythia8_validation.py"),
-            ("EvtGen Validation", "tests/test_evtgen_validation.py"),
+            ("FairShip Runtime Validations", "tests/test_fairship_validation_matrix.py"),
             ("Tracking Benchmark Validation", "tests/test_tracking_benchmark.py"),
         ):
             stages.append(
@@ -105,11 +81,7 @@ def main():
 
     print("\nJUnit reports:")
     print(f"  {reports_dir / 'build.xml'}")
-    print(f"  {reports_dir / 'simulation.xml'}")
-    print(f"  {reports_dir / 'simulation_io.xml'}")
-    print(f"  {reports_dir / 'particle_gun_io.xml'}")
-    print(f"  {reports_dir / 'pythia8.xml'}")
-    print(f"  {reports_dir / 'evtgen.xml'}")
+    print(f"  {reports_dir / 'fairship_validations.xml'}")
     print(f"  {reports_dir / 'tracking.xml'}")
 
     for stage in stages:

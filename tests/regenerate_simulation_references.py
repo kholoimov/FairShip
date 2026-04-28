@@ -3,12 +3,15 @@
 # SPDX-FileCopyrightText: Copyright CERN for the benefit of the SHiP Collaboration
 
 import argparse
+import json
 import os
 import subprocess
 import sys
 import tempfile
 import urllib.request
 from pathlib import Path
+
+import yaml
 
 
 DEFAULT_INPUT_FILE = Path("/tmp/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root")
@@ -202,6 +205,12 @@ def _validation_command(repo_root, input_root, output_json):
     )
 
 
+def _normalise_summary_json(path):
+    payload = json.loads(path.read_text())
+    payload.pop("input_file", None)
+    return yaml.safe_dump(payload, sort_keys=True, default_flow_style=False)
+
+
 def _generate_validation_summary(repo_root, workdir, config, reference_dir):
     with tempfile.TemporaryDirectory(prefix=f"fairship-{config['name']}-summary-") as tmpdir_name:
         tmpdir = Path(tmpdir_name)
@@ -213,9 +222,9 @@ def _generate_validation_summary(repo_root, workdir, config, reference_dir):
         produced_json = tmpdir / config["summary_json"].name
         _run_shell_command(_validation_command(repo_root, produced_root, produced_json), workdir, 3600)
 
-        target_json = reference_dir / config["summary_json"]
-        target_json.write_text(produced_json.read_text(), encoding="utf-8")
-        print(f"Wrote summary JSON: {target_json}")
+        target_yaml = reference_dir / config["summary_yaml"]
+        target_yaml.write_text(_normalise_summary_json(produced_json), encoding="utf-8")
+        print(f"Wrote summary YAML: {target_yaml}")
 
 
 def _generate_io_reference(repo_root, workdir, config, reference_dir):
@@ -252,6 +261,7 @@ def _build_configs(muonback_events, muonback_io_events, particle_gun_events, par
             "produced_root": "sim_muonback_fast_100.root",
             "target_root": "muonback_fast_100.root",
             "summary_json": Path("muonback_fast_100.json"),
+            "summary_yaml": Path("muonback_fast_100.yaml"),
         },
         "particle_gun": {
             "name": "particle_gun",
@@ -261,6 +271,7 @@ def _build_configs(muonback_events, muonback_io_events, particle_gun_events, par
             "produced_root": "sim_reference_run.root",
             "target_root": "sim_reference_run.root",
             "summary_json": Path("sim_reference_run.json"),
+            "summary_yaml": Path("sim_reference_run.yaml"),
         },
         "pythia8": {
             "name": "pythia8",
@@ -268,6 +279,7 @@ def _build_configs(muonback_events, muonback_io_events, particle_gun_events, par
             "sim_command": _pythia8_simulation_command,
             "produced_root": "sim_pythia8_reference_run.root",
             "summary_json": Path("pythia8_reference_run.json"),
+            "summary_yaml": Path("pythia8_reference_run.yaml"),
         },
         "evtgen": {
             "name": "evtgen",
@@ -275,13 +287,14 @@ def _build_configs(muonback_events, muonback_io_events, particle_gun_events, par
             "sim_command": _evtgen_simulation_command,
             "produced_root": "sim_evtgen_reference_run.root",
             "summary_json": Path("evtgen_reference_run.json"),
+            "summary_yaml": Path("evtgen_reference_run.yaml"),
         },
     }
 
 
 def build_parser():
     parser = argparse.ArgumentParser(
-        description="Regenerate FairShip simulation reference JSON summaries."
+        description="Regenerate FairShip simulation YAML summaries and ROOT references."
     )
     parser.add_argument(
         "--target",
@@ -293,7 +306,7 @@ def build_parser():
         "--muonback-events",
         type=int,
         default=5000,
-        help="Number of events for the muon-background summary reference JSON (default: 5000).",
+        help="Number of events for the muon-background summary reference YAML (default: 5000).",
     )
     parser.add_argument(
         "--muonback-io-events",
@@ -305,7 +318,7 @@ def build_parser():
         "--particle-gun-events",
         type=int,
         default=5000,
-        help="Number of events for the particle-gun summary reference JSON (default: 5000).",
+        help="Number of events for the particle-gun summary reference YAML (default: 5000).",
     )
     parser.add_argument(
         "--particle-gun-io-events",

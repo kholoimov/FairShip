@@ -13,5 +13,5 @@ echo "Running build validation test..."
 pytest -v tests/test_build_clean.py
 
 echo
-echo "Running simulation validation test..."
-pytest -v tests/test_simulation_validation.py
+echo "Running FairShip runtime validation matrix..."
+pytest -v tests/test_fairship_validation_matrix.py

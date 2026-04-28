@@ -1,0 +1,58 @@
+branches_present:
+- MCEventHeader.
+- MCTrack
+- TimeDetPoint
+- UpstreamTaggerPoint
+- splitcalPoint
+- strawtubesPoint
+- vetoPoint
+metrics:
+  mc_tracks:
+    max_per_event: 1217
+    mean_per_event: 87.478
+    min_per_event: 5
+    nonempty_events: 1000
+    rms_per_event: 142.89545129219474
+    sigma_per_event: 112.98986466050839
+    total: 87478
+  sbt_hits:
+    max_per_event: 5778
+    mean_per_event: 86.316
+    min_per_event: 0
+    nonempty_events: 449
+    rms_per_event: 363.6776732217693
+    sigma_per_event: 353.28600049251884
+    total: 86316
+  splitcal_hits:
+    max_per_event: 13616
+    mean_per_event: 330.886
+    min_per_event: 0
+    nonempty_events: 431
+    rms_per_event: 1145.114280759785
+    sigma_per_event: 1096.2669250707147
+    total: 330886
+  straw_hits:
+    max_per_event: 339
+    mean_per_event: 26.368
+    min_per_event: 0
+    nonempty_events: 445
+    rms_per_event: 49.44467615426356
+    sigma_per_event: 41.8270794581692
+    total: 26368
+  timedet_hits:
+    max_per_event: 66
+    mean_per_event: 2.824
+    min_per_event: 0
+    nonempty_events: 412
+    rms_per_event: 7.5624070242218515
+    sigma_per_event: 7.015342044405248
+    total: 2824
+  ubt_hits:
+    max_per_event: 2
+    mean_per_event: 0.003
+    min_per_event: 0
+    nonempty_events: 2
+    rms_per_event: 0.07071067811865475
+    sigma_per_event: 0.07064700984472025
+    total: 3
+n_events: 1000

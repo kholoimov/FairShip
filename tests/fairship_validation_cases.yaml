@@ -1,0 +1,291 @@
+tests:
+  - id: muonback_summary
+    package_envs:
+      - FAIRSHIP_ALIENV_PACKAGE
+    workdir_env: FAIRSHIP_SIM_TEST_WORKDIR
+    debug_env: FAIRSHIP_SIM_TEST_DEBUG
+    timeout: 7200
+    context:
+      tag:
+        env: FAIRSHIP_SIM_TEST_TAG
+        default: pytest_validation
+      n_events:
+        env: FAIRSHIP_SIM_TEST_EVENTS
+        default: 5000
+        type: int
+      extra_args:
+        env: FAIRSHIP_SIM_TEST_EXTRA_ARGS
+        default: --MuonBack --FollowMuon --FastMuon
+      input_file:
+        source: required_input_file
+    runs:
+      - name: simulation
+        timeout: 7200
+        command: >
+          python3 {repo_root}/macro/run_simScript.py
+          -n {n_events}
+          -i 100
+          {extra_args}
+          -f {input_file}
+          -o {tmp_path}
+          --tag {tag}
+          --sameSeed 42
+          --seed 42
+        outputs:
+          - "{tmp_path}/sim_{tag}.root"
+          - "{tmp_path}/geo_{tag}.root"
+          - "{tmp_path}/params_{tag}.root"
+      - name: validation
+        timeout: 3600
+        command: >
+          python3 {repo_root}/macro/validate_simulation_output.py
+          -f {tmp_path}/sim_{tag}.root
+          -o {tmp_path}/sim_{tag}.validation.json
+        outputs:
+          - "{tmp_path}/sim_{tag}.validation.json"
+    validations:
+      - type: yaml_snapshot
+        source: "{tmp_path}/sim_{tag}.validation.json"
+        source_format: json
+        reference: "{repo_root}/tests/reference/muonback_fast_100.yaml"
+        artifact: "{tmp_path}/sim_{tag}.validation.yaml"
+        normalize:
+          drop_keys:
+            - input_file
+      - type: step_stdout
+        step: validation
+        contains: "Validation summary for"
+
+  - id: muonback_io
+    package_envs:
+      - FAIRSHIP_SIM_IO_ALIENV_PACKAGE
+      - FAIRSHIP_ALIENV_PACKAGE
+    workdir_env: FAIRSHIP_SIM_IO_TEST_WORKDIR
+    debug_env: FAIRSHIP_SIM_IO_TEST_DEBUG
+    timeout: 7200
+    context:
+      tag:
+        env: FAIRSHIP_SIM_IO_TEST_TAG
+        default: pytest_io
+      n_events:
+        env: FAIRSHIP_SIM_IO_TEST_EVENTS
+        default: 100
+        type: int
+        max: 100
+        max_message: "{env} must be <= {max} for event-by-event IO comparison, got {value}"
+      extra_args:
+        env: FAIRSHIP_SIM_IO_TEST_EXTRA_ARGS
+        default: --MuonBack --FollowMuon --FastMuon
+      input_file:
+        source: required_input_file
+      reference_root:
+        env: FAIRSHIP_SIM_IO_REFERENCE_ROOT
+        default: "{repo_root}/tests/reference/muonback_fast_100.root"
+    runs:
+      - name: simulation_io
+        timeout: 7200
+        command: >
+          python3 {repo_root}/macro/run_simScript.py
+          -n {n_events}
+          -i 100
+          {extra_args}
+          -f {input_file}
+          -o {tmp_path}
+          --tag {tag}
+          --sameSeed 42
+          --seed 42
+        outputs:
+          - "{tmp_path}/sim_{tag}.root"
+      - name: root_compare
+        timeout: 3600
+        command: >
+          python3 {repo_root}/macro/compare_simulation_root_files.py
+          -r {reference_root}
+          -c {tmp_path}/sim_{tag}.root
+    validations:
+      - type: step_stdout
+        step: root_compare
+        endswith: "ROOT file comparison passed."
+
+  - id: particle_gun_io
+    package_envs:
+      - FAIRSHIP_PARTICLE_GUN_ALIENV_PACKAGE
+      - FAIRSHIP_ALIENV_PACKAGE
+    workdir_env: FAIRSHIP_PARTICLE_GUN_TEST_WORKDIR
+    debug_env: FAIRSHIP_PARTICLE_GUN_TEST_DEBUG
+    timeout: 7200
+    context:
+      tag:
+        env: FAIRSHIP_PARTICLE_GUN_TEST_TAG
+        default: pytest_pg
+      n_events:
+        env: FAIRSHIP_PARTICLE_GUN_TEST_EVENTS
+        default: 100
+        type: int
+        max: 100
+        max_message: "{env} must be <= {max} for event-by-event IO comparison, got {value}"
+      pid:
+        env: FAIRSHIP_PARTICLE_GUN_TEST_PID
+        default: 13
+      estart:
+        env: FAIRSHIP_PARTICLE_GUN_TEST_ESTART
+        default: 1.0
+      eend:
+        env: FAIRSHIP_PARTICLE_GUN_TEST_EEND
+        default: 10.0
+      vz:
+        env: FAIRSHIP_PARTICLE_GUN_TEST_VZ
+        default: 8300.0
+      dx:
+        env: FAIRSHIP_PARTICLE_GUN_TEST_DX
+        default: 50.0
+      dy:
+        env: FAIRSHIP_PARTICLE_GUN_TEST_DY
+        default: 50.0
+      debug_level:
+        env: FAIRSHIP_PARTICLE_GUN_TEST_FAIRLOGGER_DEBUG
+        default: 0
+      reference_root:
+        env: FAIRSHIP_PARTICLE_GUN_REFERENCE_ROOT
+        default: "{repo_root}/tests/reference/sim_reference_run.root"
+    runs:
+      - name: particle_gun
+        timeout: 7200
+        command: >
+          python3 {repo_root}/macro/run_simScript.py
+          -n {n_events}
+          -s 42
+          --debug {debug_level}
+          --vacuums
+          --tag {tag}
+          -o {tmp_path}
+          PG
+          --pID {pid}
+          --Estart {estart}
+          --Eend {eend}
+          --Vz {vz}
+          --multiplePG
+          --Dx {dx}
+          --Dy {dy}
+        outputs:
+          - "{tmp_path}/sim_{tag}.root"
+      - name: particle_gun_compare
+        timeout: 3600
+        command: >
+          python3 {repo_root}/macro/compare_simulation_root_files.py
+          -r {reference_root}
+          -c {tmp_path}/sim_{tag}.root
+    validations:
+      - type: step_stdout
+        step: particle_gun_compare
+        endswith: "ROOT file comparison passed."
+
+  - id: pythia8_summary
+    package_envs:
+      - FAIRSHIP_PYTHIA8_ALIENV_PACKAGE
+      - FAIRSHIP_ALIENV_PACKAGE
+    workdir_env: FAIRSHIP_PYTHIA8_TEST_WORKDIR
+    debug_env: FAIRSHIP_PYTHIA8_TEST_DEBUG
+    timeout: 7200
+    context:
+      tag:
+        env: FAIRSHIP_PYTHIA8_TEST_TAG
+        default: pytest_pythia8
+      n_events:
+        env: FAIRSHIP_PYTHIA8_TEST_EVENTS
+        default: 1000
+        type: int
+      debug_level:
+        env: FAIRSHIP_PYTHIA8_TEST_FAIRLOGGER_DEBUG
+        default: 0
+      reference_yaml:
+        env: FAIRSHIP_PYTHIA8_REFERENCE_YAML
+        default: "{repo_root}/tests/reference/pythia8_reference_run.yaml"
+    runs:
+      - name: pythia8
+        timeout: 7200
+        command: >
+          python3 {repo_root}/macro/run_simScript.py
+          --Pythia8
+          -t
+          -n {n_events}
+          --debug {debug_level}
+          -o {tmp_path}
+          --tag {tag}
+          --seed 42
+        outputs:
+          - "{tmp_path}/sim_{tag}.root"
+          - "{tmp_path}/geo_{tag}.root"
+          - "{tmp_path}/params_{tag}.root"
+      - name: pythia8_validation
+        timeout: 3600
+        command: >
+          python3 {repo_root}/macro/validate_simulation_output.py
+          -f {tmp_path}/sim_{tag}.root
+          -o {tmp_path}/sim_{tag}.validation.json
+        outputs:
+          - "{tmp_path}/sim_{tag}.validation.json"
+    validations:
+      - type: yaml_snapshot
+        source: "{tmp_path}/sim_{tag}.validation.json"
+        source_format: json
+        reference: "{reference_yaml}"
+        artifact: "{tmp_path}/sim_{tag}.validation.yaml"
+        normalize:
+          drop_keys:
+            - input_file
+
+  - id: evtgen_summary
+    package_envs:
+      - FAIRSHIP_EVTGEN_ALIENV_PACKAGE
+      - FAIRSHIP_ALIENV_PACKAGE
+    workdir_env: FAIRSHIP_EVTGEN_TEST_WORKDIR
+    debug_env: FAIRSHIP_EVTGEN_TEST_DEBUG
+    timeout: 7200
+    context:
+      tag:
+        env: FAIRSHIP_EVTGEN_TEST_TAG
+        default: pytest_evtgen
+      n_events:
+        env: FAIRSHIP_EVTGEN_TEST_EVENTS
+        default: 1000
+        type: int
+      debug_level:
+        env: FAIRSHIP_EVTGEN_TEST_FAIRLOGGER_DEBUG
+        default: 0
+      reference_yaml:
+        env: FAIRSHIP_EVTGEN_REFERENCE_YAML
+        default: "{repo_root}/tests/reference/evtgen_reference_run.yaml"
+    runs:
+      - name: evtgen
+        timeout: 7200
+        command: >
+          python3 {repo_root}/macro/run_simScript.py
+          --EvtGenDecayer
+          -t
+          -n {n_events}
+          --debug {debug_level}
+          -o {tmp_path}
+          --tag {tag}
+          --seed 42
+        outputs:
+          - "{tmp_path}/sim_{tag}.root"
+          - "{tmp_path}/geo_{tag}.root"
+          - "{tmp_path}/params_{tag}.root"
+      - name: evtgen_validation
+        timeout: 3600
+        command: >
+          python3 {repo_root}/macro/validate_simulation_output.py
+          -f {tmp_path}/sim_{tag}.root
+          -o {tmp_path}/sim_{tag}.validation.json
+        outputs:
+          - "{tmp_path}/sim_{tag}.validation.json"
+    validations:
+      - type: yaml_snapshot
+        source: "{tmp_path}/sim_{tag}.validation.json"
+        source_format: json
+        reference: "{reference_yaml}"
+        artifact: "{tmp_path}/sim_{tag}.validation.yaml"
+        normalize:
+          drop_keys:
+            - input_file
