@@ -787,9 +787,7 @@ print("Output file is ", outFile)
 print("Parameter file is ", parFile)
 print("Geometry file is ", geofile_name)
 print("Real time ", rtime, " s, CPU time ", ctime, "s")
-print("=" * 72)
-print("Simulation finished successfully")
-print("=" * 72)
+
 
 # remove empty events
 if options.muonback:
@@ -903,6 +901,9 @@ if options.command == "Genie":
     f_input.Close()
     f_output.Close()
 
+print("=" * 72)
+print("Simulation finished successfully")
+print("=" * 72)
 
 if options.validation:
     validation_tools.print_simulation_output_summary(
