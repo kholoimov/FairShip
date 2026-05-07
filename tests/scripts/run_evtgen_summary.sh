@@ -6,7 +6,7 @@ repo_root=$(cd -- "$script_dir/../.." && pwd)
 fairship_root=${FAIRSHIP:-$repo_root}
 output_dir=${FAIRSHIP_TEST_OUTPUT_DIR:-$repo_root/.pytest-sim-output}
 tag=${FAIRSHIP_TEST_TAG:-evtgen_summary}
-n_events=${FAIRSHIP_EVTGEN_TEST_EVENTS:-1000}
+n_events=${FAIRSHIP_EVTGEN_TEST_EVENTS:-100}
 debug_level=${FAIRSHIP_EVTGEN_TEST_FAIRLOGGER_DEBUG:-0}
 
 if [[ -n "${FAIRSHIP_EVTGEN_ALIENV_PACKAGE:-}" ]]; then

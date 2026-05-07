@@ -10,7 +10,7 @@ Setting up SHiP setup version 25.11-3-g3592ec0 from /cvmfs/ship.cern.ch/26.04.
  |  |   P  P   Y Y     T    H   H   I    A A     This is PYTHIA version 8.317      |  | 
  |  |   PPP     Y      T    HHHHH   I   AAAAA    Last date of change: 20 Jan 2026  |  | 
  |  |   P       Y      T    H   H   I   A   A                                      |  | 
- |  |   P       Y      T    H   H  III  A   A    Now is 07 May 2026 at 15:14:08    |  | 
+ |  |   P       Y      T    H   H  III  A   A    Now is 07 May 2026 at 16:09:39    |  | 
  |  |                                                                              |  | 
  |  |   Program documentation and an archive of historic versions is found on:     |  | 
  |  |                                                                              |  | 
@@ -63,7 +63,7 @@ Setting up SHiP setup version 25.11-3-g3592ec0 from /cvmfs/ship.cern.ch/26.04.
 [INFO] FairGeoMedia: Read media 
 
 ************************************************************* 
-     initialisation for run id 1778166851
+     initialisation for run id 1778170182
 ************************************************************* 
 [WARN] FairGenericVMCConfig::Setup() Using gConfig.C macro DEPRACATED.
 [WARN] Check FairRoot/examples/common/gconfig/ for current YAML implementation.
@@ -120,19 +120,19 @@ SetCuts Macro: Setting cuts..
 TG4RootDetectorConstruction::ConstructSDandField
 TG4PostDetConstruction::InitializeSDandField
 [INFO] FairMCApplication::InitGeometry: 0
-[INFO] Simulation RunID: 1778166851
+[INFO] Simulation RunID: 1778170182
 [INFO] CREATING BRANCH MCTrack
-[INFO] Creating branch for MCTrack with address 0x147b63c8
+[INFO] Creating branch for MCTrack with address 0x160149c8
 [INFO] CREATING BRANCH TimeDetPoint
-[INFO] Creating branch for TimeDetPoint with address 0xf6eca58
+[INFO] Creating branch for TimeDetPoint with address 0xe059928
 [INFO] CREATING BRANCH UpstreamTaggerPoint
-[INFO] Creating branch for UpstreamTaggerPoint with address 0xf373db8
+[INFO] Creating branch for UpstreamTaggerPoint with address 0xe030868
 [INFO] CREATING BRANCH splitcalPoint
-[INFO] Creating branch for splitcalPoint with address 0xf25bdd8
+[INFO] Creating branch for splitcalPoint with address 0xaf6cad8
 [INFO] CREATING BRANCH strawtubesPoint
-[INFO] Creating branch for strawtubesPoint with address 0xf5a0a38
+[INFO] Creating branch for strawtubesPoint with address 0xdc7ed28
 [INFO] CREATING BRANCH vetoPoint
-[INFO] Creating branch for vetoPoint with address 0xf393cc8
+[INFO] Creating branch for vetoPoint with address 0xb458a08
 Global field created with stepper DormandPrince745
 ### INFO: TG4RootDetectorConstruction::ConstructSDandField finished
 
@@ -769,14 +769,14 @@ FairGeoParSet                                  class for Geo parameter
 --------------  runs, versions  ------------------------------------------------
 run id
   container                                        1st-inp    2nd-inp    output
-run: 1778166851
-  FairBaseParSet                                1778166851         -1          1
-  FairGeoParSet                                 1778166851         -1          1
+run: 1778170182
+  FairBaseParSet                                1778170182         -1          1
+  FairGeoParSet                                 1778170182         -1          1
 --------------  input/output  --------------------------------------------------
 first input: none
 second input: none
 output:
-OBJ: FairParRootFile	{TMP_PATH}/params_pythia8_summary.root	 : 0 at: 0x180bc460
+OBJ: FairParRootFile	{TMP_PATH}/params_pythia8_summary.root	 : 0 at: 0x160ed280
 Info: Target using configuration: /ship_build/sw/slc9_x86-64/FairShip/master-local2/geometry/target_config.yaml
 ['tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten'] [4.5, 1.8, 1.7, 1.7, 1.8, 1.9, 2.1, 1.9, 2.1, 2.4, 2.8, 3.3, 4.1, 5.6, 8.8, 17.2, 28.7, 28.8, 28.8] [0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.48, 0.5, 0.68, 0.68, 0]
 Generating HNL events of mass 1.000 GeV
@@ -809,7 +809,7 @@ number of geometric rejections (outside vessel acceptance)  183
 Output file is  {TMP_PATH}/sim_pythia8_summary.root
 Parameter file is  {TMP_PATH}/params_pythia8_summary.root
 Geometry file is  {TMP_PATH}/geo_pythia8_summary.root
-Real time  174.3181188106537  s, CPU time  171.95999999999998 s
+Real time  173.61759114265442  s, CPU time  170.94 s
 ========================================================================
 Simulation finished successfully
 ========================================================================

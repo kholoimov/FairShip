@@ -7,7 +7,7 @@ Setting up SHiP setup version 25.11-3-g3592ec0 from /cvmfs/ship.cern.ch/26.04.
 [INFO] FairGeoMedia: Read media 
 
 ************************************************************* 
-     initialisation for run id 1778166732
+     initialisation for run id 1778170086
 ************************************************************* 
 [WARN] FairGenericVMCConfig::Setup() Using gConfig.C macro DEPRACATED.
 [WARN] Check FairRoot/examples/common/gconfig/ for current YAML implementation.
@@ -64,19 +64,19 @@ SetCuts Macro: Setting cuts..
 TG4RootDetectorConstruction::ConstructSDandField
 TG4PostDetConstruction::InitializeSDandField
 [INFO] FairMCApplication::InitGeometry: 0
-[INFO] Simulation RunID: 1778166732
+[INFO] Simulation RunID: 1778170086
 [INFO] CREATING BRANCH MCTrack
-[INFO] Creating branch for MCTrack with address 0xe800c98
+[INFO] Creating branch for MCTrack with address 0xf3a8f18
 [INFO] CREATING BRANCH TimeDetPoint
-[INFO] Creating branch for TimeDetPoint with address 0xe348258
+[INFO] Creating branch for TimeDetPoint with address 0xef7ecb8
 [INFO] CREATING BRANCH UpstreamTaggerPoint
-[INFO] Creating branch for UpstreamTaggerPoint with address 0xe287be8
+[INFO] Creating branch for UpstreamTaggerPoint with address 0xeff8508
 [INFO] CREATING BRANCH splitcalPoint
-[INFO] Creating branch for splitcalPoint with address 0xdec9a18
+[INFO] Creating branch for splitcalPoint with address 0xe590438
 [INFO] CREATING BRANCH strawtubesPoint
-[INFO] Creating branch for strawtubesPoint with address 0xe0ac908
+[INFO] Creating branch for strawtubesPoint with address 0xee4b388
 [INFO] CREATING BRANCH vetoPoint
-[INFO] Creating branch for vetoPoint with address 0xde56b28
+[INFO] Creating branch for vetoPoint with address 0xede0548
 Global field created with stepper DormandPrince745
 ### INFO: TG4RootDetectorConstruction::ConstructSDandField finished
 
@@ -608,14 +608,14 @@ FairGeoParSet                                  class for Geo parameter
 --------------  runs, versions  ------------------------------------------------
 run id
   container                                        1st-inp    2nd-inp    output
-run: 1778166732
-  FairBaseParSet                                1778166732         -1          1
-  FairGeoParSet                                 1778166732         -1          1
+run: 1778170086
+  FairBaseParSet                                1778170086         -1          1
+  FairGeoParSet                                 1778170086         -1          1
 --------------  input/output  --------------------------------------------------
 first input: none
 second input: none
 output:
-OBJ: FairParRootFile	{TMP_PATH}/params_particle_gun_io.root	 : 0 at: 0xe1809c0
+OBJ: FairParRootFile	{TMP_PATH}/params_particle_gun_io.root	 : 0 at: 0xeef5ad0
 Root file I/O {TMP_PATH}/params_particle_gun_io.root is open
 detector I/Os:  FairGenericParIo
 Info: Target using configuration: /ship_build/sw/slc9_x86-64/FairShip/master-local2/geometry/target_config.yaml
@@ -626,7 +626,7 @@ Macro finished successfully.
 Output file is  {TMP_PATH}/sim_particle_gun_io.root
 Parameter file is  {TMP_PATH}/params_particle_gun_io.root
 Geometry file is  {TMP_PATH}/geo_particle_gun_io.root
-Real time  14.57136082649231  s, CPU time  13.73 s
+Real time  14.908672094345093  s, CPU time  13.85 s
 ========================================================================
 Simulation finished successfully
 ========================================================================
