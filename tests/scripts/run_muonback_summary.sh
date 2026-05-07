@@ -9,8 +9,14 @@ tag=${FAIRSHIP_TEST_TAG:-muonback_summary}
 n_events=${FAIRSHIP_SIM_TEST_EVENTS:-5000}
 extra_args=${FAIRSHIP_SIM_TEST_EXTRA_ARGS:---MuonBack --FollowMuon --FastMuon}
 input_file=${SHIP_TEST_INPUT:-${FAIRSHIP_SIM_TEST_INPUT:-/tmp/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root}}
+input_url=${FAIRSHIP_SIM_TEST_INPUT_URL:-https://cernbox.cern.ch/remote.php/dav/public-files/vdwtXtgM5P2Z0S5/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root}
 
 source "$script_dir/setup_fairship_env.sh"
+
+if [[ ! -f "$input_file" ]]; then
+  mkdir -p "$(dirname "$input_file")"
+  curl -L "$input_url" -o "$input_file"
+fi
 
 if [[ ! -f "$input_file" ]]; then
   echo "Muonback input file does not exist: $input_file" >&2
