@@ -45,6 +45,8 @@ set -u
 export FAIRSHIP="$fairship_root"
 export FAIRSHIP_ROOT="$fairship_root"
 export VMCWORKDIR="$fairship_root"
+export GEOMPATH="$fairship_root/geometry"
+export CONFIG_DIR="$fairship_root/gconfig"
 export OPENBLAS_NUM_THREADS=${OPENBLAS_NUM_THREADS:-1}
 export OMP_NUM_THREADS=${OMP_NUM_THREADS:-1}
 export MKL_NUM_THREADS=${MKL_NUM_THREADS:-1}
