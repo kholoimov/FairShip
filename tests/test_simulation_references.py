@@ -41,6 +41,18 @@ def _normalize_stdout(stdout: str, *, output_dir: Path, tag: str) -> str:
     normalized = normalized.replace(str(output_dir / f"sim_{tag}.validation.json"), f"{{TMP_PATH}}/sim_{tag}.validation.json")
     normalized = normalized.replace(str(output_dir / "tracking_metrics.json"), "{TMP_PATH}/tracking_metrics.json")
     normalized = normalized.replace(str(output_dir / "tracking_benchmark_histos.root"), "{TMP_PATH}/tracking_benchmark_histos.root")
+    normalized = re.sub(r"(?m)^(\s*run:\s+)\d+$", r"\1{RUN_ID}", normalized)
+    normalized = re.sub(r"0x[0-9a-fA-F]+", "0x{ADDR}", normalized)
+    normalized = re.sub(
+        r"Real time\s+[0-9.]+\s+s,\s+CPU time\s+[0-9.]+\s+s",
+        "Real time {REAL_TIME} s, CPU time {CPU_TIME} s",
+        normalized,
+    )
+    normalized = re.sub(
+        r"/ship_build/sw/slc9_x86-64/FairShip/[^/]+/",
+        "/ship_build/sw/slc9_x86-64/FairShip/{FAIRSHIP_BUILD}/",
+        normalized,
+    )
     return normalized
 
 
