@@ -1,0 +1,54 @@
+Setting up SHiP setup version 25.11-3-g3592ec0 from /cvmfs/ship.cern.ch/26.03.
+Validation summary for {TMP_PATH}/sim_reference_run.root
+Events: 5000
+
+mc_tracks:
+  total: 12633
+  nonempty_events: 5000
+  min_per_event: 1
+  max_per_event: 34
+  mean_per_event: 2.527
+  rms_per_event: 3.597
+  sigma_per_event: 2.560
+sbt_hits:
+  total: 20
+  nonempty_events: 5
+  min_per_event: 0
+  max_per_event: 6
+  mean_per_event: 0.004
+  rms_per_event: 0.137
+  sigma_per_event: 0.137
+ubt_hits:
+  total: 0
+  nonempty_events: 0
+  min_per_event: 0
+  max_per_event: 0
+  mean_per_event: 0.000
+  rms_per_event: 0.000
+  sigma_per_event: 0.000
+straw_hits:
+  total: 167816
+  nonempty_events: 5000
+  min_per_event: 16
+  max_per_event: 297
+  mean_per_event: 33.563
+  rms_per_event: 35.191
+  sigma_per_event: 10.579
+timedet_hits:
+  total: 7836
+  nonempty_events: 4999
+  min_per_event: 0
+  max_per_event: 8
+  mean_per_event: 1.567
+  rms_per_event: 1.752
+  sigma_per_event: 0.783
+splitcal_hits:
+  total: 309821
+  nonempty_events: 4999
+  min_per_event: 0
+  max_per_event: 443
+  mean_per_event: 61.964
+  rms_per_event: 64.396
+  sigma_per_event: 17.529
+
+Wrote JSON summary to {TMP_PATH}/sim_reference_run.json

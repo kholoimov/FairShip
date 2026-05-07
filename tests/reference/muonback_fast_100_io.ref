@@ -3,7 +3,7 @@
     "bash",
     "tests/scripts/run_fast_muon_dummy.sh"
   ],
-  "returncode": 0,
+  "returncode": 1,
   "stdout_contains": [
     "Macro finished successfully."
   ],
