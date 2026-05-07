@@ -213,6 +213,15 @@ def _dump_yaml_text(payload: Any) -> str:
     return yaml.safe_dump(payload, sort_keys=True, default_flow_style=False)
 
 
+def _normalize_text_snapshot(text: str, normalization: dict[str, Any], context: dict[str, Any]) -> str:
+    normalized = text
+    for replacement in normalization.get("replace", []):
+        old = _render_template(replacement["old"], context)
+        new = _render_template(replacement["new"], context)
+        normalized = normalized.replace(old, new)
+    return normalized
+
+
 def _write_step_artifacts(tmp_path: Path, step_name: str, command: str, result: subprocess.CompletedProcess[str]) -> None:
     artifact_prefix = tmp_path / step_name
     artifact_prefix.with_suffix(".command").write_text(command + "\n")
@@ -286,6 +295,31 @@ def _validate_step_stdout(validation: dict[str, Any], step_results: dict[str, su
         assert stdout.strip().endswith(endswith), (
             f"Expected stdout from step '{step_name}' to end with:\n{endswith}\n\nActual stdout:\n{stdout}"
         )
+
+
+def _validate_text_snapshot(validation: dict[str, Any], context: dict[str, Any]) -> None:
+    source_path = Path(_render_template(validation["source"], context))
+    reference_value = _render_template(validation["reference"], context)
+    if not reference_value:
+        raise AssertionError("Reference path rendered to an empty value")
+    reference_path = Path(reference_value)
+    assert source_path.exists(), f"Missing validation source file: {source_path}"
+    assert reference_path.exists(), f"Missing validation reference file: {reference_path}"
+
+    actual_text = _normalize_text_snapshot(source_path.read_text(encoding="utf-8"), validation.get("normalize", {}), context)
+    expected_text = _normalize_text_snapshot(
+        reference_path.read_text(encoding="utf-8"), validation.get("normalize", {}), context
+    )
+
+    artifact_path = validation.get("artifact")
+    if artifact_path:
+        Path(_render_template(artifact_path, context)).write_text(actual_text, encoding="utf-8")
+
+    assert actual_text == expected_text, (
+        f"Text snapshot mismatch for {source_path}\n"
+        f"Reference: {reference_path}\n"
+        f"Actual normalized snapshot:\n{actual_text}"
+    )
 
 
 def _validate_file_exists(validation: dict[str, Any], context: dict[str, Any]) -> None:
@@ -429,6 +463,8 @@ def run_validation_case(case: dict[str, Any], tmp_path: Path) -> None:
         validation_type = validation["type"]
         if validation_type == "yaml_snapshot":
             _validate_yaml_snapshot(validation, context)
+        elif validation_type == "text_snapshot":
+            _validate_text_snapshot(validation, context)
         elif validation_type == "step_stdout":
             _validate_step_stdout(validation, step_results)
         elif validation_type == "file_exists":

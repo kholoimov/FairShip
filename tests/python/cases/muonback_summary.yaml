@@ -46,14 +46,16 @@ test:
       outputs:
         - "{tmp_path}/sim_{tag}.validation.json"
   validations:
-    - type: yaml_snapshot
-      source: "{tmp_path}/sim_{tag}.validation.json"
-      source_format: json
-      reference: "{repo_root}/tests/reference/muonback_fast_100.yaml"
-      artifact: "{tmp_path}/sim_{tag}.validation.yaml"
+    - type: text_snapshot
+      source: "{tmp_path}/validation.stdout"
+      reference: "{repo_root}/tests/reference/muonback_fast_100.ref"
+      artifact: "{tmp_path}/sim_{tag}.validation.log"
       normalize:
-        drop_keys:
-          - input_file
+        replace:
+          - old: "{tmp_path}/sim_{tag}.root"
+            new: "{TMP_PATH}/sim_{tag}.root"
+          - old: "{tmp_path}/sim_{tag}.validation.json"
+            new: "{TMP_PATH}/sim_{tag}.validation.json"
     - type: step_stdout
       step: validation
       contains: "Validation summary for"

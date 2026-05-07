@@ -39,11 +39,11 @@ Each of those lives in its own YAML file in:
 
 The dependency model is also defined there. Right now the runtime cases depend on `build_clean`.
 
-Summary-style tests compare a normalized YAML snapshot against reference files in:
+Summary-style simulation validation tests compare the full validation log against reference files in:
 
-- [tests/reference/muonback_fast_100.yaml](/Users/vkholoimov/Documents/SHIP/FairShip/tests/reference/muonback_fast_100.yaml)
-- [tests/reference/pythia8_reference_run.yaml](/Users/vkholoimov/Documents/SHIP/FairShip/tests/reference/pythia8_reference_run.yaml)
-- [tests/reference/evtgen_reference_run.yaml](/Users/vkholoimov/Documents/SHIP/FairShip/tests/reference/evtgen_reference_run.yaml)
+- [tests/reference/muonback_fast_100.ref](/Users/vkholoimov/Documents/SHIP/FairShip/tests/reference/muonback_fast_100.ref)
+- [tests/reference/pythia8_reference_run.ref](/Users/vkholoimov/Documents/SHIP/FairShip/tests/reference/pythia8_reference_run.ref)
+- [tests/reference/evtgen_reference_run.ref](/Users/vkholoimov/Documents/SHIP/FairShip/tests/reference/evtgen_reference_run.ref)
 
 Strict ROOT I/O tests still use the existing ROOT references.
 
@@ -141,7 +141,7 @@ python3 tests/tools/regenerate_simulation_references.py
 
 This now regenerates:
 
-- normalized YAML summary references
+- full validation log references
 - strict ROOT references for the I/O comparison cases
 
 ## Layout
@@ -149,4 +149,4 @@ This now regenerates:
 - `tests/python`: Python tests and shared runtime harness code
 - `tests/python/cases`: one YAML definition per runtime validation case
 - `tests/tools`: helper scripts for running or regenerating the validation suite
-- `tests/reference`: checked-in ROOT and YAML reference artifacts
+- `tests/reference`: checked-in ROOT and log reference artifacts

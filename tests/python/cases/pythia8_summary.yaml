@@ -19,9 +19,9 @@ test:
     debug_level:
       env: FAIRSHIP_PYTHIA8_TEST_FAIRLOGGER_DEBUG
       default: 0
-    reference_yaml:
-      env: FAIRSHIP_PYTHIA8_REFERENCE_YAML
-      default: "{repo_root}/tests/reference/pythia8_reference_run.yaml"
+    reference_log:
+      env: FAIRSHIP_PYTHIA8_REFERENCE_LOG
+      default: "{repo_root}/tests/reference/pythia8_reference_run.ref"
   runs:
     - name: pythia8
       timeout: 7200
@@ -47,11 +47,13 @@ test:
       outputs:
         - "{tmp_path}/sim_{tag}.validation.json"
   validations:
-    - type: yaml_snapshot
-      source: "{tmp_path}/sim_{tag}.validation.json"
-      source_format: json
-      reference: "{reference_yaml}"
-      artifact: "{tmp_path}/sim_{tag}.validation.yaml"
+    - type: text_snapshot
+      source: "{tmp_path}/pythia8_validation.stdout"
+      reference: "{reference_log}"
+      artifact: "{tmp_path}/sim_{tag}.validation.log"
       normalize:
-        drop_keys:
-          - input_file
+        replace:
+          - old: "{tmp_path}/sim_{tag}.root"
+            new: "{TMP_PATH}/sim_{tag}.root"
+          - old: "{tmp_path}/sim_{tag}.validation.json"
+            new: "{TMP_PATH}/sim_{tag}.validation.json"

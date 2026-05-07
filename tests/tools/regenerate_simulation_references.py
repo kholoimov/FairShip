@@ -3,15 +3,12 @@
 # SPDX-FileCopyrightText: Copyright CERN for the benefit of the SHiP Collaboration
 
 import argparse
-import json
 import os
 import subprocess
 import sys
 import tempfile
 import urllib.request
 from pathlib import Path
-
-import yaml
 
 
 DEFAULT_INPUT_FILE = Path("/tmp/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root")
@@ -205,10 +202,11 @@ def _validation_command(repo_root, input_root, output_json):
     )
 
 
-def _normalise_summary_json(path):
-    payload = json.loads(path.read_text())
-    payload.pop("input_file", None)
-    return yaml.safe_dump(payload, sort_keys=True, default_flow_style=False)
+def _normalize_summary_log(path, input_root_name, output_json_name):
+    text = path.read_text(encoding="utf-8")
+    text = text.replace(str(path.parent / input_root_name), f"{{TMP_PATH}}/{input_root_name}")
+    text = text.replace(str(path.parent / output_json_name), f"{{TMP_PATH}}/{output_json_name}")
+    return text
 
 
 def _generate_validation_summary(repo_root, workdir, config, reference_dir):
@@ -220,11 +218,16 @@ def _generate_validation_summary(repo_root, workdir, config, reference_dir):
 
         produced_root = tmpdir / config["produced_root"]
         produced_json = tmpdir / config["summary_json"].name
-        _run_shell_command(_validation_command(repo_root, produced_root, produced_json), workdir, 3600)
+        validation_result = _run_shell_command(_validation_command(repo_root, produced_root, produced_json), workdir, 3600)
 
-        target_yaml = reference_dir / config["summary_yaml"]
-        target_yaml.write_text(_normalise_summary_json(produced_json), encoding="utf-8")
-        print(f"Wrote summary YAML: {target_yaml}")
+        validation_log = tmpdir / config["summary_log"].name
+        validation_log.write_text(validation_result.stdout, encoding="utf-8")
+
+        target_log = reference_dir / config["summary_log"]
+        target_log.write_text(
+            _normalize_summary_log(validation_log, config["produced_root"], config["summary_json"].name), encoding="utf-8"
+        )
+        print(f"Wrote summary log: {target_log}")
 
 
 def _generate_io_reference(repo_root, workdir, config, reference_dir):
@@ -261,7 +264,7 @@ def _build_configs(muonback_events, muonback_io_events, particle_gun_events, par
             "produced_root": "sim_muonback_fast_100.root",
             "target_root": "muonback_fast_100.root",
             "summary_json": Path("muonback_fast_100.json"),
-            "summary_yaml": Path("muonback_fast_100.yaml"),
+            "summary_log": Path("muonback_fast_100.ref"),
         },
         "particle_gun": {
             "name": "particle_gun",
@@ -271,7 +274,7 @@ def _build_configs(muonback_events, muonback_io_events, particle_gun_events, par
             "produced_root": "sim_reference_run.root",
             "target_root": "sim_reference_run.root",
             "summary_json": Path("sim_reference_run.json"),
-            "summary_yaml": Path("sim_reference_run.yaml"),
+            "summary_log": Path("sim_reference_run.ref"),
         },
         "pythia8": {
             "name": "pythia8",
@@ -279,7 +282,7 @@ def _build_configs(muonback_events, muonback_io_events, particle_gun_events, par
             "sim_command": _pythia8_simulation_command,
             "produced_root": "sim_pythia8_reference_run.root",
             "summary_json": Path("pythia8_reference_run.json"),
-            "summary_yaml": Path("pythia8_reference_run.yaml"),
+            "summary_log": Path("pythia8_reference_run.ref"),
         },
         "evtgen": {
             "name": "evtgen",
@@ -287,7 +290,7 @@ def _build_configs(muonback_events, muonback_io_events, particle_gun_events, par
             "sim_command": _evtgen_simulation_command,
             "produced_root": "sim_evtgen_reference_run.root",
             "summary_json": Path("evtgen_reference_run.json"),
-            "summary_yaml": Path("evtgen_reference_run.yaml"),
+            "summary_log": Path("evtgen_reference_run.ref"),
         },
     }
 
