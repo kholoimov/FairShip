@@ -6,6 +6,15 @@ Each case has:
 - a `bash` command
 - a link to the `.ref` file that stores the expected command/result/output contract
 
+Before the simulation command runs, the helper scripts source the FairShip environment via:
+
+```bash
+source /cvmfs/ship.cern.ch/${SHIP_RELEASE:-26.04}/setUp.sh
+eval "$(alienv load FairShip/latest-{github-branch}-release --no-refresh)"
+```
+
+You can override the detected package name with `FAIRSHIP_ALIENV_PACKAGE`.
+
 The `.ref` files are intentionally simple. They check:
 
 - the command
