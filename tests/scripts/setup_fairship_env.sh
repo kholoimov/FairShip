@@ -43,4 +43,6 @@ fi
 set -u
 
 export FAIRSHIP="$fairship_root"
+export FAIRSHIP_ROOT="$fairship_root"
+export VMCWORKDIR="$fairship_root"
 export PYTHONPATH="$fairship_root/python${PYTHONPATH:+:$PYTHONPATH}"

@@ -16,6 +16,7 @@ except ModuleNotFoundError:  # pragma: no cover
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CASE_CONFIG_PATH = REPO_ROOT / "tests" / "pytest_reference_cases.toml"
 REGENERATE_ENV = "FAIRSHIP_REGENERATE_REFERENCES"
+LIVE_LOGS_ENV = "FAIRSHIP_TEST_LIVE_LOGS"
 
 
 def _load_cases() -> list[dict[str, str]]:
@@ -53,6 +54,25 @@ def _run_case(case: dict[str, str], *, output_dir: Path) -> subprocess.Completed
     env["FAIRSHIP_TEST_TAG"] = tag
 
     command = case["command"]
+    if os.environ.get(LIVE_LOGS_ENV, "").lower() in {"1", "true", "yes", "on"}:
+        process = subprocess.Popen(
+            command,
+            shell=True,
+            cwd=REPO_ROOT,
+            env=env,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+        )
+        combined_output: list[str] = []
+        assert process.stdout is not None
+        for line in process.stdout:
+            print(line, end="")
+            combined_output.append(line)
+        returncode = process.wait()
+        stdout = "".join(combined_output)
+        return subprocess.CompletedProcess(command, returncode, stdout=stdout, stderr="")
+
     completed = subprocess.run(
         command,
         shell=True,
