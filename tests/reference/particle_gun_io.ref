@@ -1,16 +1,2 @@
-{
-  "command": [
-    "bash",
-    "tests/scripts/run_particle_gun.sh"
-  ],
-  "returncode": 1,
-  "stdout_contains": [
-    "Macro finished successfully."
-  ],
-  "stderr_contains": [],
-  "expected_outputs": [
-    "sim_{tag}.root",
-    "geo_{tag}.root",
-    "params_{tag}.root"
-  ]
-}
+Regenerate this reference with:
+bash tests/regenerate_references.sh -k particle_gun_io

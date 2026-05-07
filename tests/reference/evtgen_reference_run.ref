@@ -1,0 +1,53 @@
+Validation summary for {TMP_PATH}/sim_pytest_evtgen.root
+Events: 1000
+
+mc_tracks:
+  total: 87478
+  nonempty_events: 1000
+  min_per_event: 5
+  max_per_event: 1217
+  mean_per_event: 87.478
+  rms_per_event: 142.895
+  sigma_per_event: 112.990
+sbt_hits:
+  total: 86316
+  nonempty_events: 449
+  min_per_event: 0
+  max_per_event: 5778
+  mean_per_event: 86.316
+  rms_per_event: 363.678
+  sigma_per_event: 353.286
+splitcal_hits:
+  total: 330886
+  nonempty_events: 431
+  min_per_event: 0
+  max_per_event: 13616
+  mean_per_event: 330.886
+  rms_per_event: 1145.114
+  sigma_per_event: 1096.267
+straw_hits:
+  total: 26368
+  nonempty_events: 445
+  min_per_event: 0
+  max_per_event: 339
+  mean_per_event: 26.368
+  rms_per_event: 49.445
+  sigma_per_event: 41.827
+timedet_hits:
+  total: 2824
+  nonempty_events: 412
+  min_per_event: 0
+  max_per_event: 66
+  mean_per_event: 2.824
+  rms_per_event: 7.562
+  sigma_per_event: 7.015
+ubt_hits:
+  total: 3
+  nonempty_events: 2
+  min_per_event: 0
+  max_per_event: 2
+  mean_per_event: 0.003
+  rms_per_event: 0.071
+  sigma_per_event: 0.071
+
+Wrote JSON summary to {TMP_PATH}/sim_pytest_evtgen.validation.json

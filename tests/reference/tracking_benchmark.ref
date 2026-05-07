@@ -1,0 +1,2 @@
+Regenerate this reference with:
+bash tests/regenerate_references.sh -k tracking_benchmark

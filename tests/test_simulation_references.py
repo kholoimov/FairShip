@@ -1,9 +1,7 @@
 from __future__ import annotations
 
-import json
 import os
 import re
-import shlex
 import subprocess
 from pathlib import Path
 
@@ -32,6 +30,17 @@ def _sanitize_tag(name: str) -> str:
 
 def _resolve_template(path_template: str, *, tag: str, output_dir: Path) -> Path:
     return output_dir / path_template.format(tag=tag)
+
+
+def _normalize_stdout(stdout: str, *, output_dir: Path, tag: str) -> str:
+    normalized = stdout.replace(str(output_dir), "{TMP_PATH}")
+    normalized = normalized.replace(str(output_dir / f"sim_{tag}.root"), f"{{TMP_PATH}}/sim_{tag}.root")
+    normalized = normalized.replace(str(output_dir / f"geo_{tag}.root"), f"{{TMP_PATH}}/geo_{tag}.root")
+    normalized = normalized.replace(str(output_dir / f"params_{tag}.root"), f"{{TMP_PATH}}/params_{tag}.root")
+    normalized = normalized.replace(str(output_dir / f"sim_{tag}.validation.json"), f"{{TMP_PATH}}/sim_{tag}.validation.json")
+    normalized = normalized.replace(str(output_dir / "tracking_metrics.json"), "{TMP_PATH}/tracking_metrics.json")
+    normalized = normalized.replace(str(output_dir / "tracking_benchmark_histos.root"), "{TMP_PATH}/tracking_benchmark_histos.root")
+    return normalized
 
 
 def _run_case(case: dict[str, str], *, output_dir: Path) -> subprocess.CompletedProcess[str]:
@@ -74,31 +83,33 @@ def test_simulation_reference(case: dict[str, str], tmp_path_factory: pytest.Tem
         f"Missing reference file: {reference_path}. "
         "Generate it with `bash tests/regenerate_references.sh`."
     )
-    expected = json.loads(reference_path.read_text(encoding="utf-8"))
     completed = _run_case(case, output_dir=output_dir)
-    stdout = completed.stdout
+    tag = _sanitize_tag(case["name"])
+    stdout = _normalize_stdout(completed.stdout, output_dir=output_dir, tag=tag)
     stderr = completed.stderr
+    expected_stdout = reference_path.read_text(encoding="utf-8")
+    expected_returncode = int(case.get("returncode", 0))
+    expected_outputs = case.get("expected_outputs", [])
 
     if os.environ.get(REGENERATE_ENV) == "1":
-        refreshed = {
-            "command": shlex.split(case["command"]),
-            "returncode": completed.returncode,
-            "stdout_contains": expected.get("stdout_contains", []),
-            "stderr_contains": expected.get("stderr_contains", []),
-            "expected_outputs": expected["expected_outputs"],
-        }
         reference_path.parent.mkdir(parents=True, exist_ok=True)
-        reference_path.write_text(json.dumps(refreshed, indent=2) + "\n", encoding="utf-8")
+        reference_path.write_text(stdout, encoding="utf-8")
 
-    assert shlex.split(case["command"]) == expected["command"], f"Command drift for {case['name']} ({reference_path})"
-    assert completed.returncode == expected["returncode"], (
-        f"Return code mismatch for {case['name']} ({reference_path})"
+    assert completed.returncode == expected_returncode, (
+        f"Return code mismatch for {case['name']} ({reference_path})\n"
+        f"STDOUT:\n{stdout}\n"
+        f"STDERR:\n{stderr}"
+    )
+    assert stdout == expected_stdout, (
+        f"Stdout snapshot mismatch for {case['name']} ({reference_path})\n"
+        f"STDOUT:\n{stdout}\n"
+        f"STDERR:\n{stderr}"
     )
 
-    for expected_fragment in expected["stdout_contains"]:
-        assert expected_fragment in stdout, f"Missing stdout fragment in {case['name']}: {expected_fragment}"
-    for expected_fragment in expected["stderr_contains"]:
-        assert expected_fragment in stderr, f"Missing stderr fragment in {case['name']}: {expected_fragment}"
-    for output_template in expected["expected_outputs"]:
-        output_path = _resolve_template(output_template, tag=_sanitize_tag(case["name"]), output_dir=output_dir)
-        assert output_path.exists(), f"Missing expected output for {case['name']}: {output_path}"
+    for output_template in expected_outputs:
+        output_path = _resolve_template(output_template, tag=tag, output_dir=output_dir)
+        assert output_path.exists(), (
+            f"Missing expected output for {case['name']}: {output_path}\n"
+            f"STDOUT:\n{stdout}\n"
+            f"STDERR:\n{stderr}"
+        )
