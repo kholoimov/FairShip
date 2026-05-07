@@ -52,3 +52,10 @@ python_version = "3.12"
 mypy_path = ["stubs", "python"]
 ignore_missing_imports = true
 explicit_package_bases = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+markers = [
+    "reference: simulation reference tests that can be run in parallel with pytest-xdist",
+]

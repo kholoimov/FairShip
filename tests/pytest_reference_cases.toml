@@ -1,0 +1,9 @@
+[[case]]
+name = "particle_gun_io"
+command = "bash tests/scripts/run_particle_gun.sh"
+reference = "tests/reference/particle_gun_io.ref"
+
+[[case]]
+name = "muonback_fast_100_io"
+command = "bash tests/scripts/run_fast_muon_dummy.sh"
+reference = "tests/reference/muonback_fast_100_io.ref"
