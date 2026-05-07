@@ -106,13 +106,15 @@ def test_simulation_reference(case: dict[str, str], tmp_path_factory: pytest.Tem
     tag = _sanitize_tag(case["name"])
     stdout = _normalize_stdout(completed.stdout, output_dir=output_dir, tag=tag)
     stderr = completed.stderr
-    expected_stdout = reference_path.read_text(encoding="utf-8")
     expected_returncode = int(case.get("returncode", 0))
     expected_outputs = case.get("expected_outputs", [])
 
     if os.environ.get(REGENERATE_ENV) == "1":
         reference_path.parent.mkdir(parents=True, exist_ok=True)
         reference_path.write_text(stdout, encoding="utf-8")
+        expected_stdout = stdout
+    else:
+        expected_stdout = reference_path.read_text(encoding="utf-8")
 
     assert completed.returncode == expected_returncode, (
         f"Return code mismatch for {case['name']} ({reference_path})\n"
