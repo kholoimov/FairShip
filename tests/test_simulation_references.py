@@ -54,10 +54,10 @@ def _run_case(case: dict[str, str], *, output_dir: Path) -> subprocess.Completed
     env["FAIRSHIP_TEST_TAG"] = tag
 
     command = case["command"]
+    bash_command = ["/bin/bash", "-lc", command]
     if os.environ.get(LIVE_LOGS_ENV, "").lower() in {"1", "true", "yes", "on"}:
         process = subprocess.Popen(
-            command,
-            shell=True,
+            bash_command,
             cwd=REPO_ROOT,
             env=env,
             stdout=subprocess.PIPE,
@@ -71,11 +71,10 @@ def _run_case(case: dict[str, str], *, output_dir: Path) -> subprocess.Completed
             combined_output.append(line)
         returncode = process.wait()
         stdout = "".join(combined_output)
-        return subprocess.CompletedProcess(command, returncode, stdout=stdout, stderr="")
+        return subprocess.CompletedProcess(bash_command, returncode, stdout=stdout, stderr="")
 
     completed = subprocess.run(
-        command,
-        shell=True,
+        bash_command,
         cwd=REPO_ROOT,
         env=env,
         capture_output=True,
