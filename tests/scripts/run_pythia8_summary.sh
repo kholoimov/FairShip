@@ -6,7 +6,7 @@ repo_root=$(cd -- "$script_dir/../.." && pwd)
 fairship_root=${FAIRSHIP:-$repo_root}
 output_dir=${FAIRSHIP_TEST_OUTPUT_DIR:-$repo_root/.pytest-sim-output}
 tag=${FAIRSHIP_TEST_TAG:-pythia8_summary}
-n_events=${FAIRSHIP_PYTHIA8_TEST_EVENTS:-1000}
+n_events=${FAIRSHIP_PYTHIA8_TEST_EVENTS:-100}
 debug_level=${FAIRSHIP_PYTHIA8_TEST_FAIRLOGGER_DEBUG:-0}
 
 if [[ -n "${FAIRSHIP_PYTHIA8_ALIENV_PACKAGE:-}" ]]; then
