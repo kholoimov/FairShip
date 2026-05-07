@@ -3,30 +3,44 @@ set -euo pipefail
 
 script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 repo_root=$(cd -- "$script_dir/../.." && pwd)
+work_dir=$(cd -- "$repo_root/.." && pwd)
 
 fairship_root=${FAIRSHIP:-$repo_root}
 ship_release=${SHIP_RELEASE:-26.04}
 
-# The CVMFS/FairShip setup scripts expect some variables to be unset-safe.
+# Avoid mixing the container Python with the one from the FairShip environment.
+unset PYTHONHOME
+unset PYTHONSTARTUP
+unset PYTHONUSERBASE
 export PYTHONPATH=${PYTHONPATH-}
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH-}
 export PATH=${PATH-}
 
+local_sw_root=${ALIBUILD_SW_DIR:-}
+if [[ -z "$local_sw_root" ]]; then
+  local_sw_root=$(find "$work_dir/sw" -mindepth 1 -maxdepth 1 -type d -name "*_*" | head -n 1 || true)
+fi
+
+local_init_script=""
+if [[ -n "$local_sw_root" && -f "$local_sw_root/FairShip/latest/etc/profile.d/init.sh" ]]; then
+  local_init_script="$local_sw_root/FairShip/latest/etc/profile.d/init.sh"
+fi
+
 if [[ -z "${FAIRSHIP_ALIENV_PACKAGE:-}" ]]; then
-  branch_name=$(git -C "$repo_root" rev-parse --abbrev-ref HEAD)
-  branch_slug=${branch_name//\//-}
-  fairship_alienv_package="FairShip/latest-${branch_slug}-release"
+  fairship_alienv_package="FairShip/latest-master-release"
 else
   fairship_alienv_package=${FAIRSHIP_ALIENV_PACKAGE}
 fi
 
-echo why_is_it_failing
 set +u
 source /cvmfs/ship.cern.ch/${ship_release}/setUp.sh
-cd ../
-eval "$(alienv load "${fairship_alienv_package}" --no-refresh)"
+if [[ -n "$local_init_script" ]]; then
+  source "$local_init_script"
+else
+  export ALIBUILD_WORK_DIR="$work_dir"
+  eval "$(alienv load "${fairship_alienv_package}" --no-refresh)"
+fi
 set -u
-echo dont know
 
 export FAIRSHIP="$fairship_root"
 export PYTHONPATH="$fairship_root/python${PYTHONPATH:+:$PYTHONPATH}"

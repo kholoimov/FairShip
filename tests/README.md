@@ -10,10 +10,11 @@ Before the simulation command runs, the helper scripts source the FairShip envir
 
 ```bash
 source /cvmfs/ship.cern.ch/${SHIP_RELEASE:-26.04}/setUp.sh
-eval "$(alienv load FairShip/latest-{github-branch}-release --no-refresh)"
 ```
 
-You can override the detected package name with `FAIRSHIP_ALIENV_PACKAGE`.
+If a local aliBuild environment exists under `../sw/*/FairShip/latest`, the helper scripts source that local `init.sh` directly. Otherwise they fall back to `alienv load`.
+
+You can override the fallback package name with `FAIRSHIP_ALIENV_PACKAGE`.
 
 The `.ref` files are intentionally simple. They check:
 
