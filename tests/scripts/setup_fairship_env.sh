@@ -6,7 +6,7 @@ repo_root=$(cd -- "$script_dir/../.." && pwd)
 work_dir=$(cd -- "$repo_root/.." && pwd)
 
 fairship_root=${FAIRSHIP:-$repo_root}
-ship_release=${SHIP_RELEASE:-26.04}
+ship_release=${SHIP_RELEASE:-26.05}
 
 # Avoid mixing the container Python with the one from the FairShip environment.
 unset PYTHONHOME

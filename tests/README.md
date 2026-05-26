@@ -9,7 +9,7 @@ Each case has:
 Before the simulation command runs, the helper scripts source the FairShip environment via:
 
 ```bash
-source /cvmfs/ship.cern.ch/${SHIP_RELEASE:-26.04}/setUp.sh
+source /cvmfs/ship.cern.ch/${SHIP_RELEASE:-26.05}/setUp.sh
 ```
 
 If a local aliBuild environment exists under `../sw/*/FairShip/latest`, the helper scripts source that local `init.sh` directly. Otherwise they fall back to `alienv load`.
