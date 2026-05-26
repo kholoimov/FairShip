@@ -3,6 +3,7 @@ name = "build_clean"
 command = "bash tests/scripts/run_build_clean.sh"
 reference = "tests/reference/build_clean.ref"
 returncode = 0
+stdout_match = "contains"
 expected_outputs = ["build_clean.ok"]
 
 [[case]]

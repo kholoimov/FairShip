@@ -95,6 +95,24 @@ def _run_case(case: dict[str, str], *, output_dir: Path) -> subprocess.Completed
     return completed
 
 
+def _assert_stdout_matches(*, case: dict[str, str], reference_path: Path, stdout: str, expected_stdout: str, stderr: str) -> None:
+    stdout_match = case.get("stdout_match", "exact")
+    if stdout_match == "contains":
+        assert expected_stdout in stdout, (
+            f"Expected stdout fragment not found for {case['name']} ({reference_path})\n"
+            f"EXPECTED FRAGMENT:\n{expected_stdout}\n"
+            f"STDOUT:\n{stdout}\n"
+            f"STDERR:\n{stderr}"
+        )
+        return
+
+    assert stdout == expected_stdout, (
+        f"Stdout snapshot mismatch for {case['name']} ({reference_path})\n"
+        f"STDOUT:\n{stdout}\n"
+        f"STDERR:\n{stderr}"
+    )
+
+
 def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
     if "case" not in metafunc.fixturenames:
         return
@@ -133,10 +151,12 @@ def test_simulation_reference(case: dict[str, str], tmp_path_factory: pytest.Tem
         f"STDOUT:\n{stdout}\n"
         f"STDERR:\n{stderr}"
     )
-    assert stdout == expected_stdout, (
-        f"Stdout snapshot mismatch for {case['name']} ({reference_path})\n"
-        f"STDOUT:\n{stdout}\n"
-        f"STDERR:\n{stderr}"
+    _assert_stdout_matches(
+        case=case,
+        reference_path=reference_path,
+        stdout=stdout,
+        expected_stdout=expected_stdout,
+        stderr=stderr,
     )
 
     for output_template in expected_outputs:
