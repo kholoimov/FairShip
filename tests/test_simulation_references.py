@@ -98,9 +98,10 @@ def _run_case(case: dict[str, str], *, output_dir: Path) -> subprocess.Completed
 def _assert_stdout_matches(*, case: dict[str, str], reference_path: Path, stdout: str, expected_stdout: str, stderr: str) -> None:
     stdout_match = case.get("stdout_match", "exact")
     if stdout_match == "contains":
-        assert expected_stdout in stdout, (
+        expected_fragment = expected_stdout.strip()
+        assert expected_fragment in stdout, (
             f"Expected stdout fragment not found for {case['name']} ({reference_path})\n"
-            f"EXPECTED FRAGMENT:\n{expected_stdout}\n"
+            f"EXPECTED FRAGMENT:\n{expected_fragment}\n"
             f"STDOUT:\n{stdout}\n"
             f"STDERR:\n{stderr}"
         )
