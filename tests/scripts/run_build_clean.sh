@@ -13,6 +13,6 @@ build_log="$output_dir/build_clean.log"
 
 (
   cd "$work_dir"
-  bash -lc "$build_command" | tee "$build_log"
+  bash -lc "$build_command" 2>&1 | tee "$build_log"
 )
 touch "$output_dir/build_clean.ok"
