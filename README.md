@@ -226,3 +226,25 @@ Copyright is held by CERN for the benefit of the SHiP Collaboration. Some compon
 * Contributions via pull requests are preferred, but if you require help with git, don't hesitate to write reach out to us.
 * Please split your work into small commits with self-contained changes to make them easy to review and check.
 * To help us consistently improve the quality of our code, please try to follow the [C++](https://github.com/ShipSoft/FairShip/wiki/CPP-guidelines) and [Python](https://github.com/ShipSoft/FairShip/wiki/Python-guidelines) guidelines.
+
+### Pytest integration tests
+
+Pytest-based integration tests live in [`tests/integration`](tests/integration/).
+They are intentionally thin wrappers around the existing FairShip scripts, so
+new tests can usually be written as "run one script, then assert on the output
+files".
+
+The recommended way to run them is through
+[`tests/run_pytests_after_build.sh`](tests/run_pytests_after_build.sh), which
+builds FairShip with `aliBuild`, loads the resulting `alienv` environment and
+then runs `pytest`.
+
+Example with SHiP release `26.05`:
+
+```bash
+cd /path/to/FairShip
+SHIP_RELEASE=26.05 tests/run_pytests_after_build.sh
+```
+
+See [`tests/integration/README.md`](tests/integration/README.md) for the
+recommended pattern and additional examples.

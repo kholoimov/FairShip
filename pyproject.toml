@@ -52,3 +52,10 @@ python_version = "3.12"
 mypy_path = ["stubs", "python"]
 ignore_missing_imports = true
 explicit_package_bases = true
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests/integration"]
+markers = [
+    "integration: end-to-end tests that require a configured FairShip runtime",
+]
