@@ -246,5 +246,9 @@ cd /path/to/FairShip
 SHIP_RELEASE=26.05 tests/run_pytests_after_build.sh
 ```
 
+That keeps the same entrypoint and now also includes the imported simulation
+snapshot cases in
+[`tests/integration/test_simulation_references.py`](tests/integration/test_simulation_references.py).
+
 See [`tests/integration/README.md`](tests/integration/README.md) for the
 recommended pattern and additional examples.

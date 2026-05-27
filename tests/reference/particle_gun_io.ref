@@ -1,0 +1,633 @@
+Setting up SHiP setup version 25.11-3-g3592ec0 from /cvmfs/ship.cern.ch/26.05.
+[INFO] Media file used: /ship_build/sw/slc9_x86-64/FairShip/master-local2/geometry/media.geo
+[INFO] FairRootFileSink initialized.
+[INFO]  - cbmroot
+[INFO]     - {TMP_PATH}/sim_particle_gun_io.root
+[INFO] ==============  FairRunSim: Initialising simulation run ==============
+[INFO] FairGeoMedia: Read media 
+
+************************************************************* 
+     initialisation for run id 1778170086
+************************************************************* 
+[WARN] FairGenericVMCConfig::Setup() Using gConfig.C macro DEPRACATED.
+[WARN] Check FairRoot/examples/common/gconfig/ for current YAML implementation.
+[INFO] ---------------User config is used: g4Config.C
+[INFO] ---User path for Configuration (g4Config.C) is used: /ship_build/sw/slc9_x86-64/FairShip/master-local2/gconfig
+[INFO] ---User path for Cuts and Processes (SetCuts.C) is used: /ship_build/sw/slc9_x86-64/FairShip/master-local2/gconfig
+
+=============================================================
+ Virtual Monte Carlo Library
+ Version 2.1 ( 6 February 2025 )
+=============================================================
+
+=============================================================
+ Geant4 Virtual Monte Carlo 
+ Version 6.7 ( 7 February 2025 )
+ WWW : http://root.cern.ch/drupal/content/geant4-vmc
+=============================================================
+
+Running TVirtualMCApplication::ConstructGeometry
+[INFO] -- Target cooler: PressurisedHe90 T=363.15 K, P=9.98641e+09 MeV/mm3, Density=0.002121
+[INFO] veto: Decay Volume medium set as: vacuums
+ Z Position (Upstream Tagger1) 3272
+[INFO] TGeometry will be imported to VMC
+
+isMaster=1
+
+**************************************************************
+ Geant4 version Name: geant4-11-04    (5-December-2025)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
+
+===> GEANT4 materials created and mapped to TGeo ones...
+===> GEANT4 physical volumes created and mapped to TGeo hierarchy...
+### INFO: TG4RootDetectorConstruction::Construct() finished
+TG4PostDetConstruction::Initialize
+G4 Stat: instantiated 685 logical volumes 
+                      46110 physical volumes
+Adding HadronPhysicsList FTFP_BERT_HP_EMZ
+G4PhysListFactory::GetReferencePhysList <FTFP_BERT_HP_EMZ>
+<<< Geant4 Physics List simulation engine: FTFP_BERT_HP
+
+G4VModularPhysicsList::ReplacePhysics: G4EmStandard with type : 2 is replaced with G4EmStandard_opt4
+
+Adding SpecialPhysicsList stepLimiter+specialCuts+
+### TG4SpecialControlsV2 constructed
+Visualization Manager instantiating with verbosity "warnings (3)"...
+ -I g4Config() using g4conf  macro: /ship_build/sw/slc9_x86-64/FairShip/master-local2/gconfig/g4config.in
+SetCuts Macro: Setting Processes..
+SetCuts Macro: Setting cuts..
+TG4RootDetectorConstruction::ConstructSDandField
+TG4PostDetConstruction::InitializeSDandField
+[INFO] FairMCApplication::InitGeometry: 0
+[INFO] Simulation RunID: 1778170086
+[INFO] CREATING BRANCH MCTrack
+[INFO] Creating branch for MCTrack with address 0xf3a8f18
+[INFO] CREATING BRANCH TimeDetPoint
+[INFO] Creating branch for TimeDetPoint with address 0xef7ecb8
+[INFO] CREATING BRANCH UpstreamTaggerPoint
+[INFO] Creating branch for UpstreamTaggerPoint with address 0xeff8508
+[INFO] CREATING BRANCH splitcalPoint
+[INFO] Creating branch for splitcalPoint with address 0xe590438
+[INFO] CREATING BRANCH strawtubesPoint
+[INFO] Creating branch for strawtubesPoint with address 0xee4b388
+[INFO] CREATING BRANCH vetoPoint
+[INFO] Creating branch for vetoPoint with address 0xede0548
+Global field created with stepper DormandPrince745
+### INFO: TG4RootDetectorConstruction::ConstructSDandField finished
+
+ hInelastic FTFP_BERT_HP : threshold between BERT and FTFP is over the interval 
+ for pions :   3 to 6 GeV
+ for kaons :   3 to 6 GeV
+ for proton :  3 to 6 GeV
+ for neutron : 3 to 6 GeV
+
+@@@ G4ParticleHPInelasticData instantiated for particle neutron data directory variable is G4NEUTRONHPDATA pointing to /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1
+NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_37_Argon
+NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_39_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_39_Argon
+NeutronHP: /Capture file for Z = 73, A = 180 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/73_181_Tantalum
+NeutronHP: /Elastic file for Z = 73, A = 180 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/73_181_Tantalum
+NeutronHP: /Inelastic file for Z = 73, A = 180 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/73_181_Tantalum
+NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_37_Argon
+NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_39_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_39_Argon
+TG4ComposedPhysicsList::ConstructProcess done
+Available UI session types: [ tcsh, csh ]
+[INFO] FairBoxGenerator: particle with PDG =13 Found
+
+**********************************************
+    GEANT4 Geometry statistics: 
+            685 logical volumes
+          46110 physical volumes
+             22 materials
+             19 user limits
+            678 sensitive detectors
+**********************************************
+
+[INFO] Monte Carlo Engine Initialisation with: TGeant4
+[INFO] FairGenericVMCConfig::SetupPostInit() OFF.
+Creating field map called MainSpecMap using /ship_build/sw/slc9_x86-64/FairShip/master-local2/files/MainSpectrometerField.root
+[INFO] ShipBFieldMap::readMapFile() creating field MainSpecMap using file /ship_build/sw/slc9_x86-64/FairShip/master-local2/files/MainSpectrometerField.root
+[INFO] x limits: -470, 470, dx = 10
+[INFO] y limits: -405, 405, dy = 10
+[INFO] z limits: -990, 990, dz = 10
+[INFO] Offsets: x = 0, y = 0, z = 8957
+[INFO] Angles : phi = 0, theta = 0, psi = 0
+[INFO] Total number of bins = 1550210; Nx = 95, Ny = 82, Nz = 199
+Creating symmetric field map called muonShieldField using /ship_build/sw/slc9_x86-64/FairShip/master-local2/files/TRY_2025.root
+[INFO] ShipBFieldMap::readMapFile() creating field muonShieldField using file /ship_build/sw/slc9_x86-64/FairShip/master-local2/files/TRY_2025.root
+[INFO] x limits: 0, 209.961, dx = 1.99963
+[INFO] y limits: 0, 200, dy = 2
+[INFO] z limits: -50, 3100, dz = 5
+[INFO] Offsets: x = 0, y = 0, z = 204
+[INFO] Angles : phi = 0, theta = 0, psi = 0
+[INFO] Total number of bins = 6755486; Nx = 106, Ny = 101, Nz = 631
+Adding field MainSpecMap
+Adding field muonShieldField
+Setting the Global field
+Adding field TotalField to Global
+[INFO] FairMCApplication::InitGeometry: 0
+ G4ChordFinder: stepperDriverId: 2
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : GeomFieldParameters0001
+      issued by : G4FieldBuilder::ConstructField:
+Field was already constructed.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+GammaToMuPair:  gamma->mu+mu- Bethe Heitler process, SubType= 15
+        good cross section parametrization from 211.317 MeV to 1e+12 GeV for all Z.
+        cross section factor: 1
+
+AnnihiToMuPair:  e+e->mu+mu- annihilation, atomic e- at rest, SubType=6
+        threshold at 43.6931 GeV good description up to 1000 TeV for all Z.
+
+AnnihiToTauPair:  e+e->tau+tau- annihilation, atomic e- at rest, SubType=18
+        threshold at 12357.1 GeV good description up to 1000 TeV for all Z.
+======================================================================
+======          Radioactive Decay Physics Parameters           =======
+======================================================================
+min MeanLife (from G4NuclideTable)                1 ns 
+Max life time (from G4DeexPrecoParameters)        1000 ps 
+Internal e- conversion flag                       1
+Stored internal conversion coefficients           1
+Enabled atomic relaxation mode                    1
+Enable correlated gamma emission                  0
+Max 2J for sampling of angular correlations       10
+Atomic de-excitation enabled                      1
+Auger electron emission enabled                   1
+Check EM cuts disabled for atomic de-excitation   1
+Use Bearden atomic level energies                 0
+Use ANSTO fluorescence model                      0
+Threshold for very long decay time at rest        1 y  
+======================================================================
+NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_37_Argon
+NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_39_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_39_Argon
+NeutronHP: /Capture file for Z = 73, A = 180 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/73_181_Tantalum
+NeutronHP: /Elastic file for Z = 73, A = 180 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/73_181_Tantalum
+NeutronHP: /Inelastic file for Z = 73, A = 180 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/73_181_Tantalum
+NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_37_Argon
+NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_39_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 73, A = 180 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/73_181_Tantalum
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_39_Argon
+
+=======================================================
+======       ParticleHP Physics Parameters     ========
+=======================================================
+ Use only photo-evaporation      0
+ Skip missing isotopes           0
+ Neglect Doppler                 0
+ Do not adjust final state       0
+ Produce fission fragments       0
+ Use WendtFissionModel           0
+ Use NRESP71Model                0
+ Use DBRC                        0
+ PHP use Poisson                 0
+ PHP check                       1
+ CHECK HP NAMES                  0
+ Enable DEBUG                    0
+ Use probability tables from     
+=======================================================
+
+@@@ G4ParticleHPInelastic instantiated for particle neutron/n    data directory is /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic
+
+====================================================================
+                  HADRONIC PROCESSES SUMMARY (verbose level 1)
+-----------------------------------------------------------------------
+                           Hadronic Processes for B-
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: B-Inelastic
+        Model:                      FTFP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for D-
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: D-Inelastic
+        Model:                      FTFP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for GenericIon
+  Process: ionInelastic
+        Model:  Binary Light Ion Cascade: 0 eV /n ---> 6 GeV/n
+        Model:                      FTFP: 3 GeV/n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+  Process: RadioactiveDecay
+-----------------------------------------------------------------------
+                           Hadronic Processes for He3
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+  Process: He3Inelastic
+        Model:  Binary Light Ion Cascade: 0 eV /n ---> 6 GeV/n
+        Model:                      FTFP: 3 GeV/n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for alpha
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+  Process: alphaInelastic
+        Model:  Binary Light Ion Cascade: 0 eV /n ---> 6 GeV/n
+        Model:                      FTFP: 3 GeV/n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for anti_He3
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100.1 MeV/n
+        Model:              AntiAElastic: 100 MeV/n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: anti_He3Inelastic
+        Model:                      FTFP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: hFritiofCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for anti_alpha
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100.1 MeV/n
+        Model:              AntiAElastic: 100 MeV/n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: anti_alphaInelastic
+        Model:                      FTFP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: hFritiofCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for anti_deuteron
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100.1 MeV/n
+        Model:              AntiAElastic: 100 MeV/n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: anti_deuteronInelastic
+        Model:                      FTFP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: hFritiofCaptureAtRest
+-------------------------------------------------------------------------
+                           Hadronic Processes for anti_hypertriton
+  Process: hFritiofCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for anti_lambda
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: anti_lambdaInelastic
+        Model:                      FTFP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: hFritiofCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for anti_neutron
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100.1 MeV
+        Model:              AntiAElastic: 100 MeV ---> 100 TeV
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: anti_neutronInelastic
+        Model:                      FTFP: 0 eV  ---> 100 TeV
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: hFritiofCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for anti_proton
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100.1 MeV
+        Model:              AntiAElastic: 100 MeV ---> 100 TeV
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: anti_protonInelastic
+        Model:                      FTFP: 0 eV  ---> 100 TeV
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: hFritiofCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for anti_triton
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100.1 MeV/n
+        Model:              AntiAElastic: 100 MeV/n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: anti_tritonInelastic
+        Model:                      FTFP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: hFritiofCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for deuteron
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+  Process: dInelastic
+        Model:  Binary Light Ion Cascade: 0 eV /n ---> 6 GeV/n
+        Model:                      FTFP: 3 GeV/n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for e+
+  Process: positronNuclear
+        Model:   G4ElectroVDNuclearModel: 0 eV  ---> 1 PeV
+     Cr_sctns:          ElectroNuclearXS: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for e-
+  Process: electronNuclear
+        Model:   G4ElectroVDNuclearModel: 0 eV  ---> 1 PeV
+     Cr_sctns:          ElectroNuclearXS: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for kaon+
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: kaon+Inelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 0 eV  ---> 6 GeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for kaon-
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: kaon-Inelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 0 eV  ---> 6 GeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: hBertiniCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for lambda
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: lambdaInelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 0 eV  ---> 6 GeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for mu+
+  Process: muonNuclear
+        Model:      G4MuonVDNuclearModel: 0 eV  ---> 1 PeV
+     Cr_sctns:     KokoulinMuonNuclearXS: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for mu-
+  Process: muonNuclear
+        Model:      G4MuonVDNuclearModel: 0 eV  ---> 1 PeV
+     Cr_sctns:     KokoulinMuonNuclearXS: 0 eV  ---> 100 TeV
+  Process: muMinusCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for neutron
+  Process: hadElastic
+        Model:             hElasticCHIPS: 19.5 MeV ---> 100 TeV
+        Model:          NeutronHPElastic: 0 eV  ---> 20 MeV
+     Cr_sctns:        NeutronHPElasticXS: 0 eV  ---> 20 MeV
+     Cr_sctns:        G4NeutronElasticXS: 0 eV  ---> 100 TeV
+  Process: neutronInelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 19.9 MeV ---> 6 GeV
+        Model:        NeutronHPInelastic: 0 eV  ---> 20 MeV
+     Cr_sctns:      NeutronHPInelasticXS: 0 eV  ---> 20 MeV
+     Cr_sctns:      G4NeutronInelasticXS: 0 eV  ---> 100 TeV
+  Process: nCapture
+        Model:             nRadCaptureHP: 0 eV  ---> 20 MeV
+        Model:               nRadCapture: 19.9 MeV ---> 100 TeV
+     Cr_sctns:        NeutronHPCaptureXS: 0 eV  ---> 100 TeV
+     Cr_sctns:        G4NeutronCaptureXS: 0 eV  ---> 100 TeV
+  Process: nFission
+        Model:          NeutronHPFission: 0 eV  ---> 20 MeV
+        Model:                G4LFission: 19.9 MeV ---> 100 TeV
+     Cr_sctns:        NeutronHPFissionXS: 0 eV  ---> 20 MeV
+     Cr_sctns:                    ZeroXS: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for pi+
+  Process: hadElastic
+        Model:           hElasticGlauber: 0 eV  ---> 100 TeV
+     Cr_sctns:  BarashenkovGlauberGribov: 0 eV  ---> 100 TeV
+  Process: pi+Inelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 0 eV  ---> 6 GeV
+     Cr_sctns:  BarashenkovGlauberGribov: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for pi-
+  Process: hadElastic
+        Model:           hElasticGlauber: 0 eV  ---> 100 TeV
+     Cr_sctns:  BarashenkovGlauberGribov: 0 eV  ---> 100 TeV
+  Process: pi-Inelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 0 eV  ---> 6 GeV
+     Cr_sctns:  BarashenkovGlauberGribov: 0 eV  ---> 100 TeV
+  Process: hBertiniCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for proton
+  Process: hadElastic
+        Model:             hElasticCHIPS: 0 eV  ---> 100 TeV
+     Cr_sctns:  BarashenkovGlauberGribov: 0 eV  ---> 100 TeV
+  Process: protonInelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 0 eV  ---> 6 GeV
+     Cr_sctns:  BarashenkovGlauberGribov: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for sigma-
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: sigma-Inelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 0 eV  ---> 6 GeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: hBertiniCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for triton
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+  Process: tInelastic
+        Model:  Binary Light Ion Cascade: 0 eV /n ---> 6 GeV/n
+        Model:                      FTFP: 3 GeV/n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+  Process: RadioactiveDecay
+=======================================================================
+======       Geant4 Native Pre-compound Model Parameters       ========
+=======================================================================
+Type of pre-compound model                          0
+Type of pre-compound inverse x-section              1
+Pre-compound model active                           1
+Pre-compound excitation low energy                  0.1 MeV 
+Pre-compound excitation high energy                 15 MeV 
+Angular generator for pre-compound model            1
+Use NeverGoBack option for pre-compound model       0
+Use SoftCutOff option for pre-compound model        0
+Use CEM transitions for pre-compound model          1
+Use GNASH transitions for pre-compound model        0
+Use HETC submodel for pre-compound model            0
+=======================================================================
+======       Nuclear De-excitation Module Parameters           ========
+=======================================================================
+Type of de-excitation inverse x-section             3
+Type of de-excitation factory                       Evaporation+GEM
+Number of de-excitation channels                    68
+Type of Fermi BreakUp model                         ModelVI
+Min excitation energy                               0.01 keV 
+Min energy per nucleon for multifragmentation       2e+05 MeV
+Level density (1/MeV)                               0.075
+Use simple level density model                      1
+Use discrete excitation energy of the residual      0
+Time limit for long lived isomeres                  1 ns 
+Isomer production flag                              1
+Internal e- conversion flag                         1
+Store e- internal conversion data                   1
+Correlated gamma emission flag                      0
+Max 2J for sampling of angular correlations         10
+=======================================================================
+[INFO] FairBoxGenerator: Event,  vertex = (-6.27299,14.8271,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (4.93292,4.84251,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-22.0958,-2.03756,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (10.4036,7.54442,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (16.6221,21.9276,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-15.8298,5.87408,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-3.40275,-23.8469,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-18.0253,-22.6667,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-2.1965,-20.4697,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (0.711722,24.1615,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (5.37724,9.01538,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (22.4443,22.1101,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-9.76931,-24.2017,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-2.99238,9.16318,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-23.2806,-16.3318,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (8.12611,12.7681,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (2.33551,3.38502,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (13.7566,-2.51229,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (4.895,11.3636,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-15.2009,1.04171,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-5.56614,12.366,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-7.16233,23.2628,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-17.9538,-10.1863,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (24.3443,-3.82993,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-24.7239,-24.296,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (11.4504,14.5088,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-7.07671,7.55385,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (6.16491,-2.52747,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-9.45088,8.44206,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (6.87787,-11.2639,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-19.0203,23.5856,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (3.06386,-13.2008,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (1.13664,10.5331,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-19.6054,-14.914,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-9.2822,3.16378,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-12.5354,5.22087,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-13.5601,22.1427,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-16.9389,19.0234,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (6.67019,-19.7253,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-15.6715,-4.1745,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (15.372,-18.8956,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-19.4974,-11.3934,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (15.9007,-7.37156,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (0.537365,1.70447,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-19.0067,-11.5294,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-8.83985,-14.0618,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-6.81852,-21.7554,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-12.4109,9.81521,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-10.758,24.887,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (0.133951,-4.44815,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (20.4133,6.71757,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-0.527362,-2.61084,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (8.60678,-20.9573,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (11.4108,15.157,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (6.67649,-5.05878,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (16.7651,-17.4641,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-22.9612,17.9179,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-24.1706,10.5575,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (7.25864,-20.1912,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-5.66323,0.887567,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-7.94668,11.7608,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (18.867,9.78922,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (15.8611,24.1084,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-12.9074,24.8127,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (20.0209,19.1318,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-7.53952,10.0179,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (19.3543,-4.77459,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-20.793,21.7817,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (5.32145,4.03433,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (8.17509,23.6832,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (2.43669,-0.719313,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-13.7865,-16.2037,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-8.73001,-16.0589,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (17.4612,11.047,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-20.3163,0.440704,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-12.8005,4.49354,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (19.6023,20.3049,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (0.131855,7.25517,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-15.2379,-13.4907,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-23.7842,13.4277,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (22.0229,-1.50277,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-6.49207,12.3859,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-3.59079,2.63825,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (17.6505,-21.2327,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (17.5568,-11.5763,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (2.84006,-5.26543,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (3.50306,-21.4792,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (24.5027,-7.06766,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (18.8687,-8.87246,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (10.1242,10.4455,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (15.4681,-4.01096,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (20.662,-20.9203,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (14.9148,-15.2863,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (14.7896,-22.4616,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-6.22085,3.94324,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-23.2029,-8.59237,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-10.6729,16.9467,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-23.1326,-23.0583,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-18.647,-8.66744,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-14.2089,23.2626,8300) cm,  multiplicity 1
+[INFO] ***  FairBaseParSet written to ROOT file   version: 1
+[INFO] ***  FairGeoParSet written to ROOT file   version: 1
+---------------------------------------------------------------------------
+FairBaseContFact:  Factory for parameter containers in libSts
+---------------------------------------------------------------------------
+FairBaseParSet	class for parameter io
+     actual context:  DefaultContext
+FairGeoParSet	class for Geo parameter
+     actual context:  DefaultContext
+--------------------------------------------------------------------------------
+--------------  actual containers in runtime database  -------------------------
+FairBaseParSet                                 class for parameter io
+FairGeoParSet                                  class for Geo parameter
+--------------  runs, versions  ------------------------------------------------
+run id
+  container                                        1st-inp    2nd-inp    output
+run: 1778170086
+  FairBaseParSet                                1778170086         -1          1
+  FairGeoParSet                                 1778170086         -1          1
+--------------  input/output  --------------------------------------------------
+first input: none
+second input: none
+output:
+OBJ: FairParRootFile	{TMP_PATH}/params_particle_gun_io.root	 : 0 at: 0xeef5ad0
+Root file I/O {TMP_PATH}/params_particle_gun_io.root is open
+detector I/Os:  FairGenericParIo
+Info: Target using configuration: /ship_build/sw/slc9_x86-64/FairShip/master-local2/geometry/target_config.yaml
+['tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten'] [4.5, 1.8, 1.7, 1.7, 1.8, 1.9, 2.1, 1.9, 2.1, 2.4, 2.8, 3.3, 4.1, 5.6, 8.8, 17.2, 28.7, 28.8, 28.8] [0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.48, 0.5, 0.68, 0.68, 0]
+Calling addVMCFields
+ 
+Macro finished successfully.
+Output file is  {TMP_PATH}/sim_particle_gun_io.root
+Parameter file is  {TMP_PATH}/params_particle_gun_io.root
+Geometry file is  {TMP_PATH}/geo_particle_gun_io.root
+Real time  14.908672094345093  s, CPU time  13.85 s
+========================================================================
+Simulation finished successfully
+========================================================================
+Exit normally

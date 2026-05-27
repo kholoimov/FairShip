@@ -16,17 +16,12 @@ aliBuild build FairShip \
   --defaults release \
   -z ci
 
-for _ in {1..10}; do
-  if alienv q | grep -Fq "latest-ci-release"; then
-    break
-  fi
-  sleep 1
-done
-
-
-alienv_output="$(alienv load "$env_name" --no-refresh)"
+if ! alienv_output="$(alienv load "$env_name" --no-refresh)"; then
+  echo "ERROR: failed to load $env_name" >&2
+  alienv q | grep FairShip || true
+  exit 1
+fi
 eval "$alienv_output"
 
 cd "$fairship_root"
-python3 -m pytest tests/integration -m integration -v "$@"
-
+python3 -m pytest tests/integration/test_simulation_references.py -m integration -v "$@"

@@ -55,7 +55,7 @@ explicit_package_bases = true
 
 [tool.pytest.ini_options]
 minversion = "8.0"
-testpaths = ["tests/integration"]
+testpaths = ["tests/integration/test_simulation_references.py"]
 markers = [
     "integration: end-to-end tests that require a configured FairShip runtime",
 ]

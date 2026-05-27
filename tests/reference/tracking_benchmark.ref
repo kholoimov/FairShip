@@ -1,0 +1,1611 @@
+Setting up SHiP setup version 25.11-3-g3592ec0 from /cvmfs/ship.cern.ch/26.05.
+[INFO] Media file used: /ship_build/sw/slc9_x86-64/FairShip/master-local2/geometry/media.geo
+[INFO] FairRootFileSink initialized.
+[INFO]  - cbmroot
+[INFO]     - {TMP_PATH}/sim_tracking_benchmark.root
+[INFO] ==============  FairRunSim: Initialising simulation run ==============
+[INFO] FairGeoMedia: Read media 
+
+************************************************************* 
+     initialisation for run id 1778170546
+************************************************************* 
+[WARN] FairGenericVMCConfig::Setup() Using gConfig.C macro DEPRACATED.
+[WARN] Check FairRoot/examples/common/gconfig/ for current YAML implementation.
+[INFO] ---------------User config is used: g4Config.C
+[INFO] ---User path for Configuration (g4Config.C) is used: /ship_build/sw/slc9_x86-64/FairShip/master-local2/gconfig
+[INFO] ---User path for Cuts and Processes (SetCuts.C) is used: /ship_build/sw/slc9_x86-64/FairShip/master-local2/gconfig
+
+=============================================================
+ Virtual Monte Carlo Library
+ Version 2.1 ( 6 February 2025 )
+=============================================================
+
+=============================================================
+ Geant4 Virtual Monte Carlo 
+ Version 6.7 ( 7 February 2025 )
+ WWW : http://root.cern.ch/drupal/content/geant4-vmc
+=============================================================
+
+Running TVirtualMCApplication::ConstructGeometry
+[INFO] -- Target cooler: PressurisedHe90 T=363.15 K, P=9.98641e+09 MeV/mm3, Density=0.002121
+[INFO] Fiber length set to 60.2272 cm
+[INFO] veto: Decay Volume medium set as: vacuums
+ Z Position (Upstream Tagger1) 3272
+[INFO] TGeometry will be imported to VMC
+
+isMaster=1
+
+**************************************************************
+ Geant4 version Name: geant4-11-04    (5-December-2025)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
+
+===> GEANT4 materials created and mapped to TGeo ones...
+===> GEANT4 physical volumes created and mapped to TGeo hierarchy...
+### INFO: TG4RootDetectorConstruction::Construct() finished
+TG4PostDetConstruction::Initialize
+G4 Stat: instantiated 1300 logical volumes 
+                      230788 physical volumes
+Adding HadronPhysicsList FTFP_BERT_HP_EMZ
+G4PhysListFactory::GetReferencePhysList <FTFP_BERT_HP_EMZ>
+<<< Geant4 Physics List simulation engine: FTFP_BERT_HP
+
+G4VModularPhysicsList::ReplacePhysics: G4EmStandard with type : 2 is replaced with G4EmStandard_opt4
+
+Adding SpecialPhysicsList stepLimiter+specialCuts+
+### TG4SpecialControlsV2 constructed
+Visualization Manager instantiating with verbosity "warnings (3)"...
+ -I g4Config() using g4conf  macro: /ship_build/sw/slc9_x86-64/FairShip/master-local2/gconfig/g4config.in
+SetCuts Macro: Setting Processes..
+SetCuts Macro: Setting cuts..
+TG4RootDetectorConstruction::ConstructSDandField
+TG4PostDetConstruction::InitializeSDandField
+[INFO] FairMCApplication::InitGeometry: 0
+[INFO] Simulation RunID: 1778170546
+[INFO] CREATING BRANCH MCTrack
+[INFO] Creating branch for MCTrack with address 0x44e88d8
+[INFO] CREATING BRANCH MTCDetPoint
+[INFO] Creating branch for MTCDetPoint with address 0xdde7628
+[INFO] CREATING BRANCH SiliconTargetPoint
+[INFO] Creating branch for SiliconTargetPoint with address 0xdc8add8
+[INFO] CREATING BRANCH TimeDetPoint
+[INFO] Creating branch for TimeDetPoint with address 0xdf58698
+[INFO] CREATING BRANCH UpstreamTaggerPoint
+[INFO] Creating branch for UpstreamTaggerPoint with address 0xe029fe8
+[INFO] CREATING BRANCH splitcalPoint
+[INFO] Creating branch for splitcalPoint with address 0xdd87708
+[INFO] CREATING BRANCH strawtubesPoint
+[INFO] Creating branch for strawtubesPoint with address 0xddbbd28
+[INFO] CREATING BRANCH vetoPoint
+[INFO] Creating branch for vetoPoint with address 0xdf90078
+Global field created with stepper DormandPrince745
+Local (in MTC_iron) field created with stepper DormandPrince745
+ G4ChordFinder: stepperDriverId: 2
+### INFO: TG4RootDetectorConstruction::ConstructSDandField finished
+
+ hInelastic FTFP_BERT_HP : threshold between BERT and FTFP is over the interval 
+ for pions :   3 to 6 GeV
+ for kaons :   3 to 6 GeV
+ for proton :  3 to 6 GeV
+ for neutron : 3 to 6 GeV
+
+@@@ G4ParticleHPInelasticData instantiated for particle neutron data directory variable is G4NEUTRONHPDATA pointing to /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1
+NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_37_Argon
+NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_39_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_39_Argon
+NeutronHP: /Capture file for Z = 73, A = 180 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/73_181_Tantalum
+NeutronHP: /Elastic file for Z = 73, A = 180 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/73_181_Tantalum
+NeutronHP: /Inelastic file for Z = 73, A = 180 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/73_181_Tantalum
+NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_37_Argon
+NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_39_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_39_Argon
+TG4ComposedPhysicsList::ConstructProcess done
+Available UI session types: [ tcsh, csh ]
+[INFO] FairBoxGenerator: particle with PDG =13 Found
+
+**********************************************
+    GEANT4 Geometry statistics: 
+           1300 logical volumes
+          230788 physical volumes
+             26 materials
+             23 user limits
+            696 sensitive detectors
+**********************************************
+
+[INFO] Monte Carlo Engine Initialisation with: TGeant4
+[INFO] FairGenericVMCConfig::SetupPostInit() OFF.
+Creating field map called MainSpecMap using /ship_build/sw/slc9_x86-64/FairShip/master-local2/files/MainSpectrometerField.root
+[INFO] ShipBFieldMap::readMapFile() creating field MainSpecMap using file /ship_build/sw/slc9_x86-64/FairShip/master-local2/files/MainSpectrometerField.root
+[INFO] x limits: -470, 470, dx = 10
+[INFO] y limits: -405, 405, dy = 10
+[INFO] z limits: -990, 990, dz = 10
+[INFO] Offsets: x = 0, y = 0, z = 8957
+[INFO] Angles : phi = 0, theta = 0, psi = 0
+[INFO] Total number of bins = 1550210; Nx = 95, Ny = 82, Nz = 199
+Creating symmetric field map called muonShieldField using /ship_build/sw/slc9_x86-64/FairShip/master-local2/files/TRY_2025.root
+[INFO] ShipBFieldMap::readMapFile() creating field muonShieldField using file /ship_build/sw/slc9_x86-64/FairShip/master-local2/files/TRY_2025.root
+[INFO] x limits: 0, 209.961, dx = 1.99963
+[INFO] y limits: 0, 200, dy = 2
+[INFO] z limits: -50, 3100, dz = 5
+[INFO] Offsets: x = 0, y = 0, z = 204
+[INFO] Angles : phi = 0, theta = 0, psi = 0
+[INFO] Total number of bins = 6755486; Nx = 106, Ny = 101, Nz = 631
+Adding field MainSpecMap
+Adding field muonShieldField
+Setting the Global field
+Adding field TotalField to Global
+[INFO] FairMCApplication::InitGeometry: 0
+ G4ChordFinder: stepperDriverId: 2
+ G4ChordFinder: stepperDriverId: 2
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : GeomFieldParameters0001
+      issued by : G4FieldBuilder::ConstructField:
+Field was already constructed.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+GammaToMuPair:  gamma->mu+mu- Bethe Heitler process, SubType= 15
+        good cross section parametrization from 211.317 MeV to 1e+12 GeV for all Z.
+        cross section factor: 1
+
+AnnihiToMuPair:  e+e->mu+mu- annihilation, atomic e- at rest, SubType=6
+        threshold at 43.6931 GeV good description up to 1000 TeV for all Z.
+
+AnnihiToTauPair:  e+e->tau+tau- annihilation, atomic e- at rest, SubType=18
+        threshold at 12357.1 GeV good description up to 1000 TeV for all Z.
+======================================================================
+======          Radioactive Decay Physics Parameters           =======
+======================================================================
+min MeanLife (from G4NuclideTable)                1 ns 
+Max life time (from G4DeexPrecoParameters)        1000 ps 
+Internal e- conversion flag                       1
+Stored internal conversion coefficients           1
+Enabled atomic relaxation mode                    1
+Enable correlated gamma emission                  0
+Max 2J for sampling of angular correlations       10
+Atomic de-excitation enabled                      1
+Auger electron emission enabled                   1
+Check EM cuts disabled for atomic de-excitation   1
+Use Bearden atomic level energies                 0
+Use ANSTO fluorescence model                      0
+Threshold for very long decay time at rest        1 y  
+======================================================================
+NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_37_Argon
+NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_39_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_39_Argon
+NeutronHP: /Capture file for Z = 73, A = 180 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/73_181_Tantalum
+NeutronHP: /Elastic file for Z = 73, A = 180 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/73_181_Tantalum
+NeutronHP: /Inelastic file for Z = 73, A = 180 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/73_181_Tantalum
+NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_37_Argon
+NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Capture/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_39_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 73, A = 180 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/73_181_Tantalum
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Elastic/CrossSection/18_39_Argon
+
+=======================================================
+======       ParticleHP Physics Parameters     ========
+=======================================================
+ Use only photo-evaporation      0
+ Skip missing isotopes           0
+ Neglect Doppler                 0
+ Do not adjust final state       0
+ Produce fission fragments       0
+ Use WendtFissionModel           0
+ Use NRESP71Model                0
+ Use DBRC                        0
+ PHP use Poisson                 0
+ PHP check                       1
+ CHECK HP NAMES                  0
+ Enable DEBUG                    0
+ Use probability tables from     
+=======================================================
+
+@@@ G4ParticleHPInelastic instantiated for particle neutron/n    data directory is /cvmfs/ship.cern.ch/26.05/sw//slc9_x86-64/GEANT4/v11.4.0-8/share/Geant4/data/G4NDL4.7.1/Inelastic
+
+====================================================================
+                  HADRONIC PROCESSES SUMMARY (verbose level 1)
+-----------------------------------------------------------------------
+                           Hadronic Processes for B-
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: B-Inelastic
+        Model:                      FTFP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for D-
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: D-Inelastic
+        Model:                      FTFP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for GenericIon
+  Process: ionInelastic
+        Model:  Binary Light Ion Cascade: 0 eV /n ---> 6 GeV/n
+        Model:                      FTFP: 3 GeV/n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+  Process: RadioactiveDecay
+-----------------------------------------------------------------------
+                           Hadronic Processes for He3
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+  Process: He3Inelastic
+        Model:  Binary Light Ion Cascade: 0 eV /n ---> 6 GeV/n
+        Model:                      FTFP: 3 GeV/n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for alpha
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+  Process: alphaInelastic
+        Model:  Binary Light Ion Cascade: 0 eV /n ---> 6 GeV/n
+        Model:                      FTFP: 3 GeV/n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for anti_He3
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100.1 MeV/n
+        Model:              AntiAElastic: 100 MeV/n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: anti_He3Inelastic
+        Model:                      FTFP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: hFritiofCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for anti_alpha
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100.1 MeV/n
+        Model:              AntiAElastic: 100 MeV/n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: anti_alphaInelastic
+        Model:                      FTFP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: hFritiofCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for anti_deuteron
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100.1 MeV/n
+        Model:              AntiAElastic: 100 MeV/n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: anti_deuteronInelastic
+        Model:                      FTFP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: hFritiofCaptureAtRest
+-------------------------------------------------------------------------
+                           Hadronic Processes for anti_hypertriton
+  Process: hFritiofCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for anti_lambda
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: anti_lambdaInelastic
+        Model:                      FTFP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: hFritiofCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for anti_neutron
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100.1 MeV
+        Model:              AntiAElastic: 100 MeV ---> 100 TeV
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: anti_neutronInelastic
+        Model:                      FTFP: 0 eV  ---> 100 TeV
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: hFritiofCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for anti_proton
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100.1 MeV
+        Model:              AntiAElastic: 100 MeV ---> 100 TeV
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: anti_protonInelastic
+        Model:                      FTFP: 0 eV  ---> 100 TeV
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: hFritiofCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for anti_triton
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100.1 MeV/n
+        Model:              AntiAElastic: 100 MeV/n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: anti_tritonInelastic
+        Model:                      FTFP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:              AntiAGlauber: 0 eV  ---> 25.6 PeV
+  Process: hFritiofCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for deuteron
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+  Process: dInelastic
+        Model:  Binary Light Ion Cascade: 0 eV /n ---> 6 GeV/n
+        Model:                      FTFP: 3 GeV/n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for e+
+  Process: positronNuclear
+        Model:   G4ElectroVDNuclearModel: 0 eV  ---> 1 PeV
+     Cr_sctns:          ElectroNuclearXS: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for e-
+  Process: electronNuclear
+        Model:   G4ElectroVDNuclearModel: 0 eV  ---> 1 PeV
+     Cr_sctns:          ElectroNuclearXS: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for kaon+
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: kaon+Inelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 0 eV  ---> 6 GeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for kaon-
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: kaon-Inelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 0 eV  ---> 6 GeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: hBertiniCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for lambda
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: lambdaInelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 0 eV  ---> 6 GeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for mu+
+  Process: muonNuclear
+        Model:      G4MuonVDNuclearModel: 0 eV  ---> 1 PeV
+     Cr_sctns:     KokoulinMuonNuclearXS: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for mu-
+  Process: muonNuclear
+        Model:      G4MuonVDNuclearModel: 0 eV  ---> 1 PeV
+     Cr_sctns:     KokoulinMuonNuclearXS: 0 eV  ---> 100 TeV
+  Process: muMinusCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for neutron
+  Process: hadElastic
+        Model:             hElasticCHIPS: 19.5 MeV ---> 100 TeV
+        Model:          NeutronHPElastic: 0 eV  ---> 20 MeV
+     Cr_sctns:        NeutronHPElasticXS: 0 eV  ---> 20 MeV
+     Cr_sctns:        G4NeutronElasticXS: 0 eV  ---> 100 TeV
+  Process: neutronInelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 19.9 MeV ---> 6 GeV
+        Model:        NeutronHPInelastic: 0 eV  ---> 20 MeV
+     Cr_sctns:      NeutronHPInelasticXS: 0 eV  ---> 20 MeV
+     Cr_sctns:      G4NeutronInelasticXS: 0 eV  ---> 100 TeV
+  Process: nCapture
+        Model:             nRadCaptureHP: 0 eV  ---> 20 MeV
+        Model:               nRadCapture: 19.9 MeV ---> 100 TeV
+     Cr_sctns:        NeutronHPCaptureXS: 0 eV  ---> 100 TeV
+     Cr_sctns:        G4NeutronCaptureXS: 0 eV  ---> 100 TeV
+  Process: nFission
+        Model:          NeutronHPFission: 0 eV  ---> 20 MeV
+        Model:                G4LFission: 19.9 MeV ---> 100 TeV
+     Cr_sctns:        NeutronHPFissionXS: 0 eV  ---> 20 MeV
+     Cr_sctns:                    ZeroXS: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for pi+
+  Process: hadElastic
+        Model:           hElasticGlauber: 0 eV  ---> 100 TeV
+     Cr_sctns:  BarashenkovGlauberGribov: 0 eV  ---> 100 TeV
+  Process: pi+Inelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 0 eV  ---> 6 GeV
+     Cr_sctns:  BarashenkovGlauberGribov: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for pi-
+  Process: hadElastic
+        Model:           hElasticGlauber: 0 eV  ---> 100 TeV
+     Cr_sctns:  BarashenkovGlauberGribov: 0 eV  ---> 100 TeV
+  Process: pi-Inelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 0 eV  ---> 6 GeV
+     Cr_sctns:  BarashenkovGlauberGribov: 0 eV  ---> 100 TeV
+  Process: hBertiniCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for proton
+  Process: hadElastic
+        Model:             hElasticCHIPS: 0 eV  ---> 100 TeV
+     Cr_sctns:  BarashenkovGlauberGribov: 0 eV  ---> 100 TeV
+  Process: protonInelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 0 eV  ---> 6 GeV
+     Cr_sctns:  BarashenkovGlauberGribov: 0 eV  ---> 100 TeV
+-----------------------------------------------------------------------
+                           Hadronic Processes for sigma-
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV  ---> 100 TeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: sigma-Inelastic
+        Model:                      FTFP: 3 GeV ---> 100 TeV
+        Model:            BertiniCascade: 0 eV  ---> 6 GeV
+     Cr_sctns:            Glauber-Gribov: 0 eV  ---> 100 TeV
+  Process: hBertiniCaptureAtRest
+-----------------------------------------------------------------------
+                           Hadronic Processes for triton
+  Process: hadElastic
+        Model:              hElasticLHEP: 0 eV /n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+  Process: tInelastic
+        Model:  Binary Light Ion Cascade: 0 eV /n ---> 6 GeV/n
+        Model:                      FTFP: 3 GeV/n ---> 100 TeV/n
+     Cr_sctns:  Glauber-Gribov Nucl-nucl: 0 eV  ---> 25.6 PeV
+  Process: RadioactiveDecay
+=======================================================================
+======       Geant4 Native Pre-compound Model Parameters       ========
+=======================================================================
+Type of pre-compound model                          0
+Type of pre-compound inverse x-section              1
+Pre-compound model active                           1
+Pre-compound excitation low energy                  0.1 MeV 
+Pre-compound excitation high energy                 15 MeV 
+Angular generator for pre-compound model            1
+Use NeverGoBack option for pre-compound model       0
+Use SoftCutOff option for pre-compound model        0
+Use CEM transitions for pre-compound model          1
+Use GNASH transitions for pre-compound model        0
+Use HETC submodel for pre-compound model            0
+=======================================================================
+======       Nuclear De-excitation Module Parameters           ========
+=======================================================================
+Type of de-excitation inverse x-section             3
+Type of de-excitation factory                       Evaporation+GEM
+Number of de-excitation channels                    68
+Type of Fermi BreakUp model                         ModelVI
+Min excitation energy                               0.01 keV 
+Min energy per nucleon for multifragmentation       2e+05 MeV
+Level density (1/MeV)                               0.075
+Use simple level density model                      1
+Use discrete excitation energy of the residual      0
+Time limit for long lived isomeres                  1 ns 
+Isomer production flag                              1
+Internal e- conversion flag                         1
+Store e- internal conversion data                   1
+Correlated gamma emission flag                      0
+Max 2J for sampling of angular correlations         10
+=======================================================================
+[INFO] FairBoxGenerator: Event,  vertex = (-25.092,88.9629,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (19.7317,29.055,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-88.3833,-12.2253,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (41.6145,45.2665,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (66.4885,131.566,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-63.3191,35.2445,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-13.611,-143.081,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-72.1012,-136,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-8.786,-122.818,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (2.84689,144.969,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (21.509,54.0923,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (89.7771,132.661,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-39.0772,-145.21,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-11.9695,54.9791,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-93.1223,-97.9906,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (32.5045,76.6084,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (9.34206,20.3101,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (55.0266,-15.0738,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (19.58,68.1816,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-60.8034,6.25028,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-22.2645,74.196,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-28.6493,139.577,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-71.8152,-61.1179,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (97.3774,-22.9796,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-98.8956,-145.776,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (45.8014,87.0527,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-28.3069,45.3231,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (24.6596,-15.1648,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-37.8035,50.6524,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (27.5115,-67.5835,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-76.0812,141.514,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (12.2554,-79.2045,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (4.54657,63.1989,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-78.4217,-89.4842,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-37.1288,18.9827,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-50.1416,31.3252,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-54.2404,132.856,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-67.7557,114.14,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (26.6808,-118.352,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-62.686,-25.047,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (61.488,-113.374,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-77.9896,-68.3603,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (63.603,-44.2293,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (2.14946,10.2268,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-76.0269,-69.1763,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-35.3594,-84.3707,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-27.2741,-130.532,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-49.6435,58.8913,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-43.0319,149.322,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (0.535804,-26.6889,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (81.6532,40.3054,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-2.10945,-15.6651,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (34.4271,-125.744,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (45.6433,90.9419,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (26.7059,-30.3527,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (67.0605,-104.785,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-91.845,107.508,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-96.6824,63.3449,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (29.0346,-121.147,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-22.6529,5.3254,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-31.7867,70.5648,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (75.4679,58.7353,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (63.4444,144.651,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-51.6295,148.876,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (80.0836,114.791,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-30.1581,60.1073,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (77.4173,-28.6476,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-83.172,130.69,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (21.2858,24.206,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (32.7004,142.099,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (9.74676,-4.31588,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-55.1461,-97.2224,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-34.9201,-96.3532,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (69.8447,66.282,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-81.265,2.64422,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-51.2021,26.9613,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (78.4093,121.83,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (0.527419,43.531,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-60.9514,-80.9444,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-95.1368,80.5662,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (88.0917,-9.01665,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-25.9683,74.3156,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-14.3632,15.8295,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (70.6019,-127.396,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (70.2273,-69.4575,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (11.3603,-31.5926,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (14.0122,-128.875,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (98.0108,-42.406,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (75.4746,-53.2348,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (40.4968,62.6733,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (61.8722,-24.0657,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (82.6481,-125.522,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (59.659,-91.7178,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (59.1585,-134.769,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-24.8834,23.6595,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-92.8115,-51.5542,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-42.6917,101.68,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-92.5304,-138.35,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-74.5879,-52.0046,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-56.8358,139.576,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-89.6637,-91.686,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (27.486,-108.494,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (3.26007,64.3785,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-45.8335,-19.9438,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-94.9299,-94.6999,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (39.1948,56.55,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-68.7126,-17.2943,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (42.9192,-95.1402,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (90.9731,5.00888,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (22.3441,69.0118,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-28.8055,-102.406,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-76.7855,-122.46,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (71.0921,143.853,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-80.4332,79.0093,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-65.3596,-10.5979,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (23.17,134.744,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-25.0775,-145.409,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (71.298,11.8132,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-85.8863,133.167,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (17.1551,40.9211,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-22.366,22.0101,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (9.12336,96.1918,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (92.2381,45.4454,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-86.1277,-85.6233,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-81.1114,35.4762,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-36.2049,-34.381,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (62.8937,-71.7916,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (39.3474,-45.499,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (47.0142,-24.6162,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-64.5121,-22.9587,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (98.101,69.4943,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (55.2826,24.1632,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (71.6826,-78.4209,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (50.9086,-78.5292,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (1.05048,-1.03164,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (79.1046,-120.005,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (81.0764,104.143,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (90.0124,53.031,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (26.3674,-125.015,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-34.2671,16.1109,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (58.3158,84.3888,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-1.11594,142.274,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-11.6939,71.1107,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-76.5866,140.596,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (23.6436,110.061,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (40.1938,-83.2271,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (41.2484,-106.019,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (97.3279,24.3916,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (62.5599,-78.9944,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (50.6756,-44.9345,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (55.4294,-36.6037,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (81.2709,-50.9242,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-97.7293,-28.4394,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-76.2364,80.1585,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (49.209,54.3118,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-25.0259,-6.68553,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-55.2808,-19.0993,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (93.9758,16.8015,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (5.54022,127.393,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (10.7709,58.6233,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (25.8797,-84.9573,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (25.5116,59.0775,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-90.9107,124.576,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (78.0528,-31.6435,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-44.5238,-99.096,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-29.3296,-81.1816,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (94.879,-72.015,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (7.21927,-66.0709,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (36.9462,-68.7127,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (64.5074,132.16,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (22.683,125.753,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (73.2128,15.4764,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-24.7073,83.2807,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-69.9166,-36.9783,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (93.9829,98.7493,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-6.26137,-138.953,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-88.7249,-127.392,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (99.9435,74.9732,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (53.7975,67.8363,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-50.5304,-77.6745,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (90.8102,-67.5805,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (34.3401,77.0997,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-77.2885,-143.345,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (54.4637,99.4114,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (10.3814,140.392,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-19.3034,26.9868,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (51.0275,85.4005,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-57.4072,120.945,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-29.8825,32.4264,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-12.505,-122.699,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (2.7979,-14.7269,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (24.4173,7.08068,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-70.5853,-12.196,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-48.3511,-130.129,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-1.47638,-45.776,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-51.9709,-47.531,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-74.3908,25.4298,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (28.1749,-95.9798,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (79.3577,112.295,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-65.536,30.5806,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-66.213,-46.4752,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-82.2595,14.6146,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-58.7333,118.265,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (38.079,-53.5252,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (25.5801,56.3354,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (84.1745,-36.8142,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (61.2403,-124.645,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-58.1301,10.9772,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (23.651,77.9866,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (49.4942,-131.298,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (42.6699,56.1496,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (6.4227,-140.858,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (6.52345,-30.8508,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-24.5432,-95.3148,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-57.7104,-123.239,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (78.1055,-47.1219,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (57.8342,44.6469,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (7.42131,71.0467,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-13.6681,19.3376,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-27.3835,119.894,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-28.7807,-0.525691,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-52.5546,-147.74,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-50.8085,-3.65706,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-42.981,91.7595,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-83.9532,-134.509,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (96.4757,149.177,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (93.8941,125.219,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-48.4194,-2.77536,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (85.8752,65.5372,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-44.0042,101.575,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-35.2642,63.2857,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-51.5181,8.95201,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-42.2739,-123.813,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-3.77198,-53.8073,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-32.6791,-13.7196,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (97.992,-89.4809,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-49.0719,-108.353,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (19.1277,-8.05014,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-30.2263,-117.99,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (93.0054,-27.4445,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (87.6681,-88.4995,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (48.2241,66.479,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-72.0455,98.3823,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-67.2688,97.5398,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (33.0394,40.1276,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (75.4401,26.492,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-12.173,64.1347,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-39.7244,11.9343,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-53.5575,-43.3913,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (8.71057,-130.014,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-76.6204,-20.5416,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-33.0189,58.1153,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (24.0146,-1.37291,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (57.7194,149.308,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-50.3022,83.5716,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (13.9779,64.2192,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-31.5837,-119.125,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (69.2905,-12.8999,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (59.4591,11.9582,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (44.4505,81.5646,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (38.7897,19.6525,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-30.8608,98.0396,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (16.6784,-81.7947,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (89.4567,34.4851,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (1.17774,-119.762,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (74.4248,27.8889,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (39.3302,87.0254,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-69.4922,81.374,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-15.1739,-126.804,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (85.1137,123.206,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (96.9682,-100.344,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (84.1684,-50.3561,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (18.2551,32.3683,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-32.9606,-88.3261,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-33.3002,-115.72,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (83.9711,126.888,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (47.5002,125.536,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-9.5121,123.825,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-0.326445,-100.346,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-27.5212,84.1487,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-97.3811,-86.1958,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (92.2141,-12.3033,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-82.9301,10.5209,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (19.077,-57.0189,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-58.0189,89.9346,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-61.8625,37.4928,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (12.9682,26.2361,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-9.34223,8.29432,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-19.8474,-0.896415,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-63.6144,-49.6912,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-25.3381,-68.3094,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-18.2532,90.2249,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (43.1944,110.098,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-55.6056,-73.8334,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-96.0579,28.5147,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-64.2911,116.238,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-80.1117,91.5945,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (71.1393,92.055,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (33.617,-107.675,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (79.2672,-123.922,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-58.4227,104.438,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (16.6083,42.8777,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (63.4887,37.4284,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-24.0615,-41.0822,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (24.8298,-46.4424,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-12.7747,108.32,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (52.7212,83.9276,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-2.51376,145.61,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-14.9573,-4.56649,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (8.32684,59.6538,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-72.1288,43.5162,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (5.13804,120.172,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-96.3219,96.7752,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (15.3033,-0.572774,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (30.2841,-0.760533,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-97.8008,-107.994,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (74.778,69.6554,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (33.0073,-1.71784,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-16.2459,-28.6855,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-90.6068,-43.8386,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-83.4403,-122.899,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-22.1409,101.124,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (43.8092,66.4599,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-4.78992,-31.0052,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (46.5144,-4.87352,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-47.5472,-101.396,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-0.726751,136.571,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (54.1824,-7.72881,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (45.6378,-26.1619,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-13.0345,-12.0955,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (59.8832,-149.298,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (18.0461,-119.072,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (83.4627,138.63,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-10.7988,6.3902,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (74.5892,77.5177,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (31.7567,67.231,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-50.0664,121.009,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (97.5336,-134.521,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (41.115,26.4791,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (13.589,-8.03697,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (39.4841,69.3071,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (94.2116,-23.4712,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (72.4085,-133.535,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (65.7831,43.364,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-53.9982,18.2032,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (39.2578,9.07954,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-86.9287,21.7283,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (58.1446,48.4966,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (77.1955,-21.9549,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-95.1198,-11.4171,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (74.9403,-94.3581,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (59.7566,-128.991,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (53.4377,-123.437,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (25.5011,24.2272,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (53.6547,-122.49,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (47.5165,69.6815,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-29.0756,-60.8991,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-53.2784,26.7326,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (97.5445,-136.47,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (35.9295,-112.669,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (57.269,-72.3052,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (75.8237,115.26,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (22.6823,146.755,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-53.6657,-29.5259,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (21.5474,99.1928,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-64.6944,-34.7728,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (55.9169,97.8617,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (93.8205,-85.1028,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (98.9816,7.50945,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (51.6477,-2.6441,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (63.1666,-10.9858,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (7.39489,-139.54,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-81.7026,-12.7704,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-74.097,-6.99695,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (72.4255,-139.373,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (10.1715,70.5638,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-25.4623,-148.475,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-0.824853,9.78076,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (36.6518,118.344,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-0.970696,114.872,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (64.9362,21.3957,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (13.1464,109.348,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (59.4852,110.448,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (73.4588,-101.88,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (39.4943,129.027,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (50.5433,-93.2335,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (74.3687,-10.359,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-74.226,95.9841,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-67.848,-149.664,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (1.49355,-72.3935,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (23.3854,-52.0699,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-48.0393,-36.9914,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (55.9691,-111.465,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (8.25332,-20.3278,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (26.5244,-96.1508,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (87.4457,-97.874,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-39.8073,-100.087,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (16.4341,-7.92783,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-90.8516,105.724,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (93.7756,-16.2125,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (51.6526,-34.9163,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-35.278,-38.4499,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (36.6591,-149.691,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (99.4249,133.291,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-67.2752,8.10723,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-55.8461,101.984,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (30.9022,-110.599,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-69.7884,-140.609,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-16.0545,107.208,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-45.157,-17.3104,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (78.8198,67.3268,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-93.7732,110.437,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (72.8716,-8.54026,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-62.8949,-88.8896,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (54.1844,-13.8919,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (25.2441,89.0394,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (84.1696,140.253,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-3.69553,-149.63,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (37.1131,-75.738,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-1.68109,-101.752,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-46.2013,27.0792,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-8.95597,-105.126,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-21.5013,-31.3365,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-41.6675,47.0952,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (55.9702,122.346,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-79.014,-106.223,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-71.5009,-144.49,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (40.493,-46.195,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-34.7077,-128.275,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-29.8746,-125.247,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-20.6153,-53.3716,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (37.893,57.9582,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-66.5035,51.1156,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (41.2951,118.866,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-89.6057,33.8833,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (74.1938,134.205,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-32.11,33.6774,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (78.9633,15.9004,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-9.53634,-5.72885,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (46.3179,-18.4178,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-50.5794,45.0883,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-56.1572,-51.2948,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-63.5764,111.55,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-0.360856,-101.498,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-54.3091,-50.3056,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (30.0651,-125.542,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-85.5603,-24.4801,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-7.47541,-97.742,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (48.5413,103.874,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-25.7922,80.3172,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (73.4063,4.19876,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (45.0515,-31.3455,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (80.1404,87.8868,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (18.4701,-64.8436,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (24.5933,-10.2562,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-73.6865,82.8001,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-64.0634,39.7622,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-63.8046,-26.0906,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-50.5538,-120.782,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (2.96347,23.8245,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-67.2952,45.637,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-48.3733,107.396,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (54.6946,29.6142,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-9.24209,-79.5978,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-66.0484,-50.7332,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (65.7767,-106.273,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (23.429,134.575,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-66.4762,-36.1924,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (32.7609,10.0536,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (61.134,-16.0894,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-58.8318,11.9718,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-88.5826,-113.109,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-92.1313,42.0009,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (86.775,-123.433,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-91.6854,56.4624,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (93.0237,55.7903,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (27.824,141.929,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (3.11921,6.51901,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-72.0697,-112.278,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (40.9362,131.946,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (93.9824,-93.4953,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-11.25,-79.6316,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (38.5252,48.4897,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (36.6496,-144.745,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (73.781,109.383,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (86.1897,88.6531,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-56.865,132.263,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (30.2466,23.1556,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (99.8827,31.4862,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-18.6184,148.001,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (13.4033,-63.3943,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-19.1719,79.5573,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (61.5692,120.413,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-12.8833,110.67,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (8.89782,44.7224,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-26.7077,32.9495,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-22.2884,14.5499,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-25.3496,-16.6742,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (20.6897,-99.4667,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-7.30119,0.133592,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (3.81636,104.15,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-31.7504,-117.324,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (16.0345,-76.1791,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (52.9767,14.8243,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (91.1047,6.37024,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-98.4874,119.014,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-51.3035,46.4079,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (86.8872,-6.24503,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-2.82565,35.2055,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-38.542,128.882,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-37.7385,-123.112,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-45.4752,143.018,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-63.7701,-113.033,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (5.03268,-94.6245,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (13.4624,-94.4315,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-3.29087,-123.888,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-91.3175,7.94976,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (20.3224,41.3956,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-54.384,88.1232,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-17.7943,-41.7682,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-29.3157,16.9911,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-45.0388,69.5874,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (33.51,92.859,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-9.64646,-22.8166,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (47.3747,110.778,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-80.8571,-96.4662,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (21.4188,-88.1442,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-21.8188,39.6046,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (97.5571,-67.6379,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-19.1362,-17.1849,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (38.4872,-145.254,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-79.1781,30.9658,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-45.1679,81.7868,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (78.8382,28.7252,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-54.6687,-46.9319,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (3.81196,99.5589,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-53.2576,42.0505,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (30.1755,54.0396,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-33.3996,-92.9025,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (32.3678,-41.1167,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-6.95888,-49.9291,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (91.5251,138.5,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-59.8133,-98.8566,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-9.92581,96.5419,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (32.9823,144.371,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-53.0716,-114.051,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (98.4967,71.1541,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (68.4067,51.4675,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-82.1751,86.3706,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (65.2135,2.05153,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-92.7679,-114.705,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-27.9727,-35.7271,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (10.7604,2.91727,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-10.5595,132.716,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (83.8784,85.8828,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (70.285,-32.6872,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-76.7267,11.9198,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (75.5949,9.74436,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (58.0061,-86.4053,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-19.404,-143.132,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-30.7801,137.197,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (64.4961,22.549,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (84.5514,31.9113,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (52.962,98.7997,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-20.2674,97.5602,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-86.3655,-6.52979,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (92.623,-126.01,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-13.5004,28.2872,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-12.0977,-66.6742,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-56.7924,-144.694,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-69.595,-34.0617,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-8.03992,-86.4734,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-88.4439,35.8493,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-52.164,-98.8006,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-39.345,-70.3838,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-87.5416,35.4155,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (62.7941,-80.2063,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (24.7792,46.7171,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-73.8579,87.6281,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-61.0755,-43.7291,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (65.5076,-96.9339,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-97.7937,-75.4259,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-96.1615,87.1013,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-72.5781,-93.0915,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-97.5758,100.291,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (60.3074,-130.615,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-78.0528,-70.2447,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (68.8714,-70.1942,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-69.9903,109.398,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-4.79638,93.2058,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-8.11065,-32.2819,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (91.0669,-119.355,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (37.6269,92.665,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (68.1743,129.096,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-7.70451,97.5397,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (79.0235,-14.9627,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-86.6696,-14.8141,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (47.4868,146.483,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-91.6654,-138.593,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-85.5831,90.6392,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (91.3003,2.57379,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-40.6929,147.477,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (32.2741,85.1528,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-80.3209,14.8848,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-46.9907,-22.7109,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (93.572,119.67,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (24.9327,142.797,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-75.7227,-73.376,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (28.7808,137.948,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (93.6978,-53.3354,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (95.9941,-115.813,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (49.6146,6.23044,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-74.3809,-136.879,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-55.0769,-121.496,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-12.119,-33.4042,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-51.8615,128.495,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (77.385,-146.186,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (63.1894,-54.9233,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (83.7853,13.205,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-7.8921,143.519,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (55.2895,-95.8216,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (9.00538,75.9562,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-91.3653,68.3842,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (45.196,-122.439,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (1.17054,-104.797,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (8.44744,77.4555,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-40.4903,-118.221,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (74.6646,23.1518,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-67.9857,-101.746,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-50.6642,72.5136,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-80.1644,-91.8138,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-59.1929,-56.7213,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (23.1971,34.4935,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (56.7584,11.6087,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (52.1982,101.989,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-59.5039,74.8636,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-34.6137,76.8794,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (75.3302,0.615063,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-10.2779,43.0096,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (18.6089,-108.653,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (39.1236,-96.4882,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-28.9014,-95.6042,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (17.6405,112.279,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-87.0293,-118.759,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (12.132,-134.159,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (60.9978,30.6437,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-0.348864,40.9472,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-33.1523,73.7776,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (57.723,97.5392,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-70.5095,-113.287,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-82.2799,-38.5734,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (47.1326,79.9766,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (28.513,-97.956,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (57.1303,-96.5243,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (67.9605,74.1659,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (17.5539,-89.1191,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-33.0977,-100.412,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (66.3394,25.9437,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-40.2549,84.7746,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-14.0686,-82.3376,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-62.7797,-5.7282,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-3.40623,61.8057,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (45.5879,121.174,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (45.9016,-147.891,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (22.045,-110.595,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (31.391,-8.38187,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-88.5891,-136.622,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-50.6042,-67.3163,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-45.6101,-38.6379,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (55.3421,-69.5583,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-93.2773,-136.05,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-72.1509,-46.2239,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-30.5313,-124.073,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (32.7579,14.4962,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (87.3645,-31.9656,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-47.9684,37.3276,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-48.694,-106.51,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (13.0661,-48.5211,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (21.7055,140.207,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-69.7506,66.0024,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (70.1232,55.1262,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-77.0462,-81.7772,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-86.4663,87.51,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-83.6549,-82.1559,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-66.8451,-107.712,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (33.8045,-120.731,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (30.1947,74.7851,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (2.50053,-116.419,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-89.6087,88.1969,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-48.2758,111.641,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (51.3503,76.2323,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (75.566,47.8888,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-52.2408,133.991,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (54.4025,17.3942,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-7.21372,-46.901,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-0.437499,89.5033,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (64.4206,-30.7856,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (92.8953,-91.3172,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-42.5724,-42.9987,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (26.9165,-56.2953,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (83.018,119.087,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (39.1798,17.3461,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (71.4359,-41.0698,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (96.7043,2.11533,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-63.155,-40.8921,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-69.5791,-56.0514,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-83.3072,107.062,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (1.04135,-54.1,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (96.8221,-113.27,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-66.809,149.123,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-67.5533,-111.052,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (5.47992,-141.191,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-84.1187,-36.2919,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (71.6354,-61.0531,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (42.0486,77.8747,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (64.3274,45.5004,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-1.15751,95.7765,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-65.2477,-76.698,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-79.8725,65.7232,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-30.4117,71.9014,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (30.2295,-19.3484,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (68.2895,91.8588,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (26.8284,-140.665,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-34.9792,-55.5241,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-65.0237,-99.8604,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (67.4082,-128.199,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (38.8301,109.916,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-57.4711,-129.448,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (30.6326,77.7746,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (53.213,92.2188,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-47.9426,45.2306,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (12.0881,-99.2757,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-7.92835,-81.9809,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-23.9199,-26.1717,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-15.4903,-144.6,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (83.6153,139.873,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-41.5564,141.833,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (60.9814,101.838,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (45.3342,17.7554,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-43.6958,40.5267,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (40.7372,-113.926,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-51.6212,-136.163,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-39.7469,97.3604,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-40.0162,69.0738,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (80.579,113.172,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (18.6443,-47.8782,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-84.2062,9.39496,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-93.0659,-21.2452,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (71.1392,22.0048,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (66.2747,-83.9324,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-81.2285,7.57193,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (65.8574,-130.594,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (3.48927,58.3351,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-13.0808,-10.67,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (78.5047,-100.553,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (26.2615,-16.4262,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-52.5133,52.9279,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-23.0977,86.0251,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (90.1062,-68.5294,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (1.25321,-69.3123,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-49.1217,-149.124,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-90.8703,122.214,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (94.3065,-14.8604,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-60.7805,-9.07687,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-58.6015,27.2602,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-98.4672,-135.151,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-78.3948,-64.5276,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (14.4097,-84.447,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (86.3507,-66.6534,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (23.4133,95.462,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (1.48239,22.4339,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (40.4518,-136.544,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-45.0537,-100.439,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-17.7958,114.678,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (21.581,52.3824,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (91.0121,136.21,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (27.2803,-149.369,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-88.0951,-137.832,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-77.1025,49.5876,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-26.1894,-122.315,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (50.2356,120.096,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-29.0457,74.9552,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (35.734,43.935,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-97.9738,0.646082,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (22.5147,-103.704,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-75.8883,72.2944,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (6.79349,147.379,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-15.5931,9.74781,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (15.44,-30.1894,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (11.7285,-85.1846,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (30.4583,-129.785,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-14.0138,-28.8306,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-38.7373,108.523,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (59.6761,-34.7281,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (83.327,77.8053,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (16.4397,-146.307,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (41.1172,-32.1077,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-66.628,-100.311,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (78.0194,78.572,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-94.9104,5.17181,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-31.8792,-34.2376,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-37.7565,-119.622,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-27.0813,102.517,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-9.19968,-118.422,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-2.88206,-81.454,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (92.8035,-109.263,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-93.8088,127.691,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-95.3296,-56.0381,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-42.151,-110.986,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (91.1838,-37.5589,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (20.5886,148.457,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-42.3189,32.0632,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-22.8976,141.223,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-69.171,-6.63647,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (52.3804,-75.9278,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-39.5334,98.0445,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-88.4705,2.23391,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (93.2835,99.2066,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (16.0935,24.8953,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (25.2469,95.0271,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (98.7697,70.3734,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (13.8755,87.7564,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-20.9725,-105.605,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (8.60492,122.083,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (81.8909,29.7362,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (73.9938,-138.606,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-75.0358,-132.678,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (75.4181,-139.662,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-7.46488,3.87072,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (72.7095,-2.42067,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-42.8433,6.73324,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-22.6919,31.7266,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (15.4558,67.7149,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-18.4832,-16.9632,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (14.7058,91.9768,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-78.1472,-132.159,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (69.3938,-60.4695,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (76.693,-73.1857,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (25.3185,-83.7764,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-4.63131,128.777,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (38.5065,8.16785,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-28.2569,95.9393,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-57.859,8.57343,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (99.5642,-89.8047,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-41.0761,-149.305,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (66.8289,39.8719,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (50.6856,131.127,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (53.2232,115.327,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-82.2791,-30.2699,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-18.4914,56.2219,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-30.2359,14.7391,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (89.5376,59.3269,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (4.51532,110.683,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (0.124853,102.622,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-89.9548,-106.441,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-40.9419,-86.6663,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (60.6965,-62.2455,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (81.2222,-143.392,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-54.7942,14.6941,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (20.6986,-85.6116,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-75.4159,-93.6471,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-10.1301,-13.8159,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-85.6448,41.1273,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (42.7905,-79.604,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (10.5002,18.9867,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (55.0692,66.1965,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-43.1452,114.598,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-89.1336,-68.5359,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-99.9731,-93.2881,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-44.7661,28.0457,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (67.8677,-9.9096,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (48.1808,-125.185,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-27.9532,-111.021,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-37.3304,21.5427,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-13.2365,-23.2846,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (92.8157,52.542,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-1.23719,19.3887,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (40.7714,52.7543,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (42.6092,112.653,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (52.2076,-111.12,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-40.3896,-69.3096,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (28.8298,149.84,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (91.36,-34.464,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-8.46008,-116.707,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-26.0373,-149.136,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-16.6991,15.6208,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-57.6012,-38.6515,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (76.0313,44.314,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (21.5504,-139.218,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (30.328,-112.283,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (28.9665,-134.34,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-60.1569,23.7526,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-26.4428,50.06,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (3.17238,13.1417,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-97.0613,-77.4333,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-96.1345,62.8149,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-1.42708,70.8601,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (19.0263,-69.9974,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (92.6998,-137.503,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-37.6272,-13.5243,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (4.25921,-110.545,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-96.6105,-127.085,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-75.9586,-95.4782,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-41.3383,-47.4589,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-30.3809,42.558,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-40.0399,48.9022,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (69.4122,52.674,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (56.6397,31.844,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-20.3989,-104.302,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-54.3529,131.214,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (49.4889,-132.085,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (91.558,147.063,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (98.2656,45.2872,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-84.879,83.0784,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-60.8334,35.9204,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (56.2644,-55.4559,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (62.2248,8.17955,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (34.8261,42.8457,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (83.4972,-48.798,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (78.0282,-131.811,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-70.5394,129.182,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-10.4653,-136.631,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (5.93194,78.3265,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (35.9241,138.693,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (61.3931,78.2563,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-13.4368,-12.4206,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-10.8917,-5.59999,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (68.7299,-108.9,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (70.757,-32.4425,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-60.6149,40.9616,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (42.3446,135.906,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-48.0916,-12.311,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-85.3837,-85.8129,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-61.9785,98.8175,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (88.7403,59.4933,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (95.4616,140.116,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-4.61998,81.9267,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (28.123,-12.5296,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (13.0171,79.0737,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-97.5794,100.622,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (85.2388,15.5971,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-55.5848,92.4238,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (45.7723,92.4826,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-94.166,-29.1707,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-76.2995,120.415,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (83.9062,136.454,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (52.2016,-5.5352,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (50.853,-140.215,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (15.4245,-67.3356,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-49.7997,-34.103,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (31.3262,104.181,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (83.6478,142.312,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-55.8294,75.5317,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-64.9556,-105.547,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (90.0918,-20.5858,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (16.0178,-21.7495,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-43.5008,-106.856,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (89.2913,103.755,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (56.0731,96.9482,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-59.064,-88.6617,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-33.6871,28.1407,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-85.7683,-40.6937,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (1.38409,-11.9993,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (67.1652,-135.708,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (54.2246,-44.2192,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (75.1766,-11.0119,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-14.9544,129.303,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (53.1094,9.6065,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (4.50204,-41.3471,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-54.7749,-88.9265,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-53.9167,114.82,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (93.3691,-56.9746,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (48.3793,-25.2168,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-39.4138,118.812,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (63.3559,-68.5684,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (80.388,149.863,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (50.8497,78.7449,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (32.2029,-35.7931,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (41.8642,-143.799,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (16.7546,-69.346,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-46.9348,-41.4869,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (42.8848,-111.018,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (2.77089,62.5469,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (86.585,-15.3559,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (42.8653,-120.53,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (38.9191,-112.462,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-45.1857,-140.743,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-30.9316,-85.982,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (71.3074,-114.338,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (12.4146,-19.4027,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-23.8965,-5.24987,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (46.8888,121.972,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (67.7995,-112.685,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (94.0514,102.983,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (40.9742,0.326364,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (93.4071,12.2204,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (43.6908,-5.32069,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (60.0007,64.3232,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-73.657,113.802,8300) cm,  multiplicity 1
+[INFO] FairBoxGenerator: Event,  vertex = (-38.0424,37.5088,8300) cm,  multiplicity 1
+[INFO] ***  FairBaseParSet written to ROOT file   version: 1
+[INFO] ***  FairGeoParSet written to ROOT file   version: 1
+---------------------------------------------------------------------------
+FairBaseContFact:  Factory for parameter containers in libSts
+---------------------------------------------------------------------------
+FairBaseParSet	class for parameter io
+     actual context:  DefaultContext
+FairGeoParSet	class for Geo parameter
+     actual context:  DefaultContext
+--------------------------------------------------------------------------------
+--------------  actual containers in runtime database  -------------------------
+FairBaseParSet                                 class for parameter io
+FairGeoParSet                                  class for Geo parameter
+--------------  runs, versions  ------------------------------------------------
+run id
+  container                                        1st-inp    2nd-inp    output
+run: 1778170546
+  FairBaseParSet                                1778170546         -1          1
+  FairGeoParSet                                 1778170546         -1          1
+--------------  input/output  --------------------------------------------------
+first input: none
+second input: none
+output:
+OBJ: FairParRootFile	{TMP_PATH}/params_tracking_benchmark.root	 : 0 at: 0x16a22650
+Root file I/O {TMP_PATH}/params_tracking_benchmark.root is open
+detector I/Os:  FairGenericParIo
+Info: Target using configuration: /ship_build/sw/slc9_x86-64/FairShip/master-local2/geometry/target_config.yaml
+['tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten'] [4.5, 1.8, 1.7, 1.7, 1.8, 1.9, 2.1, 1.9, 2.1, 2.4, 2.8, 3.3, 4.1, 5.6, 8.8, 17.2, 28.7, 28.8, 28.8] [0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.48, 0.5, 0.68, 0.68, 0]
+SiliconTarget zPosition set to  2605.02
+Calling addVMCFields
+ 
+Macro finished successfully.
+Output file is  {TMP_PATH}/sim_tracking_benchmark.root
+Parameter file is  {TMP_PATH}/params_tracking_benchmark.root
+Geometry file is  {TMP_PATH}/geo_tracking_benchmark.root
+Real time  82.389888048172  s, CPU time  74.57 s
+========================================================================
+Simulation finished successfully
+========================================================================
+Exit normally
+[INFO] Media file used: /ship_build/sw/slc9_x86-64/FairShip/master-local2/geometry/media.geo
+Creating field map called MainSpecMap using /ship_build/sw/slc9_x86-64/FairShip/master-local2/files/MainSpectrometerField.root
+[INFO] ShipBFieldMap::readMapFile() creating field MainSpecMap using file /ship_build/sw/slc9_x86-64/FairShip/master-local2/files/MainSpectrometerField.root
+[INFO] x limits: -470, 470, dx = 10
+[INFO] y limits: -405, 405, dy = 10
+[INFO] z limits: -990, 990, dz = 10
+[INFO] Offsets: x = 0, y = 0, z = 8957
+[INFO] Angles : phi = 0, theta = 0, psi = 0
+[INFO] Total number of bins = 1550210; Nx = 95, Ny = 82, Nz = 199
+Creating symmetric field map called muonShieldField using /ship_build/sw/slc9_x86-64/FairShip/master-local2/files/TRY_2025.root
+[INFO] ShipBFieldMap::readMapFile() creating field muonShieldField using file /ship_build/sw/slc9_x86-64/FairShip/master-local2/files/TRY_2025.root
+[INFO] x limits: 0, 209.961, dx = 1.99963
+[INFO] y limits: 0, 200, dy = 2
+[INFO] z limits: -50, 3100, dz = 5
+[INFO] Offsets: x = 0, y = 0, z = 204
+[INFO] Angles : phi = 0, theta = 0, psi = 0
+[INFO] Total number of bins = 6755486; Nx = 106, Ny = 101, Nz = 631
+Adding field MainSpecMap
+Adding field muonShieldField
+Setting the Global field
+Adding field TotalField to Global
+The virtual MC pointer gMC is null! The global field can't be used by Geant4 but will work for track fitting and track extrapolation
+[INFO] SiPM Overlap parameters:
+  fLengthScifiMat = 60 cm
+  fWidthChannel = 0.1 cm
+  fFiberPitch = 0.025 cm
+  fChannelAggregated = 4
+  fNSiPMChan = 600
+  fNSiPMs = 1
+  fNMats = 1
+  fEdge = 0 cm
+  firstChannelX = -30 cm
+configured to process  1000  events from  {TMP_PATH}/sim_tracking_benchmark.root  starting with event  0  with option Yheight =  None  with vertexing True  and pattern reco  AR
+SiliconTarget zPosition set to  2605.02
+Calling addVMCFields
+event  0
+finished writing tree
+Exit normally
+============================================================
+Phase 1: Simulation
+============================================================
+============================================================
+Phase 2: Reconstruction
+============================================================
+============================================================
+Phase 3: Benchmark Metrics
+============================================================
+
+=== Tracking Benchmark Summary ===
+  Events:           1000
+  Reconstructible:  1000
+  Total reco:       999
+  Efficiency:       0.9990 +/- 0.0011
+  Clone rate:       0.0000 +/- 0.0005
+  Ghost rate:       0.0000 +/- 0.0005
+  dp/p sigma:       0.012254 +/- 0.000328
+  dx RMS:           0.1807 +/- 0.0040 cm
+  dy RMS:           0.0051 +/- 0.0001 cm
+  dtx RMS:          0.000268 +/- 0.000006
+  dty RMS:          0.000071 +/- 0.000002
+==================================
+
+Metrics saved to {TMP_PATH}/tracking_metrics.json
+Histograms saved to {TMP_PATH}/tracking_benchmark_histos.root
+============================================================
+Tracking benchmark complete.
+  Metrics:    {TMP_PATH}/tracking_metrics.json
+  Histograms: {TMP_PATH}/tracking_benchmark_histos.root
+============================================================

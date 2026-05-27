@@ -1,0 +1,68 @@
+[[case]]
+name = "particle_gun_io"
+command = "bash tests/scripts/run_particle_gun.sh"
+reference = "tests/reference/particle_gun_io.ref"
+returncode = 0
+expected_outputs = ["sim_{tag}.root", "geo_{tag}.root", "params_{tag}.root"]
+
+[[case]]
+name = "muonback_io"
+command = "bash tests/scripts/run_muonback_io.sh"
+reference = "tests/reference/muonback_io.ref"
+returncode = 0
+expected_outputs = ["sim_{tag}.root", "geo_{tag}.root", "params_{tag}.root"]
+
+[[case]]
+name = "muonback_summary"
+command = "bash tests/scripts/run_muonback_summary.sh"
+reference = "tests/reference/muonback_summary.ref"
+returncode = 0
+expected_outputs = [
+  "sim_{tag}.root",
+  "geo_{tag}.root",
+  "params_{tag}.root",
+  "sim_{tag}.validation.json",
+  "sim_{tag}.validation.log",
+  "sim_{tag}.validation.stdout",
+]
+
+[[case]]
+name = "pythia8_summary"
+command = "bash tests/scripts/run_pythia8_summary.sh"
+reference = "tests/reference/pythia8_summary.ref"
+returncode = 0
+expected_outputs = [
+  "sim_{tag}.root",
+  "geo_{tag}.root",
+  "params_{tag}.root",
+  "sim_{tag}.validation.json",
+  "sim_{tag}.validation.log",
+  "sim_{tag}.validation.stdout",
+]
+
+[[case]]
+name = "evtgen_summary"
+command = "bash tests/scripts/run_evtgen_summary.sh"
+reference = "tests/reference/evtgen_summary.ref"
+returncode = 0
+expected_outputs = [
+  "sim_{tag}.root",
+  "geo_{tag}.root",
+  "params_{tag}.root",
+  "sim_{tag}.validation.json",
+  "sim_{tag}.validation.log",
+  "sim_{tag}.validation.stdout",
+]
+
+[[case]]
+name = "tracking_benchmark"
+command = "bash tests/scripts/run_tracking_benchmark.sh"
+reference = "tests/reference/tracking_benchmark.ref"
+returncode = 0
+expected_outputs = [
+  "sim_{tag}.root",
+  "geo_{tag}.root",
+  "sim_{tag}_rec.root",
+  "tracking_metrics.json",
+  "tracking_benchmark_histos.root",
+]

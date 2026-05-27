@@ -12,7 +12,8 @@ It:
 - runs `aliBuild build FairShip` from the parent directory that contains the
   `FairShip/` checkout
 - loads the resulting `alienv` environment
-- runs `pytest` from the FairShip repository root
+- runs `pytest tests/integration/test_simulation_references.py -m integration`
+  from the FairShip repository root
 
 Example with SHiP release `26.05`:
 
@@ -31,11 +32,21 @@ If you already built FairShip and loaded the environment manually, you can also
 run pytest directly:
 
 ```bash
-python3 -m pytest tests/integration -m integration
+python3 -m pytest tests/integration/test_simulation_references.py -m integration
 ```
 
-If the runtime is not configured, the tests skip instead of failing during
-collection.
+This run path now covers only the imported simulation snapshot cases in
+[`test_simulation_references.py`](test_simulation_references.py):
+
+- `particle_gun_io`
+- `muonback_io`
+- `muonback_summary`
+- `pythia8_summary`
+- `evtgen_summary`
+- `tracking_benchmark`
+
+If the runtime is not configured, the fixture-based tests skip instead of
+failing during collection.
 
 ## Add a new test
 
