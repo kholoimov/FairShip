@@ -21,7 +21,6 @@ tracking_reference=${FAIRSHIP_TRACKING_REFERENCE_JSON:-}
 if [[ -n "${FAIRSHIP_TRACKING_ALIENV_PACKAGE:-}" ]]; then
   export FAIRSHIP_ALIENV_PACKAGE="$FAIRSHIP_TRACKING_ALIENV_PACKAGE"
 fi
-source "$script_dir/setup_fairship_env.sh"
 
 (
   cd "$output_dir"

@@ -12,7 +12,6 @@ debug_level=${FAIRSHIP_EVTGEN_TEST_FAIRLOGGER_DEBUG:-0}
 if [[ -n "${FAIRSHIP_EVTGEN_ALIENV_PACKAGE:-}" ]]; then
   export FAIRSHIP_ALIENV_PACKAGE="$FAIRSHIP_EVTGEN_ALIENV_PACKAGE"
 fi
-source "$script_dir/setup_fairship_env.sh"
 
 python3 "$fairship_root/macro/run_simScript.py" \
   --EvtGenDecayer \

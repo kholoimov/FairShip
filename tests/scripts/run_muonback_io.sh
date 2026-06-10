@@ -10,7 +10,6 @@ tag=${FAIRSHIP_TEST_TAG:-muonback_io}
 if [[ -n "${FAIRSHIP_SIM_IO_ALIENV_PACKAGE:-}" ]]; then
   export FAIRSHIP_ALIENV_PACKAGE="$FAIRSHIP_SIM_IO_ALIENV_PACKAGE"
 fi
-source "$script_dir/setup_fairship_env.sh"
 
 input_file=${SHIP_TEST_INPUT:-${FAIRSHIP_SIM_IO_TEST_INPUT:-/tmp/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root}}
 input_url=${FAIRSHIP_SIM_IO_TEST_INPUT_URL:-https://cernbox.cern.ch/remote.php/dav/public-files/vdwtXtgM5P2Z0S5/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root}

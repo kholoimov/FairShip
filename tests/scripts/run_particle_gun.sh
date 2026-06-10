@@ -10,7 +10,6 @@ tag=${FAIRSHIP_TEST_TAG:-particle_gun_io}
 if [[ -n "${FAIRSHIP_PARTICLE_GUN_ALIENV_PACKAGE:-}" ]]; then
   export FAIRSHIP_ALIENV_PACKAGE="$FAIRSHIP_PARTICLE_GUN_ALIENV_PACKAGE"
 fi
-source "$script_dir/setup_fairship_env.sh"
 
 n_events=${FAIRSHIP_PARTICLE_GUN_TEST_EVENTS:-100}
 pid=${FAIRSHIP_PARTICLE_GUN_TEST_PID:-13}
