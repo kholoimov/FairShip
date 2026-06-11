@@ -1,0 +1,7 @@
+Macro finished successfully.
+Output file is  {TMP_PATH}/sim_muonback_io.root
+Parameter file is  {TMP_PATH}/params_muonback_io.root
+Geometry file is  {TMP_PATH}/geo_muonback_io.root
+removed empty events, left with:
+Simulation finished successfully
+Exit normally

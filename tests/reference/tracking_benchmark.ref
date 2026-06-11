@@ -1,0 +1,4 @@
+=== Tracking Benchmark Summary ===
+Metrics saved to {TMP_PATH}/tracking_metrics.json
+Histograms saved to {TMP_PATH}/tracking_benchmark_histos.root
+Tracking benchmark complete.

@@ -54,3 +54,10 @@ python_version = "3.12"
 mypy_path = ["stubs", "python"]
 ignore_missing_imports = true
 explicit_package_bases = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+markers = [
+    "reference: command/reference workflow tests",
+]

@@ -422,6 +422,8 @@ if options.inputFile:
     inputFile = list(dict.fromkeys(inputFile))
     if options.nFiles > 0:
         inputFile = inputFile[: options.nFiles]
+    if not inputFile:
+        parser.error("No input files matched the supplied -f or --remote-file arguments.")
     defaultInputFile = False
 if options.RPVSUSY:
     HNL = False

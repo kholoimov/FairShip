@@ -1,0 +1,96 @@
+[[case]]
+name = "pixi_build"
+command = "bash tests/scripts/run_pixi_build.sh"
+reference = "tests/reference/pixi_build.ref"
+returncode = 0
+stdout_match = "contains"
+
+[[case]]
+name = "pixi_ci_sim"
+command = "bash tests/scripts/run_pixi_ci_sim.sh"
+reference = "tests/reference/pixi_ci_sim.ref"
+returncode = 0
+stdout_match = "contains"
+expected_outputs = ["sim_ci-test.root", "geo_ci-test.root", "params_ci-test.root"]
+depends_on = ["pixi_build"]
+
+[[case]]
+name = "pixi_particle_gun_io"
+command = "bash tests/scripts/run_pixi_particle_gun.sh"
+reference = "tests/reference/particle_gun_io.ref"
+returncode = 0
+stdout_match = "contains"
+expected_outputs = ["sim_particle_gun_io.root", "geo_particle_gun_io.root", "params_particle_gun_io.root"]
+depends_on = ["pixi_build"]
+
+[[case]]
+name = "pixi_muonback_io"
+command = "bash tests/scripts/run_pixi_muonback_io.sh"
+reference = "tests/reference/muonback_io.ref"
+returncode = 0
+stdout_match = "contains"
+expected_outputs = ["sim_muonback_io.root", "geo_muonback_io.root", "params_muonback_io.root"]
+depends_on = ["pixi_build"]
+
+[[case]]
+name = "pixi_muonback_summary"
+command = "bash tests/scripts/run_pixi_muonback_summary.sh"
+reference = "tests/reference/muonback_summary.ref"
+returncode = 0
+stdout_match = "contains"
+expected_outputs = [
+  "sim_muonback_summary.root",
+  "geo_muonback_summary.root",
+  "params_muonback_summary.root",
+  "sim_muonback_summary.validation.json",
+  "sim_muonback_summary.validation.log",
+  "sim_muonback_summary.validation.stdout",
+]
+depends_on = ["pixi_build"]
+
+[[case]]
+name = "pixi_pythia8_summary"
+command = "bash tests/scripts/run_pixi_pythia8_summary.sh"
+reference = "tests/reference/pythia8_summary.ref"
+returncode = 0
+stdout_match = "contains"
+expected_outputs = [
+  "sim_pythia8_summary.root",
+  "geo_pythia8_summary.root",
+  "params_pythia8_summary.root",
+  "sim_pythia8_summary.validation.json",
+  "sim_pythia8_summary.validation.log",
+  "sim_pythia8_summary.validation.stdout",
+]
+depends_on = ["pixi_build"]
+
+[[case]]
+name = "pixi_evtgen_summary"
+command = "bash tests/scripts/run_pixi_evtgen_summary.sh"
+reference = "tests/reference/evtgen_summary.ref"
+returncode = 0
+stdout_match = "contains"
+expected_outputs = [
+  "sim_evtgen_summary.root",
+  "geo_evtgen_summary.root",
+  "params_evtgen_summary.root",
+  "sim_evtgen_summary.validation.json",
+  "sim_evtgen_summary.validation.log",
+  "sim_evtgen_summary.validation.stdout",
+]
+depends_on = ["pixi_build"]
+
+[[case]]
+name = "pixi_tracking_benchmark"
+command = "bash tests/scripts/run_pixi_tracking_benchmark.sh"
+reference = "tests/reference/tracking_benchmark.ref"
+returncode = 0
+stdout_match = "contains"
+expected_outputs = [
+  "sim_tracking_benchmark.root",
+  "geo_tracking_benchmark.root",
+  "sim_tracking_benchmark_rec.root",
+  "tracking_metrics.json",
+  "tracking_benchmark_histos.root",
+]
+depends_on = ["pixi_build"]
