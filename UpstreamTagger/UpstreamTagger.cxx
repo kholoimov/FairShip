@@ -113,9 +113,9 @@ Bool_t UpstreamTagger::ProcessHits(FairVolume* vol) {
 
 void UpstreamTagger::ConstructGeometry() {
   TGeoVolume* top = gGeoManager->GetTopVolume();
-  constexpr Double_t kFinePlateSize = 5.0 * cm;
-  constexpr Double_t kCoarsePlateSize = 10.0 * cm;
-  constexpr Double_t kCentralHalfSize = 50.0 * cm;
+  const Double_t kFinePlateSize = 5.0 * cm;
+  const Double_t kCoarsePlateSize = 10.0 * cm;
+  const Double_t kCentralHalfSize = 50.0 * cm;
   const int numCoarsePlatesX = TMath::Nint(xbox_fulldet / kCoarsePlateSize);
   const int numCoarsePlatesY = TMath::Nint(ybox_fulldet / kCoarsePlateSize);
   const int numFinePlatesPerAxis =
@@ -157,9 +157,9 @@ void UpstreamTagger::ConstructGeometry() {
   AddSensitiveVolume(scoringPlaneUBText);
 
   int copyNo = 1;
-  for (const auto ix : TSeqI(numCoarsePlatesX)) {
+  for (const auto ix : ROOT::TSeqI(numCoarsePlatesX)) {
     const Double_t x = -xbox_fulldet / 2.0 + (ix + 0.5) * kCoarsePlateSize;
-    for (const auto iy : TSeqI(numCoarsePlatesY)) {
+    for (const auto iy : ROOT::TSeqI(numCoarsePlatesY)) {
       const Double_t y = -ybox_fulldet / 2.0 + (iy + 0.5) * kCoarsePlateSize;
       if (TMath::Abs(x) < kCentralHalfSize && TMath::Abs(y) < kCentralHalfSize) {
         continue;
@@ -169,9 +169,9 @@ void UpstreamTagger::ConstructGeometry() {
     }
   }
 
-  for (const auto ix : TSeqI(numFinePlatesPerAxis)) {
+  for (const auto ix : ROOT::TSeqI(numFinePlatesPerAxis)) {
     const Double_t x = -kCentralHalfSize + (ix + 0.5) * kFinePlateSize;
-    for (const auto iy : TSeqI(numFinePlatesPerAxis)) {
+    for (const auto iy : ROOT::TSeqI(numFinePlatesPerAxis)) {
       const Double_t y = -kCentralHalfSize + (iy + 0.5) * kFinePlateSize;
       UpstreamTagger_fulldet->AddNode(scoringPlaneUBText, copyNo++,
                                       new TGeoTranslation(x, y, 0.0));
