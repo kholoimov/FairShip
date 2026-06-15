@@ -116,7 +116,7 @@ void UpstreamTagger::ConstructGeometry() {
   const Double_t kFinePlateSize = 5.0 * cm;
   const Double_t kCoarsePlateSize = 10.0 * cm;
   const Double_t kCentralHalfSizeX = 300.0 * cm;
-  const Double_t kCentralHalfSizeY = 200.0 * cm;
+  const Double_t kCentralHalfSizeY = 150.0 * cm;
   const int numCoarsePlatesX = TMath::Nint(xbox_fulldet / kCoarsePlateSize);
   const int numCoarsePlatesY = TMath::Nint(ybox_fulldet / kCoarsePlateSize);
   const int numFinePlatesX =

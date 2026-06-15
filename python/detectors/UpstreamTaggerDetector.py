@@ -29,7 +29,7 @@ class UpstreamTaggerDetector(BaseDetector):
         fine_pitch = 5.0 * u.cm
         coarse_pitch = 10.0 * u.cm
         central_half_size_x = 300.0 * u.cm
-        central_half_size_y = 200.0 * u.cm
+        central_half_size_y = 150.0 * u.cm
         time_res = ship_geo.UpstreamTagger.TimeResolution
 
         for aMCPoint in self.intree.UpstreamTaggerPoint:
