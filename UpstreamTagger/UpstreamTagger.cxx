@@ -115,11 +115,14 @@ void UpstreamTagger::ConstructGeometry() {
   TGeoVolume* top = gGeoManager->GetTopVolume();
   const Double_t kFinePlateSize = 5.0 * cm;
   const Double_t kCoarsePlateSize = 10.0 * cm;
-  const Double_t kCentralHalfSize = 50.0 * cm;
+  const Double_t kCentralHalfSizeX = 300.0 * cm;
+  const Double_t kCentralHalfSizeY = 200.0 * cm;
   const int numCoarsePlatesX = TMath::Nint(xbox_fulldet / kCoarsePlateSize);
   const int numCoarsePlatesY = TMath::Nint(ybox_fulldet / kCoarsePlateSize);
-  const int numFinePlatesPerAxis =
-      TMath::Nint((2.0 * kCentralHalfSize) / kFinePlateSize);
+  const int numFinePlatesX =
+      TMath::Nint((2.0 * kCentralHalfSizeX) / kFinePlateSize);
+  const int numFinePlatesY =
+      TMath::Nint((2.0 * kCentralHalfSizeY) / kFinePlateSize);
 
   ShipGeo::InitMedium("vacuum");
   ShipGeo::InitMedium("polyvinyltoluene");
@@ -161,7 +164,7 @@ void UpstreamTagger::ConstructGeometry() {
     const Double_t x = -xbox_fulldet / 2.0 + (ix + 0.5) * kCoarsePlateSize;
     for (const auto iy : ROOT::TSeqI(numCoarsePlatesY)) {
       const Double_t y = -ybox_fulldet / 2.0 + (iy + 0.5) * kCoarsePlateSize;
-      if (TMath::Abs(x) < kCentralHalfSize && TMath::Abs(y) < kCentralHalfSize) {
+      if (TMath::Abs(x) < kCentralHalfSizeX && TMath::Abs(y) < kCentralHalfSizeY) {
         continue;
       }
       UpstreamTagger_fulldet->AddNode(scoringPlaneUBTcoarse, copyNo++,
@@ -169,10 +172,10 @@ void UpstreamTagger::ConstructGeometry() {
     }
   }
 
-  for (const auto ix : ROOT::TSeqI(numFinePlatesPerAxis)) {
-    const Double_t x = -kCentralHalfSize + (ix + 0.5) * kFinePlateSize;
-    for (const auto iy : ROOT::TSeqI(numFinePlatesPerAxis)) {
-      const Double_t y = -kCentralHalfSize + (iy + 0.5) * kFinePlateSize;
+  for (const auto ix : ROOT::TSeqI(numFinePlatesX)) {
+    const Double_t x = -kCentralHalfSizeX + (ix + 0.5) * kFinePlateSize;
+    for (const auto iy : ROOT::TSeqI(numFinePlatesY)) {
+      const Double_t y = -kCentralHalfSizeY + (iy + 0.5) * kFinePlateSize;
       UpstreamTagger_fulldet->AddNode(scoringPlaneUBText, copyNo++,
                                       new TGeoTranslation(x, y, 0.0));
     }

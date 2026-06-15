@@ -28,16 +28,17 @@ class UpstreamTaggerDetector(BaseDetector):
         z_center = ship_geo.UpstreamTagger.Z_Position
         fine_pitch = 5.0 * u.cm
         coarse_pitch = 10.0 * u.cm
-        central_half_size = 50.0 * u.cm
+        central_half_size_x = 300.0 * u.cm
+        central_half_size_y = 200.0 * u.cm
         time_res = ship_geo.UpstreamTagger.TimeResolution
 
         for aMCPoint in self.intree.UpstreamTaggerPoint:
             self.mc_points.push_back(aMCPoint)
             x = aMCPoint.GetX()
             y = aMCPoint.GetY()
-            if abs(x) < central_half_size and abs(y) < central_half_size:
-                center_x = self._snap_to_tile_center(x, central_half_size, fine_pitch)
-                center_y = self._snap_to_tile_center(y, central_half_size, fine_pitch)
+            if abs(x) < central_half_size_x and abs(y) < central_half_size_y:
+                center_x = self._snap_to_tile_center(x, central_half_size_x, fine_pitch)
+                center_y = self._snap_to_tile_center(y, central_half_size_y, fine_pitch)
             else:
                 center_x = self._snap_to_tile_center(x, box_x / 2.0, coarse_pitch)
                 center_y = self._snap_to_tile_center(y, box_y / 2.0, coarse_pitch)

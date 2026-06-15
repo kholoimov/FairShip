@@ -29,9 +29,9 @@ using ShipUnit::m;
  * Current Implementation:
  * - An inactive vacuum mother volume with segmented scintillator plates
  * - Mixed granularity:
- *   5 cm x 5 cm plates in the central 1 m x 1 m region and
+ *   5 cm x 5 cm plates in the central 6 m x 4 m region and
  *   10 cm x 10 cm plates elsewhere
- * - Default coverage: 4m (X) x 6m (Y) x 16cm (Z)
+ * - Default coverage: 10m (X) x 10m (Y) x 16cm (Z)
  * - Z position and box dimensions are set from geometry_config.py
  * - Configured via SetZposition() and SetBoxDimensions()
  */
@@ -67,8 +67,8 @@ class UpstreamTagger : public SHiP::Detector<UpstreamTaggerPoint> {
 
   Double_t det_zPos;  //!  z-position of detector (set via SetZposition)
   // Detector box dimensions (set via SetBoxDimensions, defaults provided below)
-  Double_t xbox_fulldet = 4.0 * m;  //!  X dimension (default: 4.0 m)
-  Double_t ybox_fulldet = 6.0 * m;  //!  Y dimension (default: 6.0 m)
+  Double_t xbox_fulldet = 10.0 * m;  //!  X dimension (default: 10.0 m)
+  Double_t ybox_fulldet = 10.0 * m;  //!  Y dimension (default: 10.0 m)
   Double_t zbox_fulldet =
       16.0 * cm;  //!  Z dimension/thickness (default: 16 cm)
 
