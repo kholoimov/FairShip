@@ -23,20 +23,15 @@ using ShipUnit::m;
 /**
  * @brief Upstream Background Tagger (UBT) detector
  *
- * The UBT is a simplified scoring plane detector implemented as a vacuum box.
- * It serves as a background tagging device upstream of the decay volume.
- *
- * Historical Note:
- * The UBT was previously implemented as a detailed RPC (Resistive Plate
- * Chamber) with multiple material layers (Glass, PMMA, Freon SF6, FR4,
- * Aluminium, strips). It was simplified to a single vacuum box scoring plane to
- * avoid geometry overlaps and reduce simulation complexity while maintaining
- * its physics purpose. See commits 178787588 and related for the simplification
- * history.
+ * The UBT is a segmented scintillator detector placed upstream of the decay
+ * volume and used for background tagging.
  *
  * Current Implementation:
- * - Simple vacuum box with configurable dimensions
- * - Default dimensions: 4.4m (X) × 6.4m (Y) × 16cm (Z)
+ * - An inactive vacuum mother volume with segmented scintillator plates
+ * - Mixed granularity:
+ *   5 cm x 5 cm plates in the central 1 m x 1 m region and
+ *   10 cm x 10 cm plates elsewhere
+ * - Default coverage: 4m (X) x 6m (Y) x 16cm (Z)
  * - Z position and box dimensions are set from geometry_config.py
  * - Configured via SetZposition() and SetBoxDimensions()
  */
@@ -68,21 +63,18 @@ class UpstreamTagger : public SHiP::Detector<UpstreamTaggerPoint> {
   /**  Create the detector geometry */
   void ConstructGeometry() override;
 
-  Double_t module[11][3];  // x,y,z centre positions for each module
-  // TODO Avoid 1-indexed array!
-
   /** Detector parameters.*/
 
   Double_t det_zPos;  //!  z-position of detector (set via SetZposition)
   // Detector box dimensions (set via SetBoxDimensions, defaults provided below)
-  Double_t xbox_fulldet = 4.4 * m;  //!  X dimension (default: 4.4 m)
-  Double_t ybox_fulldet = 6.4 * m;  //!  Y dimension (default: 6.4 m)
+  Double_t xbox_fulldet = 4.0 * m;  //!  X dimension (default: 4.0 m)
+  Double_t ybox_fulldet = 6.0 * m;  //!  Y dimension (default: 6.0 m)
   Double_t zbox_fulldet =
       16.0 * cm;  //!  Z dimension/thickness (default: 16 cm)
 
  private:
   TGeoVolume* UpstreamTagger_fulldet;  // Timing_detector_1 object
-  TGeoVolume* scoringPlaneUBText;      // new scoring plane
+  TGeoVolume* scoringPlaneUBText;      // Sensitive plate volume
   /** container for data points */
 
   UpstreamTagger(const UpstreamTagger&) = delete;

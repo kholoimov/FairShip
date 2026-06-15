@@ -36,6 +36,16 @@ UpstreamTaggerHit::UpstreamTaggerHit(UpstreamTaggerPoint* p, Double_t t0,
   fTime = gRandom->Gaus(p->GetTime() + t0, time_res);
 }
 
+UpstreamTaggerHit::UpstreamTaggerHit(Int_t detID, Double_t x, Double_t y,
+                                     Double_t z, Double_t time)
+    : SHiP::DetectorHit() {
+  fDetectorID = detID;
+  fX = x;
+  fY = y;
+  fZ = z;
+  fTime = time;
+}
+
 // -----   Print   ------------------------------
 void UpstreamTaggerHit::Print() const {
   cout << "-I- UpstreamTaggerHit: detector " << fDetectorID << endl;

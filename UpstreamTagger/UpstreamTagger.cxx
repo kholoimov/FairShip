@@ -113,30 +113,71 @@ Bool_t UpstreamTagger::ProcessHits(FairVolume* vol) {
 
 void UpstreamTagger::ConstructGeometry() {
   TGeoVolume* top = gGeoManager->GetTopVolume();
-
-  //////////////////////////////////////////////////////
-
-  ///////////////////////////////////////////////////////
-
-  ///////////////////////////////////////////////////////
+  constexpr Double_t kFinePlateSize = 5.0 * cm;
+  constexpr Double_t kCoarsePlateSize = 10.0 * cm;
+  constexpr Double_t kCentralHalfSize = 50.0 * cm;
+  const int numCoarsePlatesX = TMath::Nint(xbox_fulldet / kCoarsePlateSize);
+  const int numCoarsePlatesY = TMath::Nint(ybox_fulldet / kCoarsePlateSize);
+  const int numFinePlatesPerAxis =
+      TMath::Nint((2.0 * kCentralHalfSize) / kFinePlateSize);
 
   ShipGeo::InitMedium("vacuum");
+  ShipGeo::InitMedium("polyvinyltoluene");
   TGeoMedium* Vacuum_box = gGeoManager->GetMedium("vacuum");
+  TGeoMedium* Scintillator = gGeoManager->GetMedium("polyvinyltoluene");
   ///////////////////////////////////////////////////////////////////
 
-  // Adding UBT Extension
   if (!Vacuum_box) {
     Fatal("ConstructGeometry", "Medium 'vacuum' not found.");
   }
+  if (!Scintillator) {
+    Fatal("ConstructGeometry", "Medium 'polyvinyltoluene' not found.");
+  }
 
-  UpstreamTagger_fulldet =
-      gGeoManager->MakeBox("Upstream_Tagger", Vacuum_box, xbox_fulldet / 2.0,
-                           ybox_fulldet / 2.0, zbox_fulldet / 2.0);
+  UpstreamTagger_fulldet = gGeoManager->MakeBox(
+      "Upstream_Tagger", Vacuum_box, xbox_fulldet / 2.0, ybox_fulldet / 2.0,
+      zbox_fulldet / 2.0);
   UpstreamTagger_fulldet->SetLineColor(kGreen);
 
   top->AddNode(UpstreamTagger_fulldet, 1,
                new TGeoTranslation(0.0, 0.0, det_zPos));
-  AddSensitiveVolume(UpstreamTagger_fulldet);
+
+  auto* scoringPlaneUBTcoarse = gGeoManager->MakeBox(
+      "Upstream_TaggerPlateCoarse", Scintillator, kCoarsePlateSize / 2.0,
+      kCoarsePlateSize / 2.0, zbox_fulldet / 2.0);
+  scoringPlaneUBTcoarse->SetLineColor(kBlue);
+  AddSensitiveVolume(scoringPlaneUBTcoarse);
+
+  scoringPlaneUBText = gGeoManager->MakeBox("Upstream_TaggerPlateFine",
+                                            Scintillator,
+                                            kFinePlateSize / 2.0,
+                                            kFinePlateSize / 2.0,
+                                            zbox_fulldet / 2.0);
+  scoringPlaneUBText->SetLineColor(kCyan);
+  AddSensitiveVolume(scoringPlaneUBText);
+
+  int copyNo = 1;
+  for (const auto ix : TSeqI(numCoarsePlatesX)) {
+    const Double_t x = -xbox_fulldet / 2.0 + (ix + 0.5) * kCoarsePlateSize;
+    for (const auto iy : TSeqI(numCoarsePlatesY)) {
+      const Double_t y = -ybox_fulldet / 2.0 + (iy + 0.5) * kCoarsePlateSize;
+      if (TMath::Abs(x) < kCentralHalfSize && TMath::Abs(y) < kCentralHalfSize) {
+        continue;
+      }
+      UpstreamTagger_fulldet->AddNode(scoringPlaneUBTcoarse, copyNo++,
+                                      new TGeoTranslation(x, y, 0.0));
+    }
+  }
+
+  for (const auto ix : TSeqI(numFinePlatesPerAxis)) {
+    const Double_t x = -kCentralHalfSize + (ix + 0.5) * kFinePlateSize;
+    for (const auto iy : TSeqI(numFinePlatesPerAxis)) {
+      const Double_t y = -kCentralHalfSize + (iy + 0.5) * kFinePlateSize;
+      UpstreamTagger_fulldet->AddNode(scoringPlaneUBText, copyNo++,
+                                      new TGeoTranslation(x, y, 0.0));
+    }
+  }
+
   cout << " Z Position (Upstream Tagger1) " << det_zPos << endl;
   //////////////////////////////////////////////////////////////////
 

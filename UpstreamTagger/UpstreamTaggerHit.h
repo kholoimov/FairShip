@@ -31,6 +31,16 @@ class UpstreamTaggerHit : public SHiP::DetectorHit {
   UpstreamTaggerHit(UpstreamTaggerPoint* p, Double_t t0, Double_t pos_res,
                     Double_t time_res);
 
+  /** Constructor from digitized tile-center coordinates.
+   * @param detID  Detector ID
+   * @param x      Tile-center x position (cm)
+   * @param y      Tile-center y position (cm)
+   * @param z      Tile-center z position (cm)
+   * @param time   Digitized time (ns)
+   **/
+  UpstreamTaggerHit(Int_t detID, Double_t x, Double_t y, Double_t z,
+                    Double_t time);
+
   /** Destructor **/
   ~UpstreamTaggerHit() override = default;
 
