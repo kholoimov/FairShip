@@ -424,7 +424,7 @@ def create_config(
     c.UpstreamTagger.BoxZ = 16.0 * u.cm  # Z dimension (thickness)
     c.UpstreamTagger.Z_Position = -25.400 * u.m + c.decayVolume.z  # Relative position of UBT to decay vessel centre
     c.UpstreamTagger.PositionResolution = 1.0 * u.cm  # Position smearing resolution
-    c.UpstreamTagger.TimeResolution = 0.3  # Time resolution in ns
+    c.UpstreamTagger.TimeResolution = 0.1  # Time resolution in ns (100 ps)
 
     # Store parameters that might be needed for reference
     c.muShieldGeo = muShieldGeo

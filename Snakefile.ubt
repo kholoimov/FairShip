@@ -1,0 +1,84 @@
+configfile: "ubt_batch.yaml"
+
+from pathlib import Path
+
+REPO_ROOT = Path(workflow.basedir).resolve()
+DEFAULT_OUTDIR = Path(config.get("output_dir", "ubt_batch_runs"))
+SAMPLES = config.get("samples", [])
+
+if not SAMPLES:
+    raise ValueError("No samples defined in ubt_batch.yaml")
+
+SAMPLE_BY_TAG = {sample["tag"]: sample for sample in SAMPLES}
+TAGS = list(SAMPLE_BY_TAG)
+
+
+def sample_output_dir(tag):
+    return str((DEFAULT_OUTDIR / tag).as_posix())
+
+
+rule all:
+    input:
+        expand(str(DEFAULT_OUTDIR / "{tag}" / "compare" / "ubt_hit_comparison.root"), tag=TAGS),
+        expand(str(DEFAULT_OUTDIR / "{tag}" / "compare" / "compare.log"), tag=TAGS),
+
+
+rule simulate:
+    output:
+        sim=str(DEFAULT_OUTDIR / "{tag}" / "sim_{tag}.root"),
+        geo=str(DEFAULT_OUTDIR / "{tag}" / "geo_{tag}.root"),
+        params=str(DEFAULT_OUTDIR / "{tag}" / "params_{tag}.root"),
+    params:
+        outdir=lambda wc: sample_output_dir(wc.tag),
+        sim_args=lambda wc: SAMPLE_BY_TAG[wc.tag].get("sim_args", ""),
+        reproducible_arg=lambda wc: "--reproducible" if SAMPLE_BY_TAG[wc.tag].get("reproducible", True) else "",
+    shell:
+        r"""
+        mkdir -p {params.outdir}
+        cd {params.outdir}
+        pixi run python {REPO_ROOT}/macro/run_simScript.py \
+          --tag {wildcards.tag} \
+          {params.reproducible_arg} \
+          {params.sim_args}
+        """
+
+
+rule reco:
+    input:
+        sim=str(DEFAULT_OUTDIR / "{tag}" / "sim_{tag}.root"),
+        geo=str(DEFAULT_OUTDIR / "{tag}" / "geo_{tag}.root"),
+    output:
+        reco=str(DEFAULT_OUTDIR / "{tag}" / "sim_{tag}_rec.root"),
+    params:
+        outdir=lambda wc: sample_output_dir(wc.tag),
+        reco_args=lambda wc: SAMPLE_BY_TAG[wc.tag].get("reco_args", ""),
+    shell:
+        r"""
+        cd {params.outdir}
+        pixi run python {REPO_ROOT}/macro/ShipReco.py \
+          -f sim_{wildcards.tag}.root \
+          -g geo_{wildcards.tag}.root \
+          {params.reco_args}
+        """
+
+
+rule compare_ubt:
+    input:
+        reco=str(DEFAULT_OUTDIR / "{tag}" / "sim_{tag}_rec.root"),
+    output:
+        root=str(DEFAULT_OUTDIR / "{tag}" / "compare" / "ubt_hit_comparison.root"),
+        log=str(DEFAULT_OUTDIR / "{tag}" / "compare" / "compare.log"),
+    params:
+        outdir=lambda wc: sample_output_dir(wc.tag),
+        compare_dir=lambda wc: str((DEFAULT_OUTDIR / wc.tag / "compare").as_posix()),
+        compare_args=lambda wc: SAMPLE_BY_TAG[wc.tag].get("compare_args", ""),
+    shell:
+        r"""
+        mkdir -p {params.compare_dir}
+        cd {params.outdir}
+        pixi run python {REPO_ROOT}/macro/compare_ubt_hits.py \
+          -f sim_{wildcards.tag}_rec.root \
+          --output-dir compare \
+          {params.compare_args} \
+          > compare/compare.log
+        """

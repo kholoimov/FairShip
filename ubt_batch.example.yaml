@@ -1,0 +1,30 @@
+output_dir: ubt_batch_runs
+
+samples:
+  - tag: ubt-validation-001
+    reproducible: true
+    sim_args: >-
+      --MuonBack
+      --FollowMuon
+      --FastMuon
+      -n 200
+      -i 0
+      -f /absolute/path/to/muonback_input_001.root
+    reco_args: >-
+      --patRec AR
+    compare_args: >-
+      --max-print 10
+
+  - tag: ubt-validation-002
+    reproducible: true
+    sim_args: >-
+      --MuonBack
+      --FollowMuon
+      --FastMuon
+      -n 200
+      -i 200
+      -f /absolute/path/to/muonback_input_002.root
+    reco_args: >-
+      --patRec AR
+    compare_args: >-
+      --max-print 10

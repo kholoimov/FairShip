@@ -1,0 +1,88 @@
+from pathlib import Path
+
+FAIRSHIP_DIR = Path(config.get("fairship_dir", (Path(workflow.basedir).parent / "FairShip"))).resolve()
+WORK_DIR = str(Path(config.get("work_dir", "/tmp/fairship_pixi_batch_runs")).resolve())
+TAG = "my_simulation"
+SAMPLE_DIR = Path(config.get("sample_dir", "/vetoTF/samples"))
+MAX_FILES = int(config.get("max_files", 0))
+sample_files = sorted(SAMPLE_DIR.glob("*.root"))
+if MAX_FILES > 0:
+    sample_files = sample_files[:MAX_FILES]
+
+FILE_MAP = {sample.stem: str(sample) for sample in sample_files}
+
+if not FILE_MAP:
+    raise ValueError(f"No sample ROOT files found in {SAMPLE_DIR}")
+
+
+rule all:
+    input:
+        expand(
+            f"{WORK_DIR}/{{sample}}/sim_{TAG}_rec.root",
+            sample=FILE_MAP.keys(),
+        )
+
+
+rule run_simulation:
+    input:
+        lambda wc: FILE_MAP[wc.sample]
+    output:
+        sim_root=f"{WORK_DIR}/{{sample}}/sim_{TAG}.root",
+        geo_root=f"{WORK_DIR}/{{sample}}/geo_{TAG}.root",
+        params_root=f"{WORK_DIR}/{{sample}}/params_{TAG}.root",
+        sim_log=f"{WORK_DIR}/{{sample}}/simScript.logs",
+        status_log=f"{WORK_DIR}/{{sample}}/status.log",
+    shell:
+        r"""
+        set -euo pipefail
+
+        jobdir="{WORK_DIR}/{wildcards.sample}"
+        mkdir -p "$jobdir"
+        cd "$jobdir"
+
+        echo "Running simulation on {input}" > status.log
+        echo "PWD=$(pwd)" >> status.log
+
+        sim_status=0
+        python "{FAIRSHIP_DIR}/macro/run_simScript.py" \
+            -n 2000000 --MuonBack --FollowMuon --FastMuon \
+            --tag {TAG} -f "{input}" \
+            2>&1 | tee simScript.logs || sim_status=$?
+
+        echo "run_simScript exit code: $sim_status" >> status.log
+
+        if [ ! -s sim_{TAG}.root ]; then
+            echo "Simulation failed: output ROOT file missing or empty" >> status.log
+            exit 1
+        fi
+
+        if [ ! -s geo_{TAG}.root ]; then
+            echo "Simulation failed: geometry ROOT file missing or empty" >> status.log
+            exit 1
+        fi
+
+        if grep -q "Traceback (most recent call last)" simScript.logs; then
+            echo "WARNING: traceback detected in run_simScript.py, but output file exists" >> status.log
+        fi
+        """
+
+
+rule run_reco:
+    input:
+        sim_root=f"{WORK_DIR}/{{sample}}/sim_{TAG}.root",
+        geo_root=f"{WORK_DIR}/{{sample}}/geo_{TAG}.root",
+    output:
+        reco_root=f"{WORK_DIR}/{{sample}}/sim_{TAG}_rec.root",
+        reco_log=f"{WORK_DIR}/{{sample}}/ShipReco.logs",
+    shell:
+        r"""
+        set -euo pipefail
+
+        jobdir="{WORK_DIR}/{wildcards.sample}"
+        cd "$jobdir"
+
+        python "{FAIRSHIP_DIR}/macro/ShipReco.py" \
+            -f "sim_{TAG}.root" \
+            -g "geo_{TAG}.root" \
+            2>&1 | tee ShipReco.logs
+        """
