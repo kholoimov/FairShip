@@ -63,6 +63,7 @@ configure = { cmd = """cmake -S . -B build -G Ninja \
 build = { cmd = "cmake --build build -j$(nproc)", depends-on = ["configure"] }
 install = { cmd = "cmake --install build", depends-on = ["build"] }
 test = { cmd = "ctest --test-dir build --output-on-failure", depends-on = ["build"] }
+update-pixi-references = { cmd = "python tests/update_pixi_references.py" }
 
 # --- CI sim-chain tasks ---
 # Mirror the per-step commands in .github/workflows/build-run.yml so the

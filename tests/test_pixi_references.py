@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import difflib
 import os
 import re
 import subprocess
@@ -76,6 +77,18 @@ def _run_case(case: dict[str, str], *, output_dir: Path) -> subprocess.Completed
     )
 
 
+def _unified_diff(expected: str, actual: str, *, reference_path: Path) -> str:
+    return "\n".join(
+        difflib.unified_diff(
+            expected.splitlines(),
+            actual.splitlines(),
+            fromfile=str(reference_path),
+            tofile="actual_stdout",
+            lineterm="",
+        )
+    )
+
+
 def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
     if "case" not in metafunc.fixturenames:
         return
@@ -104,7 +117,6 @@ def test_pixi_reference(case: dict[str, str], tmp_path_factory: pytest.TempPathF
     stderr = completed.stderr
     expected_returncode = int(case.get("returncode", 0))
     expected_stdout = reference_path.read_text(encoding="utf-8").strip()
-    stdout_match = case.get("stdout_match", "exact")
 
     try:
         assert completed.returncode == expected_returncode, (
@@ -113,19 +125,11 @@ def test_pixi_reference(case: dict[str, str], tmp_path_factory: pytest.TempPathF
             f"STDERR:\n{stderr}"
         )
 
-        if stdout_match == "contains":
-            assert expected_stdout in stdout, (
-                f"Expected stdout fragment not found for {case['name']} ({reference_path})\n"
-                f"EXPECTED FRAGMENT:\n{expected_stdout}\n"
-                f"STDOUT:\n{stdout}\n"
-                f"STDERR:\n{stderr}"
-            )
-        else:
-            assert stdout == expected_stdout, (
-                f"Stdout snapshot mismatch for {case['name']} ({reference_path})\n"
-                f"STDOUT:\n{stdout}\n"
-                f"STDERR:\n{stderr}"
-            )
+        assert stdout == expected_stdout, (
+            f"Stdout snapshot mismatch for {case['name']} ({reference_path})\n"
+            f"DIFF:\n{_unified_diff(expected_stdout, stdout, reference_path=reference_path)}\n"
+            f"STDERR:\n{stderr}"
+        )
 
         for output_template in case.get("expected_outputs", []):
             output_path = _resolve_template(output_template, output_dir=output_dir)
