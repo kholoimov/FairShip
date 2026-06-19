@@ -113,7 +113,7 @@ def _check_build_output(case: dict[str, str], stdout: str) -> tuple[bool, str | 
     if case["name"] != "pixi_build":
         return True, None
 
-    warning_count = len(re.findall(r"WARNING|warning", stdout))
+    warning_count = len(re.findall(r"WARNING|warning|Warning", stdout))
     CASE_WARNING_COUNTS[case["name"]] = warning_count
 
     if re.search(r"ERROR|error", stdout):
