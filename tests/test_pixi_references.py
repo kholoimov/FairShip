@@ -43,7 +43,7 @@ def _command_log_path(case: dict[str, str], *, output_dir: Path) -> Path:
 def _normalize_stdout(stdout: str, *, output_dir: Path) -> str:
     normalized = stdout.replace(str(output_dir), "{TMP_PATH}")
     normalized = re.sub(r"(?m)^(\+ [^:]+:\d+: )", "", normalized)
-    return normalized
+    return "\n".join(line.rstrip() for line in normalized.splitlines()).strip()
 
 
 def _run_case(case: dict[str, str], *, output_dir: Path) -> subprocess.CompletedProcess[str]:
@@ -141,7 +141,7 @@ def test_pixi_reference(case: dict[str, str], tmp_path_factory: pytest.TempPathF
     stdout = _normalize_stdout(_case_output_text(case, completed, output_dir=output_dir), output_dir=output_dir)
     stderr = completed.stderr
     expected_returncode = int(case.get("returncode", 0))
-    expected_stdout = reference_path.read_text(encoding="utf-8").strip()
+    expected_stdout = "\n".join(line.rstrip() for line in reference_path.read_text(encoding="utf-8").splitlines()).strip()
 
     try:
         assert completed.returncode == expected_returncode, (
