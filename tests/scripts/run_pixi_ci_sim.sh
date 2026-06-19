@@ -17,6 +17,13 @@ set -x
 
 cd "$repo_root"
 
-# put here your command to be run
-pixi run ci-sim
-
+# keep the test independent from the generic pixi ci-sim task alias
+pixi run python macro/run_simScript.py \
+  --test \
+  --debug 2 \
+  --vacuums \
+  --SND \
+  --SND_design=all \
+  --shieldName TRY_2025 \
+  --EvtGenDecayer \
+  --tag ci-test
