@@ -19,6 +19,7 @@ CASE_CONFIG_PATH = REPO_ROOT / "tests" / "pixi_reference_cases.toml"
 LIVE_LOGS_ENV = "FAIRSHIP_TEST_LIVE_LOGS"
 CASE_RESULTS: dict[str, bool] = {}
 CASE_DEPENDENCY_OK: dict[str, bool] = {}
+CASE_WARNING_COUNTS: dict[str, int] = {}
 
 
 def _load_cases() -> list[dict[str, str]]:
@@ -105,10 +106,11 @@ def _check_build_output(case: dict[str, str], stdout: str) -> tuple[bool, str | 
     if case["name"] != "pixi_build":
         return True, None
 
+    warning_count = len(re.findall(r"WARNING|warning", stdout))
+    CASE_WARNING_COUNTS[case["name"]] = warning_count
+
     if re.search(r"ERROR|error", stdout):
         return False, "Build output contains ERROR/error"
-    if re.search(r"WARNING|warning", stdout):
-        return True, "Build output contains WARNING/warning"
     return True, None
 
 
@@ -155,6 +157,9 @@ def test_pixi_reference(case: dict[str, str], tmp_path_factory: pytest.TempPathF
             f"STDOUT:\n{stdout}\n"
             f"STDERR:\n{stderr}"
         )
+        warning_count = CASE_WARNING_COUNTS.get(case["name"], 0)
+        if warning_count > 0:
+            print(f"{case['name']} warning count: {warning_count}")
 
         assert stdout == expected_stdout, (
             f"Stdout snapshot mismatch for {case['name']} ({reference_path})\n"
