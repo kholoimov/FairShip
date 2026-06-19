@@ -37,4 +37,6 @@ pixi run python macro/run_simScript.py \
   --MuonBack \
   --FollowMuon \
   --FastMuon \
+  --run-number 123 \
+  --reproducible \
   --validation

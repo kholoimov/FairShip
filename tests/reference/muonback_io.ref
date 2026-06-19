@@ -2,7 +2,7 @@ input_file=/tmp/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root
 input_url=https://cernbox.cern.ch/remote.php/dav/public-files/vdwtXtgM5P2Z0S5/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root
 [[ ! -f /tmp/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root ]]
 cd /vetoTF/FairShip
-pixi run python macro/run_simScript.py -n 100 -i 100 -f /tmp/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root -o {TMP_PATH} --tag muonback_io --remote-input --sameSeed 42 --seed 42 --MuonBack --FollowMuon --FastMuon --validation
+pixi run python macro/run_simScript.py -n 100 -i 100 -f /tmp/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root -o {TMP_PATH} --tag muonback_io --remote-input --sameSeed 42 --seed 42 --MuonBack --FollowMuon --FastMuon --run-number 123 --reproducible --validation
 [INFO] Media file used: /vetoTF/FairShip/geometry/media.geo
 TStreamerInfo::BuildOld:0: RuntimeWarning: Cannot convert vetoPoint::fLpos from type: TVector3 to type: array<double,3>, skip element
 TStreamerInfo::BuildOld:0: RuntimeWarning: Cannot convert vetoPoint::fLmom from type: TVector3 to type: array<double,3>, skip element
@@ -15,11 +15,10 @@ TStreamerInfo::BuildOld:0: RuntimeWarning: Cannot convert vetoPoint::fLmom from 
 [INFO]  - cbmroot
 [INFO]     - {TMP_PATH}/sim_muonback_io.root
 [INFO] ==============  FairRunSim: Initialising simulation run ==============
-Info in <TGeoManager::TGeoManager>: Geometry FAIRGeom, FAIR geometry created
 [INFO] FairGeoMedia: Read media 
 
 ************************************************************* 
-     initialisation for run id 1781854893
+     initialisation for run id 123
 ************************************************************* 
 [WARN] FairGenericVMCConfig::Setup() Using gConfig.C macro DEPRACATED.
 [WARN] Check FairRoot/examples/common/gconfig/ for current YAML implementation.
@@ -39,24 +38,12 @@ Info in <TGeoManager::TGeoManager>: Geometry FAIRGeom, FAIR geometry created
 =============================================================
 
 Running TVirtualMCApplication::ConstructGeometry
-Info in <TGeoManager::SetTopVolume>: Top volume is cave. Master volume is cave
-Info in <TGeoNavigator::BuildCache>: --- Maximum geometry depth set to 100
 [INFO] -- Target cooler: PressurisedHe90 T=363.15 K, P=9.98641e+09 MeV/mm3, Density=0.002121
 [INFO] veto: Decay Volume medium set as: helium
 [INFO] veto: made sensitive for following muons: Cavern
-Info in <TGeoManager::SetVisLevel>: Automatic visible depth disabled
  Z Position (Upstream Tagger1) 3272
-Info in <TGeoManager::CheckGeometry>: Fixing runtime shapes...
-Info in <TGeoManager::CheckGeometry>: ...Nothing to fix
-Info in <TGeoManager::CloseGeometry>: Counting nodes...
-Info in <TGeoManager::Voxelize>: Voxelizing...
-Info in <TGeoManager::CloseGeometry>: Building cache...
-Info in <TGeoManager::CountLevels>: max level = 5, max placements = 14153
-Info in <TGeoManager::CloseGeometry>: 46591 nodes/ 679 volume UID's in FAIR geometry
-Info in <TGeoManager::CloseGeometry>: ----------------modeler ready----------------
 [INFO] TGeometry will be imported to VMC
 
-Info in <TObject::SetNavigator>: TG4RootNavigator created and registered to G4TransportationManager
 isMaster=1
 
 **************************************************************
@@ -68,16 +55,12 @@ isMaster=1
                              WWW : http://geant4.org/
 **************************************************************
 
-Info in <TObject::Initialize>: Creating G4 hierarchy ...
-Info in <TGeoManager::ConvertReflections>: Converting reflections in: FAIRGeom - FAIR geometry ...
-Info in <TGeoManager::ConvertReflections>: Done
 ===> GEANT4 materials created and mapped to TGeo ones...
 ===> GEANT4 physical volumes created and mapped to TGeo hierarchy...
 ### INFO: TG4RootDetectorConstruction::Construct() finished
 TG4PostDetConstruction::Initialize
 G4 Stat: instantiated 685 logical volumes 
                       46110 physical volumes
-Info in <TObject::ConnectToG4>: ROOT detector construction class connected to G4RunManager
 Adding HadronPhysicsList FTFP_BERT_HP_EMZ
 G4PhysListFactory::GetReferencePhysList <FTFP_BERT_HP_EMZ>
 <<< Geant4 Physics List simulation engine: FTFP_BERT_HP
@@ -93,24 +76,24 @@ SetCuts Macro: Setting cuts..
 TG4RootDetectorConstruction::ConstructSDandField
 TG4PostDetConstruction::InitializeSDandField
 [INFO] FairMCApplication::InitGeometry: 0
-[INFO] Simulation RunID: 1781854893
+[INFO] Simulation RunID: 123
 [INFO] CREATING BRANCH MCTrack
-[INFO] Creating branch for MCTrack with address 0x560f9e17f0a8
+[INFO] Creating branch for MCTrack with address 0x5569093fe268
 [INFO] CREATING BRANCH TimeDetPoint
-[INFO] Creating branch for TimeDetPoint with address 0x560f98f585c8
+[INFO] Creating branch for TimeDetPoint with address 0x55690413b048
 CreateReadMemberWiseActions:0: RuntimeWarning:    The StreamerInfo of class FairMCPoint read from file /tmp/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root
    has the same version (=5) as the active class but a different checksum.
    You should update the version to ClassDef(FairMCPoint,6).
    The objects on this file might not be readable because:
    The in-memory layout version 5 for class 'FairMCPoint' has a base class (FairMultiLinkedData_Interface) with version 6 but the on-file layout version 5 recorded the version number 5 for this base class (FairMultiLinkedData_Interface).
 [INFO] CREATING BRANCH UpstreamTaggerPoint
-[INFO] Creating branch for UpstreamTaggerPoint with address 0x560f98aee528
+[INFO] Creating branch for UpstreamTaggerPoint with address 0x5569041272a8
 [INFO] CREATING BRANCH splitcalPoint
-[INFO] Creating branch for splitcalPoint with address 0x560f98626d78
+[INFO] Creating branch for splitcalPoint with address 0x55690394ab28
 [INFO] CREATING BRANCH strawtubesPoint
-[INFO] Creating branch for strawtubesPoint with address 0x560f98dff5d8
+[INFO] Creating branch for strawtubesPoint with address 0x5569040c85d8
 [INFO] CREATING BRANCH vetoPoint
-[INFO] Creating branch for vetoPoint with address 0x560f9852a1a8
+[INFO] Creating branch for vetoPoint with address 0x5569039a3798
 Global field created with stepper DormandPrince745
 ### INFO: TG4RootDetectorConstruction::ConstructSDandField finished
 
@@ -537,8 +520,8 @@ Macro finished successfully.
 Output file is  {TMP_PATH}/sim_muonback_io.root
 Parameter file is  {TMP_PATH}/params_muonback_io.root
 Geometry file is  {TMP_PATH}/geo_muonback_io.root
-Real time  13.236901998519897  s, CPU time  13.159999999999998 s
 removed empty events, left with: 40
+WARNING: FileHeader not found in simulation output; skipped FileHeader RunID update
 ========================================================================
 Simulation finished successfully
 ========================================================================
