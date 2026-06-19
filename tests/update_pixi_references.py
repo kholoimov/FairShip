@@ -48,6 +48,10 @@ def sanitize_tag(name: str) -> str:
     return re.sub(r"[^A-Za-z0-9_.-]+", "-", name)
 
 
+def command_log_path(case: dict[str, object], *, output_dir: Path) -> Path:
+    return output_dir / f"{sanitize_tag(str(case['name']))}.command.log"
+
+
 def normalize_stdout(stdout: str, *, output_dir: Path) -> str:
     normalized = stdout.replace(str(output_dir), "{TMP_PATH}")
     normalized = re.sub(r"(?m)^(\+ [^:]+:\d+: )", "", normalized)
@@ -109,6 +113,13 @@ def run_case(case: dict[str, object], *, output_dir: Path) -> subprocess.Complet
     return subprocess.CompletedProcess(bash_command, returncode, stdout=stdout, stderr="")
 
 
+def case_output_text(case: dict[str, object], completed: subprocess.CompletedProcess[str], *, output_dir: Path) -> str:
+    command_log = command_log_path(case, output_dir=output_dir)
+    if command_log.exists():
+        return command_log.read_text(encoding="utf-8")
+    return completed.stdout
+
+
 def main() -> int:
     args = parse_args()
     cases = topo_sort_cases(load_cases())
@@ -147,7 +158,10 @@ def main() -> int:
                 return 1
 
         reference_path = REPO_ROOT / str(case["reference"])
-        reference_path.write_text(normalize_stdout(completed.stdout, output_dir=case_output_dir), encoding="utf-8")
+        reference_path.write_text(
+            normalize_stdout(case_output_text(case, completed, output_dir=case_output_dir), output_dir=case_output_dir),
+            encoding="utf-8",
+        )
         print(f"Updated {reference_path}")
 
         if not args.keep_output:

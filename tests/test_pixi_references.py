@@ -34,6 +34,10 @@ def _resolve_template(path_template: str, *, output_dir: Path) -> Path:
     return output_dir / path_template
 
 
+def _command_log_path(case: dict[str, str], *, output_dir: Path) -> Path:
+    return output_dir / f"{_sanitize_tag(case['name'])}.command.log"
+
+
 def _normalize_stdout(stdout: str, *, output_dir: Path) -> str:
     normalized = stdout.replace(str(output_dir), "{TMP_PATH}")
     normalized = re.sub(r"(?m)^(\+ [^:]+:\d+: )", "", normalized)
@@ -77,6 +81,13 @@ def _run_case(case: dict[str, str], *, output_dir: Path) -> subprocess.Completed
     )
 
 
+def _case_output_text(case: dict[str, str], completed: subprocess.CompletedProcess[str], *, output_dir: Path) -> str:
+    command_log = _command_log_path(case, output_dir=output_dir)
+    if command_log.exists():
+        return command_log.read_text(encoding="utf-8")
+    return completed.stdout
+
+
 def _unified_diff(expected: str, actual: str, *, reference_path: Path) -> str:
     return "\n".join(
         difflib.unified_diff(
@@ -113,7 +124,7 @@ def test_pixi_reference(case: dict[str, str], tmp_path_factory: pytest.TempPathF
     assert reference_path.exists(), f"Missing reference file: {reference_path}"
 
     completed = _run_case(case, output_dir=output_dir)
-    stdout = _normalize_stdout(completed.stdout, output_dir=output_dir)
+    stdout = _normalize_stdout(_case_output_text(case, completed, output_dir=output_dir), output_dir=output_dir)
     stderr = completed.stderr
     expected_returncode = int(case.get("returncode", 0))
     expected_stdout = reference_path.read_text(encoding="utf-8").strip()
