@@ -31,8 +31,10 @@ pixi run python macro/run_simScript.py \
   -f "$input_file" \
   -o "$output_dir" \
   --tag muonback_io \
+  --remote-input \
   --sameSeed 42 \
   --seed 42 \
   --MuonBack \
   --FollowMuon \
-  --FastMuon
+  --FastMuon \
+  --validation

@@ -1,2 +1,118 @@
+cd /vetoTF/FairShip
 pixi run build
+✨ Pixi task (configure): cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX -DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_PREFIX_PATH=$CONDA_PREFIX "-DCMAKE_CXX_FLAGS=-isystem $CONDA_PREFIX/include/geant4vmc -isystem $CONDA_PREFIX/include/Geant4" 
+-- FairShip version: 25.12.349
+-- NOT Found FAIRBASE
+--- Found a Linux system
+--- Found GNU compiler collection
+CMake Warning (dev) at .pixi/envs/default/share/fairbase/cmake/modules/FindPythia8.cmake:34 (elseif):
+  ELSEIF called with no arguments, it will be skipped.
+Call Stack (most recent call first):
+  .pixi/envs/default/share/faircmakemodules/modules/FairFindPackage2.cmake:218 (find_package)
+  CMakeLists.txt:166 (find_package2)
+This warning is for project developers.  Use -Wno-dev to suppress it.
 
+-- Setting FairRoot environment:
+--   FairRoot Version           : 19.0.1
+--   FairRoot Version (Git)     : 5777184
+--   FairRoot CXX Standard      : 20
+--   FairRoot prefix            : /vetoTF/FairShip/.pixi/envs/default
+--   FairRoot Library directory : /vetoTF/FairShip/.pixi/envs/default/lib
+--   FairRoot Include path      : /vetoTF/FairShip/.pixi/envs/default/include
+--   FairRoot Cmake Modules     : /vetoTF/FairShip/.pixi/envs/default/share/fairbase/cmake/modules
+-- Found ROOTEGPythia6 Version: 6.28.0 in "/vetoTF/FairShip/.pixi/envs/default/lib64/cmake/ROOTEGPythia6"
+-- Found ROOTEGPythia6 Version: 6.28.0 in "/vetoTF/FairShip/.pixi/envs/default/lib64/cmake/ROOTEGPythia6"
+--     ROOTEGPythia6_INCLUDE_DIR: /vetoTF/FairShip/.pixi/envs/default/include
+--     ROOTEGPythia6_LIB_DIR: /vetoTF/FairShip/.pixi/envs/default/lib64
+-- Setting basic variables ...
+-- Configuring done (0.8s)
+-- Generating done (0.0s)
+-- Build files have been written to: /vetoTF/FairShip/build
+
+✨ Pixi task (build): cmake --build build -j$(nproc)
+[1/59] Creating symlinks from /vetoTF/FairShip to /vetoTF/FairShip/build for geometry and macro
+[2/59] Generating G__ShipData.cxx, ../lib/G__ShipData_rdict.pcm, ../lib/libShipData.rootmap
+[3/59] Generating G__ShipField.cxx, ../lib/G__ShipField_rdict.pcm, ../lib/libShipField.rootmap
+[4/59] Building CXX object shipdata/CMakeFiles/ShipData.dir/G__ShipData.cxx.o
+[5/59] Linking CXX shared library lib/libShipData.so.25.12.349
+[6/59] Creating library symlink lib/libShipData.so.25 lib/libShipData.so
+[7/59] Generating G__Detector.cxx, ../lib/G__Detector_rdict.pcm, ../lib/libDetector.rootmap
+[8/59] Building CXX object field/CMakeFiles/ShipField.dir/G__ShipField.cxx.o
+[9/59] Linking CXX shared library lib/libShipField.so.25.12.349
+[10/59] Creating library symlink lib/libShipField.so.25 lib/libShipField.so
+[11/59] Building CXX object Detector/CMakeFiles/Detector.dir/G__Detector.cxx.o
+[12/59] Generating G__ShipPassive.cxx, ../lib/G__ShipPassive_rdict.pcm, ../lib/libShipPassive.rootmap
+Warning in <ShipCave>: The data members of ShipCave will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <ShipMagnet>: The data members of ShipMagnet will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <ShipTargetStation>: The data members of ShipTargetStation will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <ShipMuonShield>: The data members of ShipMuonShield will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <ShipTAUMagneticSpectrometer>: The data members of ShipTAUMagneticSpectrometer will not be stored, because it inherits from TObject but does not have its own ClassDef.
+[13/59] Linking CXX shared library lib/libDetector.so.25.12.349
+[14/59] Creating library symlink lib/libDetector.so.25 lib/libDetector.so
+[15/59] Building CXX object passive/CMakeFiles/ShipPassive.dir/G__ShipPassive.cxx.o
+[16/59] Linking CXX shared library lib/libShipPassive.so.25.12.349
+[17/59] Creating library symlink lib/libShipPassive.so.25 lib/libShipPassive.so
+[18/59] Generating G__SiliconTarget.cxx, ../../lib/G__SiliconTarget_rdict.pcm, ../../lib/libSiliconTarget.rootmap
+Warning in <SiliconTarget>: The data members of SiliconTarget will not be stored, because it inherits from TObject but does not have its own ClassDef.
+[19/59] Generating G__UpstreamTagger.cxx, ../lib/G__UpstreamTagger_rdict.pcm, ../lib/libUpstreamTagger.rootmap
+Warning in <UpstreamTagger>: The data members of UpstreamTagger will not be stored, because it inherits from TObject but does not have its own ClassDef.
+[20/59] Generating G__EmulsionTarget.cxx, ../../lib/G__EmulsionTarget_rdict.pcm, ../../lib/libEmulsionTarget.rootmap
+Warning in <Target>: The data members of Target will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <TargetTracker>: The data members of TargetTracker will not be stored, because it inherits from TObject but does not have its own ClassDef.
+[21/59] Generating G__veto.cxx, ../lib/G__veto_rdict.pcm, ../lib/libveto.rootmap
+Warning in <veto>: The data members of veto will not be stored, because it inherits from TObject but does not have its own ClassDef.
+[22/59] Generating G__splitcal.cxx, ../lib/G__splitcal_rdict.pcm, ../lib/libsplitcal.rootmap
+Warning in <splitcal>: The data members of splitcal will not be stored, because it inherits from TObject but does not have its own ClassDef.
+[23/59] Generating G__strawtubes.cxx, ../lib/G__strawtubes_rdict.pcm, ../lib/libstrawtubes.rootmap
+[24/59] Generating G__TimeDet.cxx, ../lib/G__TimeDet_rdict.pcm, ../lib/libTimeDet.rootmap
+Warning in <TimeDet>: The data members of TimeDet will not be stored, because it inherits from TObject but does not have its own ClassDef.
+[25/59] Generating G__MTCDetector.cxx, ../../lib/G__MTCDetector_rdict.pcm, ../../lib/libMTCDetector.rootmap
+[26/59] Building CXX object SND/SiliconTarget/CMakeFiles/SiliconTarget.dir/G__SiliconTarget.cxx.o
+[27/59] Building CXX object UpstreamTagger/CMakeFiles/UpstreamTagger.dir/G__UpstreamTagger.cxx.o
+[28/59] Building CXX object TimeDet/CMakeFiles/TimeDet.dir/G__TimeDet.cxx.o
+[29/59] Linking CXX shared library lib/libSiliconTarget.so.25.12.349
+[30/59] Creating library symlink lib/libSiliconTarget.so.25 lib/libSiliconTarget.so
+[31/59] Linking CXX shared library lib/libUpstreamTagger.so.25.12.349
+[32/59] Creating library symlink lib/libUpstreamTagger.so.25 lib/libUpstreamTagger.so
+[33/59] Linking CXX shared library lib/libTimeDet.so.25.12.349
+[34/59] Building CXX object SND/MTC/CMakeFiles/MTCDetector.dir/G__MTCDetector.cxx.o
+[35/59] Creating library symlink lib/libTimeDet.so.25 lib/libTimeDet.so
+[36/59] Building CXX object veto/CMakeFiles/veto.dir/G__veto.cxx.o
+[37/59] Linking CXX shared library lib/libMTCDetector.so.25.12.349
+[38/59] Creating library symlink lib/libMTCDetector.so.25 lib/libMTCDetector.so
+[39/59] Linking CXX shared library lib/libveto.so.25.12.349
+[40/59] Creating library symlink lib/libveto.so.25 lib/libveto.so
+[41/59] Building CXX object SND/EmulsionTarget/CMakeFiles/EmulsionTarget.dir/G__EmulsionTarget.cxx.o
+[42/59] Building CXX object strawtubes/CMakeFiles/strawtubes.dir/G__strawtubes.cxx.o
+[43/59] Linking CXX shared library lib/libEmulsionTarget.so.25.12.349
+[44/59] Creating library symlink lib/libEmulsionTarget.so.25 lib/libEmulsionTarget.so
+[45/59] Linking CXX shared library lib/libstrawtubes.so.25.12.349
+[46/59] Creating library symlink lib/libstrawtubes.so.25 lib/libstrawtubes.so
+[47/59] Building CXX object splitcal/CMakeFiles/splitcal.dir/G__splitcal.cxx.o
+[48/59] Linking CXX shared library lib/libsplitcal.so.25.12.349
+[49/59] Creating library symlink lib/libsplitcal.so.25 lib/libsplitcal.so
+[50/59] Linking CXX executable bin/testDataClassIO
+[51/59] Linking CXX executable bin/testRNtupleIO
+[52/59] Generating G__ShipMuonShieldBackground.cxx, ../lib/G__ShipMuonShieldBackground_rdict.pcm, ../lib/libShipMuonShieldBackground.rootmap
+Warning in <exitHadronAbsorber>: The data members of exitHadronAbsorber will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <pyFairModule>: The data members of pyFairModule will not be stored, because it inherits from TObject but does not have its own ClassDef.
+[53/59] Generating G__ShipGen.cxx, ../lib/G__ShipGen_rdict.pcm, ../lib/libShipGen.rootmap
+Warning in <GenieGenerator>: The data members of GenieGenerator will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <Pythia8Generator>: The data members of Pythia8Generator will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <HNLPythia8Generator>: The data members of HNLPythia8Generator will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <DPPythia8Generator>: The data members of DPPythia8Generator will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <NtupleGenerator>: The data members of NtupleGenerator will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <MuonBackGenerator>: The data members of MuonBackGenerator will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <CosmicsGenerator>: The data members of CosmicsGenerator will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <MuDISGenerator>: The data members of MuDISGenerator will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <FixedTargetGenerator>: The data members of FixedTargetGenerator will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <EvtCalcGenerator>: The data members of EvtCalcGenerator will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <SHiP::TTreeGenerator>: The data members of SHiP::TTreeGenerator will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <TEvtGenDecayer>: The data members of TEvtGenDecayer will not be stored, because it inherits from TObject but does not have its own ClassDef.
+Warning in <ParticleGunGenerator>: The data members of ParticleGunGenerator will not be stored, because it inherits from TObject but does not have its own ClassDef.
+[54/59] Building CXX object muonShieldOptimization/CMakeFiles/ShipMuonShieldBackground.dir/G__ShipMuonShieldBackground.cxx.o
+[55/59] Linking CXX shared library lib/libShipMuonShieldBackground.so.25.12.349
+[56/59] Creating library symlink lib/libShipMuonShieldBackground.so.25 lib/libShipMuonShieldBackground.so
+[57/59] Building CXX object shipgen/CMakeFiles/ShipGen.dir/G__ShipGen.cxx.o
+[58/59] Linking CXX shared library lib/libShipGen.so.25.12.349
+[59/59] Creating library symlink lib/libShipGen.so.25 lib/libShipGen.so
