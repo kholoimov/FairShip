@@ -18,6 +18,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 CASE_CONFIG_PATH = REPO_ROOT / "tests" / "pixi_reference_cases.toml"
 LIVE_LOGS_ENV = "FAIRSHIP_TEST_LIVE_LOGS"
 CASE_RESULTS: dict[str, bool] = {}
+CASE_DEPENDENCY_OK: dict[str, bool] = {}
 
 
 def _load_cases() -> list[dict[str, str]]:
@@ -100,6 +101,17 @@ def _unified_diff(expected: str, actual: str, *, reference_path: Path) -> str:
     )
 
 
+def _check_build_output(case: dict[str, str], stdout: str) -> tuple[bool, str | None]:
+    if case["name"] != "pixi_build":
+        return True, None
+
+    if re.search(r"ERROR|error", stdout):
+        return False, "Build output contains ERROR/error"
+    if re.search(r"WARNING|warning", stdout):
+        return True, "Build output contains WARNING/warning"
+    return True, None
+
+
 def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
     if "case" not in metafunc.fixturenames:
         return
@@ -114,9 +126,9 @@ def test_pixi_case_config_exists() -> None:
 @pytest.mark.reference
 def test_pixi_reference(case: dict[str, str], tmp_path_factory: pytest.TempPathFactory) -> None:
     for dependency in case.get("depends_on", []):
-        if dependency not in CASE_RESULTS:
+        if dependency not in CASE_DEPENDENCY_OK:
             pytest.skip(f"Dependency '{dependency}' has not run yet.")
-        if not CASE_RESULTS[dependency]:
+        if not CASE_DEPENDENCY_OK[dependency]:
             pytest.skip(f"Dependency '{dependency}' did not pass.")
 
     reference_path = REPO_ROOT / case["reference"]
@@ -136,6 +148,14 @@ def test_pixi_reference(case: dict[str, str], tmp_path_factory: pytest.TempPathF
             f"STDERR:\n{stderr}"
         )
 
+        dependency_ok, build_issue = _check_build_output(case, stdout)
+        CASE_DEPENDENCY_OK[case["name"]] = dependency_ok
+        assert build_issue is None, (
+            f"{build_issue} for {case['name']} ({reference_path})\n"
+            f"STDOUT:\n{stdout}\n"
+            f"STDERR:\n{stderr}"
+        )
+
         assert stdout == expected_stdout, (
             f"Stdout snapshot mismatch for {case['name']} ({reference_path})\n"
             f"DIFF:\n{_unified_diff(expected_stdout, stdout, reference_path=reference_path)}\n"
@@ -151,6 +171,8 @@ def test_pixi_reference(case: dict[str, str], tmp_path_factory: pytest.TempPathF
             )
     except Exception:
         CASE_RESULTS[case["name"]] = False
+        CASE_DEPENDENCY_OK.setdefault(case["name"], False)
         raise
     else:
         CASE_RESULTS[case["name"]] = True
+        CASE_DEPENDENCY_OK[case["name"]] = True
