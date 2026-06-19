@@ -19,8 +19,7 @@ input_file=${SHIP_TEST_INPUT:-${FAIRSHIP_SIM_TEST_INPUT:-/tmp/pythia8_Geant4_10.
 input_url=${FAIRSHIP_SIM_TEST_INPUT_URL:-https://cernbox.cern.ch/remote.php/dav/public-files/vdwtXtgM5P2Z0S5/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root}
 
 if [[ ! -f "$input_file" ]]; then
-  mkdir -p "$(dirname "$input_file")"
-  curl -L "$input_url" -o "$input_file"
+  input_file=$input_url
 fi
 
 cd "$repo_root"
@@ -32,11 +31,13 @@ pixi run python macro/run_simScript.py \
   -f "$input_file" \
   -o "$output_dir" \
   --tag muonback_summary \
+  --remote-input \
   --sameSeed 42 \
   --seed 42 \
   --MuonBack \
   --FollowMuon \
-  --FastMuon
+  --FastMuon \
+  --validation
 
 # optional follow-up command for the same test
 pixi run python macro/validate_simulation_output.py \
