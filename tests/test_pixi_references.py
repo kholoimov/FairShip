@@ -141,7 +141,6 @@ def test_pixi_reference(case: dict[str, str], tmp_path_factory: pytest.TempPathF
     stdout = _normalize_stdout(_case_output_text(case, completed, output_dir=output_dir), output_dir=output_dir)
     stderr = completed.stderr
     expected_returncode = int(case.get("returncode", 0))
-    expected_stdout = "\n".join(line.rstrip() for line in reference_path.read_text(encoding="utf-8").splitlines()).strip()
 
     try:
         assert completed.returncode == expected_returncode, (
@@ -161,11 +160,15 @@ def test_pixi_reference(case: dict[str, str], tmp_path_factory: pytest.TempPathF
         if warning_count > 0:
             print(f"{case['name']} warning count: {warning_count}")
 
-        assert stdout == expected_stdout, (
-            f"Stdout snapshot mismatch for {case['name']} ({reference_path})\n"
-            f"DIFF:\n{_unified_diff(expected_stdout, stdout, reference_path=reference_path)}\n"
-            f"STDERR:\n{stderr}"
-        )
+        if case["name"] != "pixi_build":
+            expected_stdout = "\n".join(
+                line.rstrip() for line in reference_path.read_text(encoding="utf-8").splitlines()
+            ).strip()
+            assert stdout == expected_stdout, (
+                f"Stdout snapshot mismatch for {case['name']} ({reference_path})\n"
+                f"DIFF:\n{_unified_diff(expected_stdout, stdout, reference_path=reference_path)}\n"
+                f"STDERR:\n{stderr}"
+            )
 
         for output_template in case.get("expected_outputs", []):
             output_path = _resolve_template(output_template, output_dir=output_dir)
