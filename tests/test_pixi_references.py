@@ -171,10 +171,12 @@ def test_pixi_reference(case: dict[str, str], tmp_path_factory: pytest.TempPathF
             expected_stdout = "\n".join(
                 line.rstrip() for line in reference_path.read_text(encoding="utf-8").splitlines()
             ).strip()
-            assert stdout == expected_stdout, (
-                f"Stdout snapshot mismatch for {case['name']} ({reference_path})\n"
-                f"DIFF:\n{_unified_diff(expected_stdout, stdout, reference_path=reference_path)}"
-            )
+            if stdout != expected_stdout:
+                pytest.fail(
+                    f"Stdout snapshot mismatch for {case['name']} ({reference_path})\n"
+                    f"DIFF:\n{_unified_diff(expected_stdout, stdout, reference_path=reference_path)}",
+                    pytrace=False,
+                )
 
         for output_template in case.get("expected_outputs", []):
             output_path = _resolve_template(output_template, output_dir=output_dir)
