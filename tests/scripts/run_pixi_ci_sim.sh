@@ -26,4 +26,5 @@ pixi run python macro/run_simScript.py \
   --SND_design=all \
   --shieldName TRY_2025 \
   --EvtGenDecayer \
+  -o "$output_dir" \
   --tag ci-test
