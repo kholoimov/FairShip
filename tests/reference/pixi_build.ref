@@ -1,7 +1,7 @@
 cd /vetoTF/FairShip
 pixi run build
 ✨ Pixi task (configure): cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX -DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_PREFIX_PATH=$CONDA_PREFIX "-DCMAKE_CXX_FLAGS=-isystem $CONDA_PREFIX/include/geant4vmc -isystem $CONDA_PREFIX/include/Geant4" 
--- FairShip version: 25.12.357
+-- FairShip version: 25.12.359
 -- NOT Found FAIRBASE
 --- Found a Linux system
 --- Found GNU compiler collection
@@ -25,7 +25,7 @@ This warning is for project developers.  Use -Wno-dev to suppress it.
 --     ROOTEGPythia6_INCLUDE_DIR: /vetoTF/FairShip/.pixi/envs/default/include
 --     ROOTEGPythia6_LIB_DIR: /vetoTF/FairShip/.pixi/envs/default/lib64
 -- Setting basic variables ...
--- Configuring done (0.8s)
+-- Configuring done (0.7s)
 -- Generating done (0.0s)
 -- Build files have been written to: /vetoTF/FairShip/build
 
