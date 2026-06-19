@@ -102,6 +102,13 @@ def _unified_diff(expected: str, actual: str, *, reference_path: Path) -> str:
     )
 
 
+def _tail(text: str, lines: int = 40) -> str:
+    split = text.splitlines()
+    if len(split) <= lines:
+        return text
+    return "\n".join(split[-lines:])
+
+
 def _check_build_output(case: dict[str, str], stdout: str) -> tuple[bool, str | None]:
     if case["name"] != "pixi_build":
         return True, None
@@ -145,16 +152,16 @@ def test_pixi_reference(case: dict[str, str], tmp_path_factory: pytest.TempPathF
     try:
         assert completed.returncode == expected_returncode, (
             f"Return code mismatch for {case['name']} ({reference_path})\n"
-            f"STDOUT:\n{stdout}\n"
-            f"STDERR:\n{stderr}"
+            f"STDOUT tail:\n{_tail(stdout)}\n"
+            f"STDERR tail:\n{_tail(stderr)}"
         )
 
         dependency_ok, build_issue = _check_build_output(case, stdout)
         CASE_DEPENDENCY_OK[case["name"]] = dependency_ok
         assert build_issue is None, (
             f"{build_issue} for {case['name']} ({reference_path})\n"
-            f"STDOUT:\n{stdout}\n"
-            f"STDERR:\n{stderr}"
+            f"STDOUT tail:\n{_tail(stdout)}\n"
+            f"STDERR tail:\n{_tail(stderr)}"
         )
         warning_count = CASE_WARNING_COUNTS.get(case["name"], 0)
         if warning_count > 0:
@@ -166,16 +173,15 @@ def test_pixi_reference(case: dict[str, str], tmp_path_factory: pytest.TempPathF
             ).strip()
             assert stdout == expected_stdout, (
                 f"Stdout snapshot mismatch for {case['name']} ({reference_path})\n"
-                f"DIFF:\n{_unified_diff(expected_stdout, stdout, reference_path=reference_path)}\n"
-                f"STDERR:\n{stderr}"
+                f"DIFF:\n{_unified_diff(expected_stdout, stdout, reference_path=reference_path)}"
             )
 
         for output_template in case.get("expected_outputs", []):
             output_path = _resolve_template(output_template, output_dir=output_dir)
             assert output_path.exists(), (
                 f"Missing expected output for {case['name']}: {output_path}\n"
-                f"STDOUT:\n{stdout}\n"
-                f"STDERR:\n{stderr}"
+                f"STDOUT tail:\n{_tail(stdout)}\n"
+                f"STDERR tail:\n{_tail(stderr)}"
             )
     except Exception:
         CASE_RESULTS[case["name"]] = False
