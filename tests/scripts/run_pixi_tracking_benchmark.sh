@@ -15,10 +15,10 @@ exec > >(tee -a "$command_log") 2>&1
 export PS4='+ ${BASH_SOURCE##*/}:${LINENO}: '
 set -x
 
-cd "$repo_root"
+cd "$output_dir"
 
 # put here your command to be run
-pixi run python macro/run_tracking_benchmark.py \
+pixi run python "$repo_root/macro/run_tracking_benchmark.py" \
   -n 1000 \
   --seed 42 \
   --debug 0 \
