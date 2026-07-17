@@ -1,7 +1,7 @@
 TStreamerInfo::BuildOld:0: RuntimeWarning: Cannot convert vetoPoint::fLpos from type: TVector3 to type: array<double,3>, skip element
 TStreamerInfo::BuildOld:0: RuntimeWarning: Cannot convert vetoPoint::fLmom from type: TVector3 to type: array<double,3>, skip element
-[INFO] Opening input file to find keys /tmp/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root
-[INFO] Opening input file /tmp/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root
+[INFO] Opening input file to find keys https://cernbox.cern.ch/remote.php/dav/public-files/vdwtXtgM5P2Z0S5/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root
+[INFO] Opening input file https://cernbox.cern.ch/remote.php/dav/public-files/vdwtXtgM5P2Z0S5/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root
 [INFO] Reading 13450391 entries
 [INFO] Using TClonesArray format (vetoPoint)
 [INFO] Seed: 42
@@ -68,7 +68,7 @@ TG4PostDetConstruction::InitializeSDandField
 [INFO] FairMCApplication::InitGeometry: 0
 [INFO] CREATING BRANCH MCTrack
 [INFO] CREATING BRANCH TimeDetPoint
-CreateReadMemberWiseActions:0: RuntimeWarning:    The StreamerInfo of class FairMCPoint read from file /tmp/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root
+CreateReadMemberWiseActions:0: RuntimeWarning:    The StreamerInfo of class FairMCPoint read from file https://cernbox.cern.ch/remote.php/dav/public-files/vdwtXtgM5P2Z0S5/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root
    has the same version (=5) as the active class but a different checksum.
    You should update the version to ClassDef(FairMCPoint,6).
    The objects on this file might not be readable because:

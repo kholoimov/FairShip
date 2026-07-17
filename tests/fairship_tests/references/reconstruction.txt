@@ -22,7 +22,6 @@ Adding field muonShieldField
 Setting the Global field
 Adding field TotalField to Global
 The virtual MC pointer gMC is null! The global field can't be used by Geant4 but will work for track fitting and track extrapolation
-/home/vkholoim/.config/matplotlib is not a writable directory
 configured to process  999999  events from  sim_muonback_io.root  starting with event  0  with option Yheight =  None  with vertexing True  and pattern reco  AR
 Calling addVMCFields
 event  0

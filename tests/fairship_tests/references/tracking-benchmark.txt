@@ -546,7 +546,6 @@ Adding field muonShieldField
 Setting the Global field
 Adding field TotalField to Global
 The virtual MC pointer gMC is null! The global field can't be used by Geant4 but will work for track fitting and track extrapolation
-/home/vkholoim/.config/matplotlib is not a writable directory
 [INFO] SiPM Overlap parameters:
   fLengthScifiMat = 60 cm
   fWidthChannel = 0.1 cm
