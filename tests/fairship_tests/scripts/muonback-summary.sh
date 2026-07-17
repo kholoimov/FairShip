@@ -6,12 +6,13 @@ set -euo pipefail
 
 export QT_QPA_PLATFORM=offscreen
 
+
 python "$FAIRSHIP_ROOT/macro/run_simScript.py" \
-    -n 100 \
+    -n 5000 \
     -i 100 \
     -f https://cernbox.cern.ch/remote.php/dav/public-files/vdwtXtgM5P2Z0S5/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root \
+    --tag muonback_summary \
     --remote-input \
-    --tag muonback_io \
     --sameSeed 42 \
     --seed 42 \
     --MuonBack \

@@ -1,3 +1,4 @@
+[INFO] Media file used: /shared/vkholoim/SHiP/FairShip/geometry/media.geo
 TStreamerInfo::BuildOld:0: RuntimeWarning: Cannot convert vetoPoint::fLpos from type: TVector3 to type: array<double,3>, skip element
 TStreamerInfo::BuildOld:0: RuntimeWarning: Cannot convert vetoPoint::fLmom from type: TVector3 to type: array<double,3>, skip element
 [INFO] Opening input file to find keys /tmp/pythia8_Geant4_10.0_withCharmandBeauty0_mu.root
@@ -7,7 +8,7 @@ TStreamerInfo::BuildOld:0: RuntimeWarning: Cannot convert vetoPoint::fLmom from 
 [INFO] Seed: 42
 [INFO] FairRootFileSink initialized.
 [INFO]  - cbmroot
-[INFO]     - ./sim_muonback_io.root
+[INFO]     - ./sim_muonback_summary.root
 [INFO] ==============  FairRunSim: Initialising simulation run ==============
 [INFO] FairGeoMedia: Read media 
 
@@ -16,6 +17,8 @@ TStreamerInfo::BuildOld:0: RuntimeWarning: Cannot convert vetoPoint::fLmom from 
 [WARN] FairGenericVMCConfig::Setup() Using gConfig.C macro DEPRACATED.
 [WARN] Check FairRoot/examples/common/gconfig/ for current YAML implementation.
 [INFO] ---------------User config is used: g4Config.C
+[INFO] ---User path for Configuration (g4Config.C) is used: /shared/vkholoim/SHiP/FairShip/gconfig
+[INFO] ---User path for Cuts and Processes (SetCuts.C) is used: /shared/vkholoim/SHiP/FairShip/gconfig
 
 =============================================================
  Virtual Monte Carlo Library
@@ -61,6 +64,7 @@ G4VModularPhysicsList::ReplacePhysics: G4EmStandard with type : 2 is replaced wi
 Adding SpecialPhysicsList stepLimiter+specialCuts+
 ### TG4SpecialControlsV2 constructed
 Visualization Manager instantiating with verbosity "warnings (3)"...
+ -I g4Config() using g4conf  macro: /shared/vkholoim/SHiP/FairShip/gconfig/g4config.in
 SetCuts Macro: Setting Processes..
 SetCuts Macro: Setting cuts..
 TG4RootDetectorConstruction::ConstructSDandField
@@ -86,6 +90,22 @@ Global field created with stepper DormandPrince745
  for proton :  3 to 6 GeV
  for neutron : 3 to 6 GeV
 
+@@@ G4ParticleHPInelasticData instantiated for particle neutron data directory variable is G4NEUTRONHPDATA pointing to /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1
+NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_37_Argon
+NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_39_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_39_Argon
+NeutronHP: /Capture file for Z = 73, A = 180 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/73_181_Tantalum
+NeutronHP: /Elastic file for Z = 73, A = 180 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/73_181_Tantalum
+NeutronHP: /Inelastic file for Z = 73, A = 180 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/73_181_Tantalum
+NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_37_Argon
+NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_39_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_39_Argon
 TG4ComposedPhysicsList::ConstructProcess done
 Available UI session types: [ Qt, tcsh, csh ]
 
@@ -100,12 +120,16 @@ Available UI session types: [ Qt, tcsh, csh ]
 
 [INFO] Monte Carlo Engine Initialisation with: TGeant4
 [INFO] FairGenericVMCConfig::SetupPostInit() OFF.
+Creating field map called MainSpecMap using /shared/vkholoim/SHiP/FairShip/files/2025_02_12_SHiP_SpectrometerField_ECN3_MgB2.root
+[INFO] ShipBFieldMap::readMapFile() creating field MainSpecMap using file /shared/vkholoim/SHiP/FairShip/files/2025_02_12_SHiP_SpectrometerField_ECN3_MgB2.root
 [INFO] x limits: -500, 500, dx = 10
 [INFO] y limits: -500, 500, dy = 10
 [INFO] z limits: -750, 750, dz = 10
 [INFO] Offsets: x = 0, y = 0, z = 8957
 [INFO] Angles : phi = 0, theta = 0, psi = 0
 [INFO] Total number of bins = 1540351; Nx = 101, Ny = 101, Nz = 151
+Creating symmetric field map called muonShieldField using /shared/vkholoim/SHiP/FairShip/files/TRY_2026.root
+[INFO] ShipBFieldMap::readMapFile() creating field muonShieldField using file /shared/vkholoim/SHiP/FairShip/files/TRY_2026.root
 [INFO] x limits: 0, 219.922, dx = 1.99929
 [INFO] y limits: 0, 217.969, dy = 1.99971
 [INFO] z limits: -50, 3075, dz = 5
@@ -153,6 +177,26 @@ Use Bearden atomic level energies                 0
 Use ANSTO fluorescence model                      0
 Threshold for very long decay time at rest        1 y  
 ======================================================================
+NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_37_Argon
+NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_39_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_39_Argon
+NeutronHP: /Capture file for Z = 73, A = 180 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/73_181_Tantalum
+NeutronHP: /Elastic file for Z = 73, A = 180 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/73_181_Tantalum
+NeutronHP: /Inelastic file for Z = 73, A = 180 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/73_181_Tantalum
+NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_37_Argon
+NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_39_Argon
+NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_39_Argon
+NeutronHP: /Elastic file for Z = 73, A = 180 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/73_181_Tantalum
+NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_37_Argon
+NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_39_Argon
 
 =======================================================
 ======       ParticleHP Physics Parameters     ========
@@ -172,6 +216,7 @@ Threshold for very long decay time at rest        1 y
  Use probability tables from     
 =======================================================
 
+@@@ G4ParticleHPInelastic instantiated for particle neutron/n    data directory is /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic
 
 ====================================================================
                   HADRONIC PROCESSES SUMMARY (verbose level 1)
@@ -450,48 +495,259 @@ Store e- internal conversion data                   1
 Correlated gamma emission flag                      0
 Max 2J for sampling of angular correlations         10
 =======================================================================
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=-13 deltaMass(MeV)=1.69357 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=107.352 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=13 deltaMass(MeV)=4.00013 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=109.659 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=-13 deltaMass(MeV)=1.79762 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=107.456 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=-13 deltaMass(MeV)=3.30828 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=102.35 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=-13 deltaMass(MeV)=1.88192 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=103.776 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=13 deltaMass(MeV)=6.24323 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=111.902 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=-13 deltaMass(MeV)=3.90225 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=109.561 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=-13 deltaMass(MeV)=1.57726 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=104.081 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=13 deltaMass(MeV)=1.75622 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=103.902 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=-13 deltaMass(MeV)=1.78711 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=107.445 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=13 deltaMass(MeV)=1.64751 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=107.306 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=13 deltaMass(MeV)=5.54992 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=100.108 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=13 deltaMass(MeV)=1.61963 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=104.039 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=-13 deltaMass(MeV)=2.51767 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=103.141 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=13 deltaMass(MeV)=1.42903 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=107.087 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=13 deltaMass(MeV)=4.29342 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=109.952 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=-13 deltaMass(MeV)=1.45931 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=107.118 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=-13 deltaMass(MeV)=8.83006 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=114.488 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=-13 deltaMass(MeV)=1.10932 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=104.549 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=-13 deltaMass(MeV)=1.53377 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=104.125 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : part0005
+      issued by : G4PrimaryParticle::Set4Momentum
+Primary particle PDG=-13 deltaMass(MeV)=1.58398 is larger than the tolerance(MeV)=1
+ Specified mass(MeV)=104.074 while PDG mass(MEV)=105.658
+ To change the tolerance or the exception severity, use G4PrimaryTransformer::SetKETolerance() method.
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
 [INFO] ***  FairBaseParSet written to ROOT file   version: 1
 [INFO] ***  FairGeoParSet written to ROOT file   version: 1
+Info: Target using configuration: /shared/vkholoim/SHiP/FairShip/geometry/target_config.yaml
 ['tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten'] [4.5, 1.8, 1.7, 1.7, 1.8, 1.9, 2.1, 1.9, 2.1, 2.4, 2.8, 3.3, 4.1, 5.6, 8.8, 17.2, 28.7, 28.8, 28.8] [0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.48, 0.5, 0.68, 0.68, 0]
 INFO: Processing a file from the old production - setting target z offset to 70.845m
-Process  100  from input file, with 𝜎 =  5 , with smear radius r =  0.8 with MCTracksWithHitsOnly True
+Process  5000  from input file, with 𝜎 =  5 , with smear radius r =  0.8 with MCTracksWithHitsOnly True
 Calling addVMCFields
  
 Macro finished successfully.
-Output file is  ./sim_muonback_io.root
-Parameter file is  ./params_muonback_io.root
-Geometry file is  ./geo_muonback_io.root
-removed empty events, left with: 35
+Output file is  ./sim_muonback_summary.root
+Parameter file is  ./params_muonback_summary.root
+Geometry file is  ./geo_muonback_summary.root
+removed empty events, left with: 1721
 WARNING: FileHeader not found in simulation output; skipped FileHeader RunID update
 ========================================================================
 Simulation finished successfully
 ========================================================================
  
 [Generator Validation]
-  Scanned input entries        : 100
-  Accepted input entries       : 100
-  Selected muons               : 118
-  Transported tracks           : 804
+  Scanned input entries        : 5000
+  Accepted input entries       : 5000
+  Selected muons               : 6148
+  Transported tracks           : 39861
  
 [Tree Validation]
-  Requested events             : 100
-  Final cbmsim entries         : 35
-  Kept fraction                : 35.00%
+  Requested events             : 5000
+  Final cbmsim entries         : 1721
+  Kept fraction                : 34.42%
   Branches in cbmsim           : 7
   ROOT objects                 : 2
   Countable branches           : 3
  
 [MCTrack Validation]
-  Total tracks                 : 271
-  Primary tracks               : 69
-  Secondary tracks             : 202
-  Tracks per event             : 7.743
-  Track momentum               : 124.3 +- 141.1  [min=4.086e-14, max=400]
-  Track energy                 : nan +- 0  [min=0.3665, max=400]
-  Track start Z                : 18.17 +- 15.49  [min=0.1074, max=82.85]
-  Top PDG counts               : 2212:58, 2:55, 1:36, 13:21, 2112:19, -13:18, 21:16, 223:12, 22:7, 113:6
+  Total tracks                 : 13001
+  Primary tracks               : 3402
+  Secondary tracks             : 9599
+  Tracks per event             : 7.554
+  Track momentum               : 128.6 +- 140.3  [min=4.086e-14, max=400]
+  Track energy                 : nan +- 0  [min=0.1711, max=400]
+  Track start Z                : 17.32 +- 16.96  [min=0.001465, max=124.3]
+  Top PDG counts               : 2212:2557, 2:2309, 1:1702, 2112:1017, 13:979, -13:960, 21:765, 223:621, 22:380, 113:359
  
 [Branch Multiplicity]
-  MCTrack                : total=271, mean/event=7.743 +- 2.143, active=35/35 (100.0%), max=13
-  UpstreamTaggerPoint    : total=35, mean/event=1 +- 0.414, active=32/35 ( 91.4%), max=2
-  vetoPoint              : total=39, mean/event=1.114 +- 0.3182, active=35/35 (100.0%), max=2
+  MCTrack                : total=13001, mean/event=7.554 +- 1.915, active=1721/1721 (100.0%), max=14
+  UpstreamTaggerPoint    : total=1560, mean/event=0.9064 +- 0.5102, active=1409/1721 ( 81.9%), max=2
+  vetoPoint              : total=1941, mean/event=1.128 +- 0.3374, active=1721/1721 (100.0%), max=3

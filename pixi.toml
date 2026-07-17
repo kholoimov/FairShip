@@ -72,8 +72,8 @@ configure = { cmd = """cmake -S . -B build -G Ninja \
 build = { cmd = "cmake --build build -j$(nproc)", depends-on = ["configure"] }
 install = { cmd = "cmake --install build", depends-on = ["build"] }
 test = { cmd = "ctest --test-dir build --output-on-failure", depends-on = ["build"] }
-test-fairship = { cmd = "pytest tests/fairship_tests -n auto --maxprocesses 4 --dist loadgroup" }
-regenerate-fairship-references = { cmd = "tests/fairship_tests/regenerate_references.sh" }
+pytest = { cmd = "pytest tests/fairship_tests -n auto --maxprocesses 4 --dist loadgroup", depends-on = ["build"] }
+regenerate-pytest-references = { cmd = "tests/fairship_tests/regenerate_references.sh", depends-on = ["build"]  }
 
 # --- CI sim-chain tasks ---
 # Mirror the per-step commands in .github/workflows/build-run.yml so the
