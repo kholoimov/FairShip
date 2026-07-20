@@ -4,6 +4,8 @@
 
 set -euo pipefail
 
+export QT_QPA_PLATFORM=offscreen
+
 python "$FAIRSHIP_ROOT/macro/ShipReco.py" \
     -f sim_muonback_io.root \
     -g geo_muonback_io.root \
