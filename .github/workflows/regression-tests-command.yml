@@ -1,0 +1,161 @@
+name: Command-triggered regression tests
+
+on:
+  issue_comment:
+    types: [created]
+
+concurrency:
+  group: regression-tests-pr-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  authorize:
+    name: Authorize command
+    if: >-
+      github.event.issue.pull_request &&
+      github.event.comment.body == '/run-regression-tests' &&
+      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      head_sha: ${{ steps.pull-request.outputs.head_sha }}
+    steps:
+      - name: Validate pull request
+        id: pull-request
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const {data: pull} = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            if (pull.head.repo.full_name !== `${context.repo.owner}/${context.repo.repo}`) {
+              core.setFailed('Regression tests can only run for branches in this repository.');
+              return;
+            }
+            core.setOutput('head_sha', pull.head.sha);
+
+  regression-tests:
+    name: Regression tests
+    needs: authorize
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      status: ${{ steps.tests.outputs.status }}
+    env:
+      QT_QPA_PLATFORM: offscreen
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.authorize.outputs.head_sha }}
+          lfs: true
+          persist-credentials: false
+      - uses: prefix-dev/setup-pixi@v0.10.0
+        with:
+          cache: true
+      - name: Run regression tests
+        id: tests
+        shell: bash
+        run: |
+          set +e
+          pixi run --locked test-fairship 2>&1 | tee regression-tests.log
+          status=${PIPESTATUS[0]}
+          set -e
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+      - name: Upload test output
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: regression-tests-${{ github.run_id }}
+          path: regression-tests.log
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Propagate test result
+        if: steps.tests.outputs.status != '0'
+        env:
+          TEST_STATUS: ${{ steps.tests.outputs.status }}
+        run: |
+          echo "Regression tests exited with status ${TEST_STATUS:-unknown}"
+          exit 1
+
+  report:
+    name: Report regression-test result
+    if: always() && needs.authorize.result == 'success'
+    needs: [authorize, regression-tests]
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      pull-requests: write
+    steps:
+      - name: Download test output
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          name: regression-tests-${{ github.run_id }}
+      - name: Post pull-request comment
+        uses: actions/github-script@v9
+        env:
+          TEST_STATUS: ${{ needs.regression-tests.outputs.status }}
+          TEST_JOB_RESULT: ${{ needs.regression-tests.result }}
+          TESTED_SHA: ${{ needs.authorize.outputs.head_sha }}
+        with:
+          script: |
+            const fs = require('fs');
+            const marker = '<!-- fairship-regression-tests -->';
+            const passed = process.env.TEST_JOB_RESULT === 'success' && process.env.TEST_STATUS === '0';
+            const heading = passed
+              ? '## ✅ FairShip regression tests passed'
+              : '## ❌ FairShip regression tests failed';
+            const escapeHtml = (text) => text
+              .replaceAll('&', '&amp;')
+              .replaceAll('<', '&lt;')
+              .replaceAll('>', '&gt;');
+            const output = fs.existsSync('regression-tests.log')
+              ? fs.readFileSync('regression-tests.log', 'utf8')
+              : 'The test runner did not produce an output log.';
+            // GitHub comments are limited to 65,536 characters. Preserve the
+            // end of the log, where CTest reports failures and its summary.
+            const limit = 59000;
+            const clipped = output.length > limit
+              ? `[earlier output omitted]\n${output.slice(-limit)}`
+              : output;
+            const body = [
+              marker,
+              heading,
+              '',
+              `Tested commit: \`${process.env.TESTED_SHA}\``,
+              '',
+              `<details${passed ? '' : ' open'}><summary>Test output</summary>`,
+              '',
+              `<pre>${escapeHtml(clipped)}</pre>`,
+              '</details>',
+            ].join('\n');
+
+            await core.summary.addRaw(body).write();
+
+            const {data: comments} = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(comment =>
+              comment.user?.type === 'Bot' && comment.body?.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
