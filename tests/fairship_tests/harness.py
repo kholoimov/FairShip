@@ -22,6 +22,7 @@ REPOSITORY_ROOT = HERE.parent.parent
 TEST_CASES = HERE / "test_cases.yaml"
 SKIP_PATTERNS = HERE / "skip_patterns.conf"
 VALID_TEST_NAME = re.compile(r"[A-Za-z0-9_.-]+")
+TEST_TIMEOUT_SECONDS = 30 * 60
 
 
 @dataclass(frozen=True)
@@ -83,12 +84,19 @@ def test_cases() -> list[TestCase]:
         raise RuntimeError(f"Duplicate test names in {TEST_CASES}")
 
     known_names = set(names)
+    seen_names: set[str] = set()
     for case in cases:
         unknown = set(case.dependencies) - known_names
         if unknown:
             raise RuntimeError(f"Unknown dependencies for {case.name!r} in {TEST_CASES}: {', '.join(sorted(unknown))}")
         if case.name in case.dependencies:
             raise RuntimeError(f"Test {case.name!r} cannot depend on itself in {TEST_CASES}")
+        later = set(case.dependencies) - seen_names
+        if later:
+            raise RuntimeError(
+                f"Dependencies for {case.name!r} must appear earlier in {TEST_CASES}: {', '.join(sorted(later))}"
+            )
+        seen_names.add(case.name)
 
     cases_by_name = {case.name: case for case in cases}
     visited: set[str] = set()
@@ -182,18 +190,28 @@ def run(test_name: str, workdir: Path) -> tuple[int, str]:
     case = _test_case(test_name)
     environment = os.environ.copy()
     environment["FAIRSHIP_ROOT"] = str(REPOSITORY_ROOT)
-    result = subprocess.run(
-        [str(case.script)],
-        cwd=workdir,
-        env=environment,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True,
-    )
+    try:
+        result = subprocess.run(
+            [str(case.script)],
+            cwd=workdir,
+            env=environment,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            timeout=TEST_TIMEOUT_SECONDS,
+        )
+        returncode = result.returncode
+        stdout = result.stdout
+    except subprocess.TimeoutExpired as error:
+        returncode = 124
+        stdout = error.stdout or ""
+        if isinstance(stdout, bytes):
+            stdout = stdout.decode(errors="replace")
+        stdout += f"\nTest timed out after {TEST_TIMEOUT_SECONDS} seconds\n"
     patterns = _patterns_for(test_name)
-    lines = result.stdout.splitlines(keepends=True)
+    lines = stdout.splitlines(keepends=True)
     output = "".join(line for line in lines if not any(pattern.fullmatch(line.rstrip("\r\n")) for pattern in patterns))
-    return result.returncode, output
+    return returncode, output
 
 
 def assert_matches_reference(test_name: str, workdir: Path, prepare: bool) -> None:

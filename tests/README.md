@@ -80,7 +80,7 @@ Tests that depend on other tests use `name` and `depends_on`:
 
 ```yaml
 tests:
-  - simulation
+  - name: simulation
   - name: reconstruction
     depends_on:
       - simulation

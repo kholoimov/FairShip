@@ -23,7 +23,7 @@ To order a test after other tests, use a mapping with `name` and `depends_on`:
 
 ```yaml
 tests:
-  - simulation
+  - name: simulation
   - name: reconstruction
     depends_on:
       - simulation

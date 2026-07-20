@@ -1,8 +1,6 @@
 [DEBUG] - RTDB container factory FairBaseContFact
 
 [DEBUG] FairRootFileSink created------------
-[INFO] Media file used: /shared/vkholoim/SHiP/FairShip/geometry/media.geo
-[DEBUG] Cave: using geometry file /shared/vkholoim/SHiP/FairShip/geometry/caveWithAir.geo
 Info in <FairDetector::SetDetectorDesign>:  to 4
 [DEBUG]  Function ShipMuonShield MS 
 
@@ -112,8 +110,6 @@ Info in <TGeoManager::TGeoManager>: Geometry FAIRGeom, FAIR geometry created
 [WARN] FairGenericVMCConfig::Setup() Using gConfig.C macro DEPRACATED.
 [WARN] Check FairRoot/examples/common/gconfig/ for current YAML implementation.
 [INFO] ---------------User config is used: g4Config.C
-[INFO] ---User path for Configuration (g4Config.C) is used: /shared/vkholoim/SHiP/FairShip/gconfig
-[INFO] ---User path for Cuts and Processes (SetCuts.C) is used: /shared/vkholoim/SHiP/FairShip/gconfig
 
 =============================================================
  Virtual Monte Carlo Library
@@ -245,9 +241,7 @@ G4PhysListFactory::GetReferencePhysList <FTFP_BERT_HP_EMZ>
 G4VModularPhysicsList::ReplacePhysics: G4EmStandard with type : 2 is replaced with G4EmStandard_opt4
 
 Adding SpecialPhysicsList stepLimiter+specialCuts+
-[INFO] ---User path for Configuration (DecayConfig.C) is used : /shared/vkholoim/SHiP/FairShip/gconfig/
 [INFO] External Decay Modes with script 
- /shared/vkholoim/SHiP/FairShip/gconfig/DecayConfigTEvtGen.C
 [INFO] TEvtGenDecayer: Added PDG 443 to EvtGen particle list (Total: 1)
 [INFO] TEvtGenDecayer: Added PDG 553 to EvtGen particle list (Total: 2)
 
@@ -420,7 +414,6 @@ MODOP=2 -- blocks emission in pi0 to gamma e+e-: DEFAULT
  IPHQRK_setQarknoEmission MODOP=1 -- blocks emission from light quarks:  DEFAULT
 Message from PHCORK(MODCOR):: initialization
 MODOP=5 -- corrects Energy from mass+flow
-EvtGen:Defining EvtPythiaEngine: data tables defined in /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Pythia8/xmldoc
 EvtGen:Pythia 8 codes need to be used in decay files
 EvtGen:Using EvtGen random engine for Pythia 8 as well
 EvtGen:Creating generic Pythia generator
@@ -546,8 +539,6 @@ EvtGen:Initializing EvtGen
 EvtGen:Storing known decay models
 EvtGen:Defining EvtBcToNPi model: Bc -> V + npi and Bc -> P + npi decays
 from A.V. Berezhnoy, A.K. Likhoded, A.V. Luchinsky: Phys.Rev.D 82, 014012 (2010) and arXiV:1104.0808.
-EvtGen:Main decay file name  :/shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/EvtGen/DECAY.DEC
-EvtGen:In readDecayFile, reading:/shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/EvtGen/DECAY.DEC
 EvtGen:Warning, sum of branching fractions for omega is 0.994
 EvtGen:rescaled to one! 
 EvtGen:Warning, sum of branching fractions for phi is 0.999
@@ -563,18 +554,14 @@ EvtGen:rescaled to one!
 EvtGen:Mixing type integer set to 1
 EvtGen:Done initializing EvtGen
 [DEBUG] TEvtGenDecayer: EvtGen created with 549 particle entries
-[INFO] TEvtGenDecayer: EvtGen initialized with decay file: /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/EvtGen/DECAY.DEC, particle file: /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/EvtGen/evt.pdl
 [INFO] TEvtGenDecayer initialized - EvtGen: YES, Pythia8 fallback: YES, Particles configured for EvtGen: 2
 [DEBUG]   EvtGen particle: PDG 443
 [DEBUG]   EvtGen particle: PDG 553
 === TEvtGenDecayer Configuration ===
-EvtGen decay file: /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/EvtGen/DECAY.DEC
-EvtGen particle file: /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/EvtGen/evt.pdl
 Particles using EvtGen: J/psi(443), Upsilon(553)
 Other particles use TPythia8Decayer fallback
 ### TG4SpecialControlsV2 constructed
 Visualization Manager instantiating with verbosity "warnings (3)"...
- -I g4Config() using g4conf  macro: /shared/vkholoim/SHiP/FairShip/gconfig/g4config.in
 SetCuts Macro: Setting Processes..
 SetCuts Macro: Setting cuts..
 TG4RootDetectorConstruction::ConstructSDandField
@@ -772,22 +759,6 @@ Local (in MTC_iron) field created with stepper DormandPrince745
  for proton :  3 to 6 GeV
  for neutron : 3 to 6 GeV
 
-@@@ G4ParticleHPInelasticData instantiated for particle neutron data directory variable is G4NEUTRONHPDATA pointing to /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1
-NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_37_Argon
-NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_37_Argon
-NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_37_Argon
-NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_39_Argon
-NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_39_Argon
-NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_39_Argon
-NeutronHP: /Capture file for Z = 73, A = 180 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/73_181_Tantalum
-NeutronHP: /Elastic file for Z = 73, A = 180 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/73_181_Tantalum
-NeutronHP: /Inelastic file for Z = 73, A = 180 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/73_181_Tantalum
-NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_37_Argon
-NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_37_Argon
-NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_37_Argon
-NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_39_Argon
-NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_39_Argon
-NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_39_Argon
 TG4ComposedPhysicsList::ConstructProcess done
 Available UI session types: [ Qt, tcsh, csh ]
 [INFO] Open external file with charm or beauty hadrons: $FAIRSHIP/files/Cascade-parp16-MSTP82-1-MSEL4-76Mpot_1_5000.root
@@ -947,16 +918,12 @@ Available UI session types: [ Qt, tcsh, csh ]
 
 [INFO] Monte Carlo Engine Initialisation with: TGeant4
 [INFO] FairGenericVMCConfig::SetupPostInit() OFF.
-Creating field map called MainSpecMap using /shared/vkholoim/SHiP/FairShip/files/2025_02_12_SHiP_SpectrometerField_ECN3_MgB2.root
-[INFO] ShipBFieldMap::readMapFile() creating field MainSpecMap using file /shared/vkholoim/SHiP/FairShip/files/2025_02_12_SHiP_SpectrometerField_ECN3_MgB2.root
 [INFO] x limits: -500, 500, dx = 10
 [INFO] y limits: -500, 500, dy = 10
 [INFO] z limits: -750, 750, dz = 10
 [INFO] Offsets: x = 0, y = 0, z = 8957
 [INFO] Angles : phi = 0, theta = 0, psi = 0
 [INFO] Total number of bins = 1540351; Nx = 101, Ny = 101, Nz = 151
-Creating symmetric field map called muonShieldField using /shared/vkholoim/SHiP/FairShip/files/TRY_2025.root
-[INFO] ShipBFieldMap::readMapFile() creating field muonShieldField using file /shared/vkholoim/SHiP/FairShip/files/TRY_2025.root
 [INFO] x limits: 0, 209.961, dx = 1.99963
 [INFO] y limits: 0, 200, dy = 2
 [INFO] z limits: -50, 3100, dz = 5
@@ -1005,26 +972,6 @@ Use Bearden atomic level energies                 0
 Use ANSTO fluorescence model                      0
 Threshold for very long decay time at rest        1 y  
 ======================================================================
-NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_37_Argon
-NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_37_Argon
-NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_37_Argon
-NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_39_Argon
-NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_39_Argon
-NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_39_Argon
-NeutronHP: /Capture file for Z = 73, A = 180 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/73_181_Tantalum
-NeutronHP: /Elastic file for Z = 73, A = 180 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/73_181_Tantalum
-NeutronHP: /Inelastic file for Z = 73, A = 180 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/73_181_Tantalum
-NeutronHP: /Capture file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_37_Argon
-NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_37_Argon
-NeutronHP: /Inelastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_37_Argon
-NeutronHP: /Capture file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Capture/CrossSection/18_39_Argon
-NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_39_Argon
-NeutronHP: /Inelastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic/CrossSection/18_39_Argon
-NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_37_Argon
-NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_39_Argon
-NeutronHP: /Elastic file for Z = 73, A = 180 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/73_181_Tantalum
-NeutronHP: /Elastic file for Z = 18, A = 36 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_37_Argon
-NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Elastic/CrossSection/18_39_Argon
 
 =======================================================
 ======       ParticleHP Physics Parameters     ========
@@ -1044,7 +991,6 @@ NeutronHP: /Elastic file for Z = 18, A = 38 is not found and NeutronHP will use 
  Use probability tables from     
 =======================================================
 
-@@@ G4ParticleHPInelastic instantiated for particle neutron/n    data directory is /shared/vkholoim/SHiP/FairShip/.pixi/envs/default/share/Geant4/data/NDL4.7.1/Inelastic
 
 ====================================================================
                   HADRONIC PROCESSES SUMMARY (verbose level 1)
@@ -1892,7 +1838,6 @@ Primary particle PDG=-13 deltaMass(MeV)=1.11581 is larger than the tolerance(MeV
 [INFO] ***  FairBaseParSet written to ROOT file   version: 1
 [DEBUG] RuntimeDb: write container: FairGeoParSet
 [INFO] ***  FairGeoParSet written to ROOT file   version: 1
-Info: Target using configuration: /shared/vkholoim/SHiP/FairShip/geometry/target_config.yaml
 ['tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten', 'tungsten'] [4.5, 1.8, 1.7, 1.7, 1.8, 1.9, 2.1, 1.9, 2.1, 2.4, 2.8, 3.3, 4.1, 5.6, 8.8, 17.2, 28.7, 28.8, 28.8] [0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.48, 0.5, 0.68, 0.68, 0]
 SiliconTarget zPosition set to  2605.02
 Generating HNL events of mass 1.000 GeV
