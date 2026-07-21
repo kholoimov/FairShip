@@ -1,0 +1,150 @@
+name: PR regression command
+
+on:
+  issue_comment:
+    types: [created]
+
+concurrency:
+  group: pr-regression-${{ github.event.issue.number }}
+  # Let every accepted command reach the reporting job; cancelling a run can
+  # otherwise leave its "queued" comment without a final result.
+  cancel-in-progress: false
+
+jobs:
+  authorize:
+    name: Authorize command
+    if: >-
+      github.event.issue.pull_request &&
+      startsWith(github.event.comment.body, '/run-regression-test') &&
+      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: read
+    outputs:
+      merge_sha: ${{ steps.command.outputs.merge_sha }}
+    steps:
+      - name: Validate command and resolve PR revision
+        id: command
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const command = context.payload.comment.body.trim();
+            if (command !== "/run-regression-test") {
+              core.setFailed("The comment is not exactly /run-regression-test");
+              return;
+            }
+
+            const {data: pull} = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            if (!pull.merge_commit_sha) {
+              core.setFailed("GitHub did not provide a merge revision for this PR");
+              return;
+            }
+            core.setOutput("merge_sha", pull.merge_commit_sha);
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `Regression tests queued for merge revision \`${pull.merge_commit_sha.slice(0, 12)}\`.`,
+            });
+
+  regression:
+    name: Run regression tests
+    needs: authorize
+    runs-on: [self-hosted, regression-tests]
+    timeout-minutes: 360
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout PR merge revision
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.authorize.outputs.merge_sha }}
+          lfs: true
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Pixi
+        uses: prefix-dev/setup-pixi@v0.10.0
+        with:
+          cache: true
+
+      - name: Run regression suite
+        run: |
+          set -o pipefail
+          pixi run --locked test-fairship 2>&1 | tee regression-test.log
+
+      - name: Upload complete regression output
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: regression-output-pr-${{ github.event.issue.number }}
+          path: regression-test.log
+          if-no-files-found: warn
+          retention-days: 14
+
+  report:
+    name: Report result to PR
+    if: always() && needs.authorize.result == 'success'
+    needs: [authorize, regression]
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      issues: write
+    steps:
+      - name: Download regression output
+        id: download
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          name: regression-output-pr-${{ github.event.issue.number }}
+          path: regression-output
+
+      - name: Post result
+        uses: actions/github-script@v8
+        env:
+          RESULT: ${{ needs.regression.result }}
+          MERGE_SHA: ${{ needs.authorize.outputs.merge_sha }}
+        with:
+          script: |
+            const fs = require("fs");
+            const path = "regression-output/regression-test.log";
+            const result = process.env.RESULT;
+            const icon = result === "success" ? "✅" : result === "cancelled" ? "⚪" : "❌";
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+
+            let output = "No regression log was produced (setup may have failed).";
+            if (fs.existsSync(path)) {
+              const log = fs.readFileSync(path, "utf8");
+              const limit = 50000;
+              output = log.length > limit
+                ? `[output truncated; see the workflow artifact for the complete log]\n${log.slice(-limit)}`
+                : log;
+              // Do not let test output terminate the Markdown code fence.
+              output = output.replaceAll("```", "` ` `");
+            }
+
+            const body = [
+              `${icon} Regression tests **${result}** for merge revision \`${process.env.MERGE_SHA.slice(0, 12)}\`.`,
+              `Complete output and job details: [workflow run](${runUrl})`,
+              "<details><summary>Regression output</summary>",
+              "",
+              "```text",
+              output,
+              "```",
+              "</details>",
+            ].join("\n");
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
