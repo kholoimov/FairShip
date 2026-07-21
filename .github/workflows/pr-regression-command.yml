@@ -1,22 +1,17 @@
 name: PR regression command
-
 on:
   issue_comment:
     types: [created]
-
 concurrency:
   group: pr-regression-${{ github.event.issue.number }}
   # Let every accepted command reach the reporting job; cancelling a run can
   # otherwise leave its "queued" comment without a final result.
   cancel-in-progress: false
-
 jobs:
   authorize:
     name: Authorize command
     if: >-
-      github.event.issue.pull_request &&
-      startsWith(github.event.comment.body, '/run-regression-test') &&
-      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)
+      github.event.issue.pull_request && startsWith(github.event.comment.body, '/run-regression-test') && contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -53,7 +48,6 @@ jobs:
               issue_number: context.issue.number,
               body: `Regression tests queued for merge revision \`${pull.merge_commit_sha.slice(0, 12)}\`.`,
             });
-
   regression:
     name: Run regression tests
     needs: authorize
@@ -69,17 +63,14 @@ jobs:
           lfs: true
           fetch-depth: 0
           persist-credentials: false
-
       - name: Set up Pixi
         uses: prefix-dev/setup-pixi@v0.10.0
         with:
           cache: true
-
       - name: Run regression suite
         run: |
           set -o pipefail
           pixi run --locked test-fairship 2>&1 | tee regression-test.log
-
       - name: Upload complete regression output
         if: always()
         uses: actions/upload-artifact@v7
@@ -88,7 +79,6 @@ jobs:
           path: regression-test.log
           if-no-files-found: warn
           retention-days: 14
-
   report:
     name: Report result to PR
     if: always() && needs.authorize.result == 'success'
@@ -106,7 +96,6 @@ jobs:
         with:
           name: regression-output-pr-${{ github.event.issue.number }}
           path: regression-output
-
       - name: Post result
         uses: actions/github-script@v8
         env:
