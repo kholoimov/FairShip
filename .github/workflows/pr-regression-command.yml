@@ -20,8 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      issues: write
-      pull-requests: read
+      pull-requests: write
     outputs:
       merge_sha: ${{ steps.command.outputs.merge_sha }}
     steps:
@@ -97,7 +96,7 @@ jobs:
     permissions:
       actions: read
       contents: read
-      issues: write
+      pull-requests: write
     steps:
       - name: Download regression output
         id: download
