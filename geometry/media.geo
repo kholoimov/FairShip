@@ -2275,6 +2275,14 @@ FscFiber    -2 12.01 1.008 6. 1. 1.032 8. 8.
 polyvinyltoluene  -2	12.01	1.008	6.	1.	1.032	9.	10.
 		   1  1	 20.  .001
                    0
+// Effective para-terphenyl (C18H14) scintillator used by the UBT tiles.
+pterphenyl        -2  12.011  1.00794  6.0  1.0  1.23  18.  14.
+                   1  1  20.  .001
+                   0
+// Simplified C2H6 optical grease from the UBT_DIGI sensor model.
+UBTOpticalGrease  -2  12.011  1.00794  6.0  1.0  1.05  2.  6.
+                   0  1  20.  .001
+                   0
 MDTPlastic	  -2	12.01	1.008	6.	1.	1.032	9.	10.
 		   1  1	 20.  .001
                    0

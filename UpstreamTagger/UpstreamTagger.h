@@ -5,7 +5,6 @@
 #ifndef UPSTREAMTAGGER_UPSTREAMTAGGER_H_
 #define UPSTREAMTAGGER_UPSTREAMTAGGER_H_
 
-#include <map>
 #include <vector>
 
 #include "Detector.h"
@@ -20,22 +19,11 @@ class TClonesArray;
 /**
  * @brief Upstream Background Tagger (UBT) detector
  *
- * The UBT is a simplified scoring plane detector implemented as a vacuum box.
- * It serves as a background tagging device upstream of the decay volume.
- *
- * Historical Note:
- * The UBT was previously implemented as a detailed RPC (Resistive Plate
- * Chamber) with multiple material layers (Glass, PMMA, Freon SF6, FR4,
- * Aluminium, strips). It was simplified to a single vacuum box scoring plane to
- * avoid geometry overlaps and reduce simulation complexity while maintaining
- * its physics purpose. See commits 178787588 and related for the simplification
- * history.
- *
- * Current Implementation:
- * - Simple vacuum box with configurable dimensions
- * - Default dimensions: 4.4m (X) × 6.4m (Y) × 16cm (Z)
- * - Z position and box dimensions are set from geometry_config.py
- * - Configured via SetZposition() and SetBoxDimensions()
+ * The active plane uses the coarse regions from the UBT_DIGI simulation map.
+ * Each region records whether it represents 20 x 20 or 40 x 40 mm^2
+ * p-terphenyl tiles. Optical photon production and transport are deliberately
+ * not simulated here: an MC point stores the energy deposited in a mapped
+ * region, identified by its copy number.
  */
 
 class UpstreamTagger : public SHiP::Detector<UpstreamTaggerPoint> {
@@ -57,25 +45,74 @@ class UpstreamTagger : public SHiP::Detector<UpstreamTaggerPoint> {
   /** Sets detector position and sizes */
   void SetZposition(Double_t z) { det_zPos = z; }
   void SetBoxDimensions(Double_t x, Double_t y, Double_t z) {
-    xbox_fulldet = x;
-    ybox_fulldet = y;
-    zbox_fulldet = z;
+    fSizeX = x;
+    fSizeY = y;
+    fEnvelopeZ = z;
   }
+  void SetTileDimensions(Double_t x, Double_t y, Double_t z) {
+    fTileX = x;
+    fTileY = y;
+    fTileZ = z;
+  }
+  void SetMappedTileThicknesses(Double_t smallTileZ, Double_t largeTileZ) {
+    fSmallTileZ = smallTileZ;
+    fLargeTileZ = largeTileZ;
+  }
+  void SetPMTDimensions(Double_t x, Double_t y, Double_t greaseZ,
+                        Double_t windowZ, Double_t photocathodeZ) {
+    fPMTX = x;
+    fPMTY = y;
+    fGreaseZ = greaseZ;
+    fWindowZ = windowZ;
+    fPhotocathodeZ = photocathodeZ;
+  }
+
+  /** Add one coarse simulation region from the UBT detector map.
+   * constituentTileSize is retained in centimetres so that the same detector
+   * ID can later select the 2 x 2 or 4 x 4 cm2 digitization response.
+   */
+  void AddRegion(Int_t id, Double_t x, Double_t y, Double_t sizeX,
+                 Double_t sizeY, Double_t constituentTileSize) {
+    fRegions.push_back({id, x, y, sizeX, sizeY, constituentTileSize});
+  }
+
+  Int_t GetNColumns() const;
+  Int_t GetNRows() const;
+  Int_t GetTileID(Int_t row, Int_t column) const;
+  Double_t GetTileX(Int_t column) const;
+  Double_t GetTileY(Int_t row) const;
 
   /**  Create the detector geometry */
   void ConstructGeometry() override;
 
   /** Detector parameters.*/
 
-  Double_t det_zPos;  //!  z-position of detector (set via SetZposition)
-  // Detector box dimensions (set via SetBoxDimensions, defaults provided below)
-  Double_t xbox_fulldet = 4.4 * ShipUnit::m;  //!  X dimension (default: 4.4 m)
-  Double_t ybox_fulldet = 6.4 * ShipUnit::m;  //!  Y dimension (default: 6.4 m)
-  Double_t zbox_fulldet =
-      16.0 * ShipUnit::cm;  //!  Z dimension/thickness (default: 16 cm)
+  Double_t det_zPos;  //! z-position of the active tile plane
 
  private:
-  TGeoVolume* UpstreamTagger_fulldet;  // Timing_detector_1 object
+  struct Region {
+    Int_t id;
+    Double_t x;
+    Double_t y;
+    Double_t sizeX;
+    Double_t sizeY;
+    Double_t constituentTileSize;
+  };
+
+  std::vector<Region> fRegions;  //! coarse regions loaded from detector map
+  Double_t fSizeX = 4.4 * ShipUnit::m;        //! detector width
+  Double_t fSizeY = 6.4 * ShipUnit::m;        //! detector height
+  Double_t fEnvelopeZ = 16.0 * ShipUnit::cm;  //! allocated longitudinal space
+  Double_t fTileX = 4.0 * ShipUnit::cm;       //! tile width
+  Double_t fTileY = 4.0 * ShipUnit::cm;       //! tile height
+  Double_t fTileZ = 1.0 * ShipUnit::cm;       //! fallback tile thickness
+  Double_t fSmallTileZ = 0.5 * ShipUnit::cm;  //! 20 x 20 mm2 tile thickness
+  Double_t fLargeTileZ = 1.0 * ShipUnit::cm;  //! 40 x 40 mm2 tile thickness
+  Double_t fPMTX = 0.6 * ShipUnit::cm;        //! PMT active width
+  Double_t fPMTY = 0.6 * ShipUnit::cm;        //! PMT active height
+  Double_t fGreaseZ = 0.02 * ShipUnit::cm;    //! optical grease thickness
+  Double_t fWindowZ = 0.1 * ShipUnit::cm;     //! PMT window thickness
+  Double_t fPhotocathodeZ = 0.01 * ShipUnit::cm;  //! photocathode thickness
   /** container for data points */
 
   UpstreamTagger(const UpstreamTagger&) = delete;

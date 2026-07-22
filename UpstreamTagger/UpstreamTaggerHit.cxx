@@ -15,12 +15,17 @@ using std::endl;
 
 // -----   Default constructor   --------------
 UpstreamTaggerHit::UpstreamTaggerHit()
-    : SHiP::DetectorHit(), fX(0.), fY(0.), fZ(0.), fTime(0.) {}
+    : SHiP::DetectorHit(),
+      fX(0.),
+      fY(0.),
+      fZ(0.),
+      fTime(0.),
+      fTriggered(kFALSE) {}
 
 // -----   Constructor from UpstreamTaggerPoint   --------------
 UpstreamTaggerHit::UpstreamTaggerHit(UpstreamTaggerPoint* p, Double_t t0,
                                      Double_t pos_res, Double_t time_res)
-    : SHiP::DetectorHit() {
+    : SHiP::DetectorHit(), fTriggered(kFALSE) {
   if (!p) {
     LOG(error) << "UpstreamTaggerHit: null UpstreamTaggerPoint pointer";
     return;
@@ -36,9 +41,26 @@ UpstreamTaggerHit::UpstreamTaggerHit(UpstreamTaggerPoint* p, Double_t t0,
   fTime = gRandom->Gaus(p->GetTime() + t0, time_res);
 }
 
+UpstreamTaggerHit::UpstreamTaggerHit(UpstreamTaggerPoint* p, Double_t t0,
+                                     const TVector3& digitizedPosition,
+                                     Double_t time_res)
+    : SHiP::DetectorHit(), fTriggered(kFALSE) {
+  if (!p) {
+    LOG(error) << "UpstreamTaggerHit: null UpstreamTaggerPoint pointer";
+    return;
+  }
+  fDetectorID = p->GetDetectorID();
+  fX = digitizedPosition.X();
+  fY = digitizedPosition.Y();
+  fZ = digitizedPosition.Z();
+  fTime = gRandom->Gaus(p->GetTime() + t0, time_res);
+}
+
 // -----   Print   ------------------------------
 void UpstreamTaggerHit::Print() const {
   cout << "-I- UpstreamTaggerHit: detector " << fDetectorID << endl;
   cout << "    Position: (" << fX << ", " << fY << ", " << fZ << ") cm" << endl;
   cout << "    Time: " << fTime << " ns" << endl;
+  cout << "    ADC: " << GetADC()
+       << ", triggered: " << (fTriggered ? "yes" : "no") << endl;
 }

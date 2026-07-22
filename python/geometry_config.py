@@ -437,17 +437,26 @@ def create_config(
     c.tauMudet.Ztot = 3 * u.m  # space allocated to Muon spectrometer
     c.tauMudet.zMudetC = c.muShield.z + c.muShield.length / 2.0 - c.tauMudet.Ztot / 2.0 - 70 * u.cm
 
-    # Upstream Tagger
-    # UpstreamTagger (UBT) - Simplified scoring plane
-    # Note: UBT is implemented as a simple vacuum box
-    # Legacy RPC parameters have been removed as they are not used in the current implementation
+    # Upstream Tagger: tiled p-terphenyl scintillator plane. BoxZ is the space
+    # reserved by the integration layout; the active thickness is TileZ.
     c.UpstreamTagger = AttrDict()
-    c.UpstreamTagger.BoxX = 4.4 * u.m  # X dimension (width)
-    c.UpstreamTagger.BoxY = 6.4 * u.m  # Y dimension (height)
+    c.UpstreamTagger.BoxX = 6.0 * u.m  # X extent of detector map
+    c.UpstreamTagger.BoxY = 6.0 * u.m  # Y extent of detector map
     c.UpstreamTagger.BoxZ = 16.0 * u.cm  # Z dimension (thickness)
+    c.UpstreamTagger.TileX = 4.0 * u.cm
+    c.UpstreamTagger.TileY = 4.0 * u.cm
+    c.UpstreamTagger.TileZ = 1.0 * u.cm
+    c.UpstreamTagger.SmallTileZ = 0.5 * u.cm  # 20 x 20 mm2 tile thickness
+    c.UpstreamTagger.LargeTileZ = 1.0 * u.cm  # 40 x 40 mm2 tile thickness
+    c.UpstreamTagger.PMTX = 0.6 * u.cm
+    c.UpstreamTagger.PMTY = 0.6 * u.cm
+    c.UpstreamTagger.OpticalGreaseZ = 0.02 * u.cm
+    c.UpstreamTagger.PMTWindowZ = 0.1 * u.cm
+    c.UpstreamTagger.PhotocathodeZ = 0.01 * u.cm
     c.UpstreamTagger.Z_Position = -25.400 * u.m + c.decayVolume.z  # Relative position of UBT to decay vessel centre
     c.UpstreamTagger.PositionResolution = 1.0 * u.cm  # Position smearing resolution
     c.UpstreamTagger.TimeResolution = 0.3  # Time resolution in ns
+    c.UpstreamTagger.ADCTriggerThreshold = 100
 
     # Store parameters that might be needed for reference
     c.muShieldGeo = muShieldGeo

@@ -2,57 +2,30 @@
 // SPDX-FileCopyrightText: Copyright CERN for the benefit of the SHiP
 // Collaboration
 
-// RPC Timing Detector
-// 17/12/2019
-// celso.franco@cern.ch
-
 #include "UpstreamTagger.h"
 
-#include <ROOT/TSeq.hxx>
+#include <cmath>
 #include <iostream>
-#include <sstream>
 
-#include "FairGeoBuilder.h"
-#include "FairGeoInterface.h"
-#include "FairGeoLoader.h"
-#include "FairGeoMedia.h"
-#include "FairGeoNode.h"
-#include "FairGeoVolume.h"
-#include "FairRootManager.h"
-#include "FairRun.h"
-#include "FairRuntimeDb.h"
 #include "FairVolume.h"
 #include "ShipDetectorList.h"
 #include "ShipGeoUtil.h"
 #include "ShipStack.h"
-#include "TClonesArray.h"
-#include "TGeoBBox.h"
-#include "TGeoCompositeShape.h"
 #include "TGeoManager.h"
-#include "TGeoMaterial.h"
 #include "TGeoMedium.h"
-#include "TGeoTube.h"
-#include "TMath.h"
 #include "TParticle.h"
+#include "TString.h"
 #include "TVector3.h"
 #include "TVirtualMC.h"
-#include "UpstreamTaggerHit.h"
 #include "UpstreamTaggerPoint.h"
-using ROOT::TSeq;
-using ShipUnit::cm;
-using ShipUnit::m;
 using std::cout;
 using std::endl;
 
 UpstreamTagger::UpstreamTagger()
-    : Detector("UpstreamTagger", kTRUE, kUpstreamTagger),
-      det_zPos(0),
-      UpstreamTagger_fulldet(nullptr) {}
+    : Detector("UpstreamTagger", kTRUE, kUpstreamTagger), det_zPos(0) {}
 
 UpstreamTagger::UpstreamTagger(const char* name, Bool_t active)
-    : Detector(name, active, kUpstreamTagger),
-      det_zPos(0),
-      UpstreamTagger_fulldet(nullptr) {}
+    : Detector(name, active, kUpstreamTagger), det_zPos(0) {}
 
 Bool_t UpstreamTagger::ProcessHits(FairVolume* vol) {
   /** This method is called from the MC stepping */
@@ -77,14 +50,8 @@ Bool_t UpstreamTagger::ProcessHits(FairVolume* vol) {
 
     fTrackID = gMC->GetStack()->GetCurrentTrackNumber();
     fEventID = gMC->CurrentEvent();
-    Int_t uniqueId;
-    gMC->CurrentVolID(uniqueId);
-    if (uniqueId > 1000000)  // Solid scintillator case
-    {
-      Int_t vcpy;
-      gMC->CurrentVolOffID(1, vcpy);
-      if (vcpy == 5) uniqueId += 4;  // Copy of half
-    }
+    Int_t tileId;
+    gMC->CurrentVolID(tileId);
 
     TParticle* p = gMC->GetStack()->GetCurrentTrack();
     Int_t pdgCode = p->GetPdgCode();
@@ -96,7 +63,7 @@ Bool_t UpstreamTagger::ProcessHits(FairVolume* vol) {
     Double_t ymean = (fPos.Y() + Pos.Y()) / 2.;
     Double_t zmean = (fPos.Z() + Pos.Z()) / 2.;
 
-    AddHit(fEventID, fTrackID, uniqueId, TVector3(xmean, ymean, zmean),
+    AddHit(fEventID, fTrackID, tileId, TVector3(xmean, ymean, zmean),
            TVector3(fMom.Px(), fMom.Py(), fMom.Pz()), fTime, fLength, fELoss,
            pdgCode, TVector3(Pos.X(), Pos.Y(), Pos.Z()),
            TVector3(Mom.Px(), Mom.Py(), Mom.Pz()));
@@ -112,31 +79,127 @@ Bool_t UpstreamTagger::ProcessHits(FairVolume* vol) {
 void UpstreamTagger::ConstructGeometry() {
   TGeoVolume* top = gGeoManager->GetTopVolume();
 
-  //////////////////////////////////////////////////////
-
-  ///////////////////////////////////////////////////////
-
-  ///////////////////////////////////////////////////////
-
-  ShipGeo::InitMedium("vacuum");
-  TGeoMedium* Vacuum_box = gGeoManager->GetMedium("vacuum");
-  ///////////////////////////////////////////////////////////////////
-
-  // Adding UBT Extension
-  if (!Vacuum_box) {
-    Fatal("ConstructGeometry", "Medium 'vacuum' not found.");
+  ShipGeo::InitMedium("pterphenyl");
+  ShipGeo::InitMedium("UBTOpticalGrease");
+  ShipGeo::InitMedium("PMTglass");
+  ShipGeo::InitMedium("silicon");
+  TGeoMedium* scintillator = gGeoManager->GetMedium("pterphenyl");
+  TGeoMedium* opticalGrease = gGeoManager->GetMedium("UBTOpticalGrease");
+  TGeoMedium* pmtGlass = gGeoManager->GetMedium("PMTglass");
+  TGeoMedium* silicon = gGeoManager->GetMedium("silicon");
+  if (!scintillator || !opticalGrease || !pmtGlass || !silicon) {
+    Fatal("ConstructGeometry", "A UBT tile or PMT medium was not found.");
+  }
+  if (fTileX <= 0. || fTileY <= 0. || fTileZ <= 0. ||
+      fSmallTileZ <= 0. || fLargeTileZ <= 0. || fSizeX < fTileX ||
+      fSizeY < fTileY || fPMTX <= 0. || fPMTY <= 0. ||
+      fPMTX > fTileX || fPMTY > fTileY || fGreaseZ <= 0. ||
+      fWindowZ <= 0. || fPhotocathodeZ <= 0.) {
+    Fatal("ConstructGeometry", "Invalid UBT detector or tile dimensions.");
   }
 
-  UpstreamTagger_fulldet =
-      gGeoManager->MakeBox("Upstream_Tagger", Vacuum_box, xbox_fulldet / 2.0,
-                           ybox_fulldet / 2.0, zbox_fulldet / 2.0);
-  UpstreamTagger_fulldet->SetLineColor(kGreen);
+  // fEnvelopeZ records the longitudinal space reserved in the integration
+  // layout. The tile and its PMT stack are centred together in that space.
+  const Double_t moduleZ = fTileZ + fGreaseZ + fWindowZ + fPhotocathodeZ;
+  if (moduleZ > fEnvelopeZ) {
+    Fatal("ConstructGeometry",
+          "UBT tile and PMT are thicker than their allocated envelope.");
+  }
 
-  top->AddNode(UpstreamTagger_fulldet, 1,
-               new TGeoTranslation(0.0, 0.0, det_zPos));
-  AddSensitiveVolume(UpstreamTagger_fulldet);
-  cout << " Z Position (Upstream Tagger1) " << det_zPos << endl;
-  //////////////////////////////////////////////////////////////////
+  fDetector = new TGeoVolumeAssembly("Upstream_Tagger");
 
-  return;
+  if (!fRegions.empty()) {
+    Int_t smallRegions = 0;
+    Int_t bigRegions = 0;
+    for (const Region& region : fRegions) {
+      if (region.sizeX <= 0. || region.sizeY <= 0. ||
+          (region.constituentTileSize != 2. &&
+           region.constituentTileSize != 4.)) {
+        Fatal("ConstructGeometry", "Invalid entry in the UBT detector map.");
+      }
+      const TString volumeName =
+          TString::Format("UpstreamTaggerRegion%d_%dcm", region.id,
+                          static_cast<Int_t>(region.constituentTileSize));
+      const Double_t regionThickness =
+          region.constituentTileSize == 2. ? fSmallTileZ : fLargeTileZ;
+      TGeoVolume* regionVolume = gGeoManager->MakeBox(
+          volumeName, scintillator, region.sizeX / 2., region.sizeY / 2.,
+          regionThickness / 2.);
+      regionVolume->SetLineColor(region.constituentTileSize == 2. ? kGreen + 2
+                                                                  : kBlue);
+      AddSensitiveVolume(regionVolume);
+      fDetector->AddNode(regionVolume, region.id,
+                         new TGeoTranslation(region.x, region.y, 0.));
+      smallRegions += region.constituentTileSize == 2.;
+      bigRegions += region.constituentTileSize == 4.;
+    }
+    top->AddNode(fDetector, 1, new TGeoTranslation(0., 0., det_zPos));
+    cout << " Z Position (Upstream Tagger) " << det_zPos << ", "
+         << fRegions.size() << " mapped regions (" << smallRegions
+         << " with 20 x 20 x 5 mm3 tiles, " << bigRegions
+         << " with 40 x 40 x 10 mm3 tiles)" << endl;
+    return;
+  }
+
+  TGeoVolume* tile =
+      gGeoManager->MakeBox("UpstreamTaggerTile", scintillator, fTileX / 2.,
+                           fTileY / 2., fTileZ / 2.);
+  tile->SetLineColor(kGreen + 2);
+  AddSensitiveVolume(tile);
+
+  TGeoVolume* grease =
+      gGeoManager->MakeBox("UpstreamTaggerOpticalGrease", opticalGrease,
+                           fPMTX / 2., fPMTY / 2., fGreaseZ / 2.);
+  TGeoVolume* window =
+      gGeoManager->MakeBox("UpstreamTaggerPMTWindow", pmtGlass, fPMTX / 2.,
+                           fPMTY / 2., fWindowZ / 2.);
+  TGeoVolume* photocathode =
+      gGeoManager->MakeBox("UpstreamTaggerPhotocathode", silicon, fPMTX / 2.,
+                           fPMTY / 2., fPhotocathodeZ / 2.);
+  grease->SetLineColor(kYellow);
+  window->SetLineColor(kCyan);
+  photocathode->SetLineColor(kBlue);
+
+  const Double_t tileZ = -0.5 * (moduleZ - fTileZ);
+  const Double_t greaseZ = tileZ + fTileZ / 2. + fGreaseZ / 2.;
+  const Double_t windowZ = tileZ + fTileZ / 2. + fGreaseZ + fWindowZ / 2.;
+  const Double_t photocathodeZ =
+      tileZ + fTileZ / 2. + fGreaseZ + fWindowZ + fPhotocathodeZ / 2.;
+
+  for (Int_t row = 0; row < GetNRows(); ++row) {
+    for (Int_t column = 0; column < GetNColumns(); ++column) {
+      const Int_t tileId = GetTileID(row, column);
+      const Double_t x = GetTileX(column);
+      const Double_t y = GetTileY(row);
+      fDetector->AddNode(tile, tileId, new TGeoTranslation(x, y, tileZ));
+      fDetector->AddNode(grease, tileId, new TGeoTranslation(x, y, greaseZ));
+      fDetector->AddNode(window, tileId, new TGeoTranslation(x, y, windowZ));
+      fDetector->AddNode(photocathode, tileId,
+                         new TGeoTranslation(x, y, photocathodeZ));
+    }
+  }
+
+  top->AddNode(fDetector, 1, new TGeoTranslation(0., 0., det_zPos));
+  cout << " Z Position (Upstream Tagger) " << det_zPos << ", " << GetNRows()
+       << " x " << GetNColumns() << " scintillator tiles with PMTs" << endl;
+}
+
+Int_t UpstreamTagger::GetNColumns() const {
+  return static_cast<Int_t>(std::floor(fSizeX / fTileX + 1.e-9));
+}
+
+Int_t UpstreamTagger::GetNRows() const {
+  return static_cast<Int_t>(std::floor(fSizeY / fTileY + 1.e-9));
+}
+
+Int_t UpstreamTagger::GetTileID(Int_t row, Int_t column) const {
+  return row * GetNColumns() + column;
+}
+
+Double_t UpstreamTagger::GetTileX(Int_t column) const {
+  return (column + 0.5) * fTileX - GetNColumns() * fTileX / 2.;
+}
+
+Double_t UpstreamTagger::GetTileY(Int_t row) const {
+  return (row + 0.5) * fTileY - GetNRows() * fTileY / 2.;
 }

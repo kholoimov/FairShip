@@ -265,6 +265,69 @@ def configure_strawtubes(yaml_file: str, ship_geo) -> None:
     detectorList.append(strawtubes)
 
 
+def configure_upstream_tagger(yaml_file: str, upstream_tagger, ship_geo) -> None:
+    """Load the shared UBT simulation map and configure geometry/digitization."""
+    with open(yaml_file) as file:
+        config = yaml.safe_load(file)
+
+    if config.get("kind") != "simulation" or config.get("units") != "cm":
+        raise ValueError("The UBT map must be a simulation map expressed in cm")
+
+    if "regions" in config:
+        regions = config["regions"]
+    else:
+        grid = config["region_grid"]
+        full_size = config["full_size"]
+        tile_sizes = grid["constituent_tile_sizes"]
+        if len(tile_sizes) != grid["rows"] or any(len(row) != grid["columns"] for row in tile_sizes):
+            raise ValueError("The UBT constituent-tile matrix has the wrong dimensions")
+        x0 = -full_size["x"] / 2 + grid["size_x"] / 2
+        y0 = -full_size["y"] / 2 + grid["size_y"] / 2
+        regions = [
+            {
+                "id": row * grid["columns"] + column,
+                "x": x0 + column * grid["size_x"],
+                "y": y0 + row * grid["size_y"],
+                "size_x": grid["size_x"],
+                "size_y": grid["size_y"],
+                "constituent_tile_size": tile_sizes[row][column],
+            }
+            for row in range(grid["rows"])
+            for column in range(grid["columns"])
+        ]
+    region_ids = [region["id"] for region in regions]
+    if len(region_ids) != len(set(region_ids)):
+        raise ValueError("The UBT detector map contains duplicate region IDs")
+
+    # Kept in ShipGeo for digitization: detector ID -> constituent tile side
+    # in FairShip internal length units.  This distinguishes 2x2 and 4x4 cm2.
+    ship_geo.UpstreamTagger.RegionTileSize = {
+        region["id"]: region["constituent_tile_size"] * u.cm for region in regions
+    }
+    ship_geo.UpstreamTagger.TileGridOriginX = -config["full_size"]["x"] * u.cm / 2
+    ship_geo.UpstreamTagger.TileGridOriginY = -config["full_size"]["y"] * u.cm / 2
+    ship_geo.UpstreamTagger.TileGridEndX = config["full_size"]["x"] * u.cm / 2
+    ship_geo.UpstreamTagger.TileGridEndY = config["full_size"]["y"] * u.cm / 2
+    ship_geo.UpstreamTagger.DetectorMap = yaml_file
+    response_map_directory = os.path.join(os.environ["FAIRSHIP"], "geometry")
+    ship_geo.UpstreamTagger.ADCResponseMap20mm = os.path.join(
+        response_map_directory, "UpstreamTagger_adc_response_20mm.csv"
+    )
+    ship_geo.UpstreamTagger.ADCResponseMap40mm = os.path.join(
+        response_map_directory, "UpstreamTagger_adc_response_40mm.csv"
+    )
+
+    for region in regions:
+        upstream_tagger.AddRegion(
+            region["id"],
+            region["x"] * u.cm,
+            region["y"] * u.cm,
+            region["size_x"] * u.cm,
+            region["size_y"] * u.cm,
+            region["constituent_tile_size"],
+        )
+
+
 def configure(run, ship_geo):
     # ---- for backward compatibility ----
     if not hasattr(ship_geo, "DecayVolumeMedium"):
@@ -434,6 +497,24 @@ def configure(run, ship_geo):
     upstreamTagger.SetZposition(ship_geo.UpstreamTagger.Z_Position)
     upstreamTagger.SetBoxDimensions(
         ship_geo.UpstreamTagger.BoxX, ship_geo.UpstreamTagger.BoxY, ship_geo.UpstreamTagger.BoxZ
+    )
+    upstreamTagger.SetTileDimensions(
+        ship_geo.UpstreamTagger.TileX, ship_geo.UpstreamTagger.TileY, ship_geo.UpstreamTagger.TileZ
+    )
+    upstreamTagger.SetMappedTileThicknesses(
+        ship_geo.UpstreamTagger.SmallTileZ, ship_geo.UpstreamTagger.LargeTileZ
+    )
+    upstreamTagger.SetPMTDimensions(
+        ship_geo.UpstreamTagger.PMTX,
+        ship_geo.UpstreamTagger.PMTY,
+        ship_geo.UpstreamTagger.OpticalGreaseZ,
+        ship_geo.UpstreamTagger.PMTWindowZ,
+        ship_geo.UpstreamTagger.PhotocathodeZ,
+    )
+    configure_upstream_tagger(
+        os.path.join(os.environ["FAIRSHIP"], "geometry", "UpstreamTagger_config.yaml"),
+        upstreamTagger,
+        ship_geo,
     )
     detectorList.append(upstreamTagger)
 
