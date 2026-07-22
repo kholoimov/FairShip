@@ -6,6 +6,7 @@
 #define SHIPGEN_EVTCALCGENERATOR_H_
 
 #include <memory>
+#include <vector>
 
 #include "Generator.h"
 #include "TFile.h"
@@ -73,10 +74,34 @@ class EvtCalcGenerator : public SHiP::Generator {
     Vz = 9
   };
 
-  int fNevents;
-  int fn;
-  int nBranches;
-  int Ndau;
+  enum class InputFormat { FlatBranches, VectorBranches };
+
+  Bool_t BindFlatBranches();
+  Bool_t BindVectorBranches();
+  Bool_t ValidateVectorDaughters() const;
+
+  InputFormat fInputFormat = InputFormat::FlatBranches;
+  Float_t fMotherPx = 0.;
+  Float_t fMotherPy = 0.;
+  Float_t fMotherPz = 0.;
+  Float_t fMotherE = 0.;
+  Float_t fMotherMass = 0.;
+  Int_t fMotherPdg = 0;
+  Float_t fDecayProbability = 0.;
+  Float_t fVertexX = 0.;
+  Float_t fVertexY = 0.;
+  Float_t fVertexZ = 0.;
+  std::vector<float>* fDaughterPx = nullptr;
+  std::vector<float>* fDaughterPy = nullptr;
+  std::vector<float>* fDaughterPz = nullptr;
+  std::vector<float>* fDaughterE = nullptr;
+  std::vector<float>* fDaughterMass = nullptr;
+  std::vector<int>* fDaughterPdg = nullptr;
+
+  int fNevents = 0;
+  int fn = 0;
+  int nBranches = 0;
+  int Ndau = 0;
 };
 
 #endif  // SHIPGEN_EVTCALCGENERATOR_H_

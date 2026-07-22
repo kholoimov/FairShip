@@ -51,6 +51,19 @@ target_link_libraries(
 )
 add_test(NAME RNtupleIO COMMAND testRNtupleIO)
 
+add_executable(testEvtCalcGenerator test_evtcalc_generator.cxx)
+target_link_libraries(
+    testEvtCalcGenerator
+    ShipGen
+    ROOT::Core
+    ROOT::EGPythia8
+    ROOT::RIO
+    ROOT::Tree
+    FairRoot::Base
+    FairLogger::FairLogger
+)
+add_test(NAME EvtCalcGenerator COMMAND testEvtCalcGenerator)
+
 # Shell-driven FairShip regression tests. The Python harness validates the YAML
 # configuration, emits test declarations, and filters/compares output; CTest
 # owns execution ordering, resource locking, and parallelism.

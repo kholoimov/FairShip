@@ -5,6 +5,8 @@
 #include "EvtCalcGenerator.h"
 
 #include <cmath>
+#include <stdexcept>
+#include <string>
 
 #include "FairLogger.h"
 #include "FairPrimaryGenerator.h"
@@ -27,18 +29,33 @@ Bool_t EvtCalcGenerator::Init(const char* fileName, const int startEvent) {
                << startEvent;
     return kFALSE;
   }
+  fTree.reset();
+  fInputFile.reset();
+  branchVars.clear();
+  fDaughterPx = nullptr;
+  fDaughterPy = nullptr;
+  fDaughterPz = nullptr;
+  fDaughterE = nullptr;
+  fDaughterMass = nullptr;
+  fDaughterPdg = nullptr;
   fInputFile = std::unique_ptr<TFile>(TFile::Open(fileName, "read"));
   LOGF(info, "Info EvtCalcGenerator: Opening input file %s", fileName);
-  if (!fInputFile) {
+  if (!fInputFile || fInputFile->IsZombie()) {
     LOG(error) << "EvtCalcGenerator: error opening input file " << fileName;
     fInputFile.reset();
     return kFALSE;
   }
 
-  fTree =
-      std::unique_ptr<TTree>(dynamic_cast<TTree*>(fInputFile->Get("LLP_tree")));
+  auto* inputTree = dynamic_cast<TTree*>(fInputFile->Get("LLP_tree"));
+  if (inputTree != nullptr) {
+    fInputFormat = InputFormat::FlatBranches;
+  } else {
+    inputTree = dynamic_cast<TTree*>(fInputFile->Get("Events"));
+    fInputFormat = InputFormat::VectorBranches;
+  }
+  fTree = std::unique_ptr<TTree>(inputTree);
   if (!fTree) {
-    LOG(error) << "EvtCalcGenerator: cannot find tree LLP_tree in file "
+    LOG(error) << "EvtCalcGenerator: cannot find tree LLP_tree or Events in "
                << fileName;
     fInputFile.reset();
     return kFALSE;
@@ -53,18 +70,32 @@ Bool_t EvtCalcGenerator::Init(const char* fileName, const int startEvent) {
   }
   fn = startEvent;
 
+  const Bool_t branchesBound = fInputFormat == InputFormat::FlatBranches
+                                   ? BindFlatBranches()
+                                   : BindVectorBranches();
+  if (!branchesBound) {
+    fTree.reset();
+    fInputFile.reset();
+    return kFALSE;
+  }
+
+  LOG(info) << "EvtCalcGenerator: using "
+            << (fInputFormat == InputFormat::FlatBranches
+                    ? "LLP_tree flat-branch"
+                    : "Events vector-daughter")
+            << " input schema";
+  return kTRUE;
+}
+
+Bool_t EvtCalcGenerator::BindFlatBranches() {
   auto* branches = fTree->GetListOfBranches();
   if (!branches) {
     LOG(error) << "EvtCalcGenerator: failed to access tree branches";
-    fTree.reset();
-    fInputFile.reset();
     return kFALSE;
   }
   nBranches = branches->GetEntries();
   if (nBranches <= 0) {
     LOG(error) << "EvtCalcGenerator: tree LLP_tree has no branches";
-    fTree.reset();
-    fInputFile.reset();
     return kFALSE;
   }
   branchVars.resize(nBranches);
@@ -73,21 +104,74 @@ Bool_t EvtCalcGenerator::Init(const char* fileName, const int startEvent) {
     auto* branch = dynamic_cast<TBranch*>(branches->At(i));
     if (!branch) {
       LOG(error) << "EvtCalcGenerator: encountered an invalid branch entry";
-      fTree.reset();
-      fInputFile.reset();
       return kFALSE;
     }
     if (fTree->FindBranch(branch->GetName())) {
       if (fTree->SetBranchAddress(branch->GetName(), &branchVars[i]) < 0) {
         LOG(error) << "EvtCalcGenerator: failed to bind branch "
                    << branch->GetName();
-        fTree.reset();
-        fInputFile.reset();
         return kFALSE;
       }
     }
   }
 
+  return kTRUE;
+}
+
+Bool_t EvtCalcGenerator::BindVectorBranches() {
+  const std::vector<std::string> requiredBranches = {
+      "LLP_px",     "LLP_py", "LLP_pz", "LLP_E", "LLP_m", "LLP_pdg",
+      "LLP_weight", "vtx_x",  "vtx_y",  "vtx_z", "d_px",  "d_py",
+      "d_pz",       "d_E",    "d_m",    "d_pdg"};
+  for (const auto& branchName : requiredBranches) {
+    if (fTree->GetBranch(branchName.c_str()) == nullptr) {
+      LOG(error) << "EvtCalcGenerator: Events tree is missing required branch "
+                 << branchName;
+      return kFALSE;
+    }
+  }
+
+  bool success = true;
+  success &= fTree->SetBranchAddress("LLP_px", &fMotherPx) >= 0;
+  success &= fTree->SetBranchAddress("LLP_py", &fMotherPy) >= 0;
+  success &= fTree->SetBranchAddress("LLP_pz", &fMotherPz) >= 0;
+  success &= fTree->SetBranchAddress("LLP_E", &fMotherE) >= 0;
+  success &= fTree->SetBranchAddress("LLP_m", &fMotherMass) >= 0;
+  success &= fTree->SetBranchAddress("LLP_pdg", &fMotherPdg) >= 0;
+  success &= fTree->SetBranchAddress("LLP_weight", &fDecayProbability) >= 0;
+  success &= fTree->SetBranchAddress("vtx_x", &fVertexX) >= 0;
+  success &= fTree->SetBranchAddress("vtx_y", &fVertexY) >= 0;
+  success &= fTree->SetBranchAddress("vtx_z", &fVertexZ) >= 0;
+  success &= fTree->SetBranchAddress("d_px", &fDaughterPx) >= 0;
+  success &= fTree->SetBranchAddress("d_py", &fDaughterPy) >= 0;
+  success &= fTree->SetBranchAddress("d_pz", &fDaughterPz) >= 0;
+  success &= fTree->SetBranchAddress("d_E", &fDaughterE) >= 0;
+  success &= fTree->SetBranchAddress("d_m", &fDaughterMass) >= 0;
+  success &= fTree->SetBranchAddress("d_pdg", &fDaughterPdg) >= 0;
+  if (!success) {
+    LOG(error) << "EvtCalcGenerator: failed to bind one or more branches in "
+                  "the Events tree";
+    return kFALSE;
+  }
+  return kTRUE;
+}
+
+Bool_t EvtCalcGenerator::ValidateVectorDaughters() const {
+  if (fDaughterPx == nullptr || fDaughterPy == nullptr ||
+      fDaughterPz == nullptr || fDaughterE == nullptr ||
+      fDaughterMass == nullptr || fDaughterPdg == nullptr) {
+    LOG(error) << "EvtCalcGenerator: null daughter vector in Events tree";
+    return kFALSE;
+  }
+  const auto size = fDaughterPx->size();
+  if (fDaughterPy->size() != size || fDaughterPz->size() != size ||
+      fDaughterE->size() != size || fDaughterMass->size() != size ||
+      fDaughterPdg->size() != size) {
+    LOG(error) << "EvtCalcGenerator: inconsistent daughter vector sizes in "
+                  "Events tree entry "
+               << fn;
+    return kFALSE;
+  }
   return kTRUE;
 }
 // -----   Destructor   ----------------------------------------------------
@@ -113,74 +197,107 @@ Double_t EvtCalcGenerator::GetDaughterValue(const std::unique_ptr<TTree>& tree,
 // -------------------------------------------------------------------------
 Double_t EvtCalcGenerator::GetNdaughters(
     const std::unique_ptr<TTree>& tree) const {
+  if (fInputFormat == InputFormat::VectorBranches) {
+    return static_cast<Double_t>(fDaughterPx->size());
+  }
   return GetBranchValue(tree, nBranches - 1);
 }
 
 // -- LLP properties ------------------------------------------------------
 Double_t EvtCalcGenerator::GetMotherPx(
     const std::unique_ptr<TTree>& tree) const {
+  if (fInputFormat == InputFormat::VectorBranches) return fMotherPx;
   return GetBranchValue(tree, static_cast<int>(BranchIndices::MotherPx));
 }
 Double_t EvtCalcGenerator::GetMotherPy(
     const std::unique_ptr<TTree>& tree) const {
+  if (fInputFormat == InputFormat::VectorBranches) return fMotherPy;
   return GetBranchValue(tree, static_cast<int>(BranchIndices::MotherPy));
 }
 Double_t EvtCalcGenerator::GetMotherPz(
     const std::unique_ptr<TTree>& tree) const {
+  if (fInputFormat == InputFormat::VectorBranches) return fMotherPz;
   return GetBranchValue(tree, static_cast<int>(BranchIndices::MotherPz));
 }
 Double_t EvtCalcGenerator::GetMotherE(
     const std::unique_ptr<TTree>& tree) const {
+  if (fInputFormat == InputFormat::VectorBranches) return fMotherE;
   return GetBranchValue(tree, static_cast<int>(BranchIndices::MotherE));
 }
 
 // -- Vertex properties ---------------------------------------------------
 Double_t EvtCalcGenerator::GetVx(const std::unique_ptr<TTree>& tree) const {
+  if (fInputFormat == InputFormat::VectorBranches) return fVertexX;
   return GetBranchValue(tree, static_cast<int>(BranchIndices::Vx));
 }
 Double_t EvtCalcGenerator::GetVy(const std::unique_ptr<TTree>& tree) const {
+  if (fInputFormat == InputFormat::VectorBranches) return fVertexY;
   return GetBranchValue(tree, static_cast<int>(BranchIndices::Vy));
 }
 Double_t EvtCalcGenerator::GetVz(const std::unique_ptr<TTree>& tree) const {
+  if (fInputFormat == InputFormat::VectorBranches) return fVertexZ;
   return GetBranchValue(tree, static_cast<int>(BranchIndices::Vz));
 }
 
 // -- Decay probability ---------------------------------------------------
 Double_t EvtCalcGenerator::GetDecayProb(
     const std::unique_ptr<TTree>& tree) const {
+  if (fInputFormat == InputFormat::VectorBranches) return fDecayProbability;
   return GetBranchValue(tree, static_cast<int>(BranchIndices::DecayProb));
 }
 
 // -- Daughter properties ------------------------------------------------
 Double_t EvtCalcGenerator::GetDauPx(const std::unique_ptr<TTree>& tree,
                                     int dauID) const {
+  if (fInputFormat == InputFormat::VectorBranches) {
+    return fDaughterPx->at(dauID);
+  }
   return GetDaughterValue(tree, dauID, 0);
 }
 Double_t EvtCalcGenerator::GetDauPy(const std::unique_ptr<TTree>& tree,
                                     int dauID) const {
+  if (fInputFormat == InputFormat::VectorBranches) {
+    return fDaughterPy->at(dauID);
+  }
   return GetDaughterValue(tree, dauID, 1);
 }
 Double_t EvtCalcGenerator::GetDauPz(const std::unique_ptr<TTree>& tree,
                                     int dauID) const {
+  if (fInputFormat == InputFormat::VectorBranches) {
+    return fDaughterPz->at(dauID);
+  }
   return GetDaughterValue(tree, dauID, 2);
 }
 Double_t EvtCalcGenerator::GetDauE(const std::unique_ptr<TTree>& tree,
                                    int dauID) const {
+  if (fInputFormat == InputFormat::VectorBranches) {
+    return fDaughterE->at(dauID);
+  }
   return GetDaughterValue(tree, dauID, 3);
 }
 Double_t EvtCalcGenerator::GetDauPDG(const std::unique_ptr<TTree>& tree,
                                      int dauID) const {
+  if (fInputFormat == InputFormat::VectorBranches) {
+    return fDaughterPdg->at(dauID);
+  }
   return GetDaughterValue(tree, dauID, 5);
 }
 
 // -----   Passing the event   -------------------------------------------
 Bool_t EvtCalcGenerator::ReadEvent(FairPrimaryGenerator* cpg) {
-  if (fn == fNevents) {
+  if (fn >= fNevents) {
     LOG(warning) << "End of input file. Rewind.";
     fn = 0;
   }
 
-  fTree->GetEntry(fn);
+  if (fTree->GetEntry(fn) <= 0) {
+    LOG(error) << "EvtCalcGenerator: failed to read input entry " << fn;
+    return kFALSE;
+  }
+  if (fInputFormat == InputFormat::VectorBranches &&
+      !ValidateVectorDaughters()) {
+    return kFALSE;
+  }
   fn++;
   if (fn % 100 == 0) LOGF(info, "Info EvtCalcGenerator: event nr %d", fn);
 
