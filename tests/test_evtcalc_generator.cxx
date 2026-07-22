@@ -8,13 +8,40 @@
 #include <vector>
 
 #include "EvtCalcGenerator.h"
+#include "FairPrimaryGenerator.h"
 #include "TFile.h"
 #include "TTree.h"
 
 namespace {
-std::filesystem::path CreateVectorSchemaFile() {
+class TestableEvtCalcGenerator : public EvtCalcGenerator {
+ public:
+  bool LoadFirstEntry() { return fTree && fTree->GetEntry(0) > 0; }
+  double MotherPx() const { return fMotherPx; }
+  double MotherPdg() const { return fMotherPdg; }
+  double DaughterPdg() const { return fDaughterPdg->at(0); }
+  double DaughterCount() const { return fDaughterPx->size(); }
+};
+
+class CapturingPrimaryGenerator : public FairPrimaryGenerator {
+ public:
+  struct Track {
+    Int_t pdg;
+    Double_t px;
+    Int_t parent;
+  };
+
+  void AddTrack(Int_t pdg, Double_t px, Double_t, Double_t, Double_t, Double_t,
+                Double_t, Int_t parent, Bool_t, Double_t, Double_t, Double_t,
+                TMCProcess) override {
+    tracks.push_back({pdg, px, parent});
+  }
+
+  std::vector<Track> tracks;
+};
+
+std::filesystem::path CreateConvertSchemaFile() {
   const auto path =
-      std::filesystem::temp_directory_path() / "evtcalc_vector_schema.root";
+      std::filesystem::temp_directory_path() / "evtcalc_convert_schema.root";
   TFile output(path.c_str(), "RECREATE");
   TTree tree("Events", "LLP Simulation Data");
 
@@ -56,18 +83,50 @@ std::filesystem::path CreateVectorSchemaFile() {
   output.Close();
   return path;
 }
+
 }  // namespace
 
 int main(int argc, char** argv) {
   const bool useExternalInput = argc > 1;
   const auto inputPath = useExternalInput ? std::filesystem::path(argv[1])
-                                          : CreateVectorSchemaFile();
-  EvtCalcGenerator generator;
+                                          : CreateConvertSchemaFile();
+  TestableEvtCalcGenerator generator;
   if (!generator.Init(inputPath.c_str()) || generator.GetNevents() <= 0) {
     std::cerr << "Failed to initialize convert.C Events schema" << std::endl;
     return 1;
   }
+  if (!generator.LoadFirstEntry()) {
+    std::cerr << "Failed to read first convert.C Events entry" << std::endl;
+    return 1;
+  }
+  if (!useExternalInput &&
+      (generator.MotherPx() != 1.F || generator.MotherPdg() != 9900015. ||
+       generator.DaughterCount() != 2. || generator.DaughterPdg() != 11.)) {
+    std::cerr << "Incorrect values read from convert.C Events schema"
+              << std::endl;
+    return 1;
+  }
+
+  CapturingPrimaryGenerator primaryGenerator;
+  generator.SetPositions(0., 0.);
+  if (!generator.ReadEvent(&primaryGenerator) ||
+      primaryGenerator.tracks.empty()) {
+    std::cerr << "Failed to generate tracks from convert.C Events schema"
+              << std::endl;
+    return 1;
+  }
+  if (!useExternalInput && (primaryGenerator.tracks.size() != 3 ||
+                            primaryGenerator.tracks[0].pdg != 9900015 ||
+                            primaryGenerator.tracks[0].px != 1.F ||
+                            primaryGenerator.tracks[0].parent != -1 ||
+                            primaryGenerator.tracks[1].pdg != 11 ||
+                            primaryGenerator.tracks[1].parent != 0)) {
+    std::cerr << "Incorrect tracks generated from convert.C Events schema"
+              << std::endl;
+    return 1;
+  }
   if (!useExternalInput) std::filesystem::remove(inputPath);
+
   std::cout << "EvtCalcGenerator convert.C schema test passed" << std::endl;
   return 0;
 }

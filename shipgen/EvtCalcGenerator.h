@@ -34,53 +34,12 @@ class EvtCalcGenerator : public SHiP::Generator {
     zDecayVolume = zDV;  // units cm (midpoint)
   }
 
-  // Wrapper function declarations
-  Double_t GetNdaughters(const std::unique_ptr<TTree>&) const;
-  Double_t GetMotherPx(const std::unique_ptr<TTree>&) const;
-  Double_t GetMotherPy(const std::unique_ptr<TTree>&) const;
-  Double_t GetMotherPz(const std::unique_ptr<TTree>&) const;
-  Double_t GetMotherE(const std::unique_ptr<TTree>&) const;
-  Double_t GetVx(const std::unique_ptr<TTree>&) const;
-  Double_t GetVy(const std::unique_ptr<TTree>&) const;
-  Double_t GetVz(const std::unique_ptr<TTree>&) const;
-  Double_t GetDecayProb(const std::unique_ptr<TTree>&) const;
-  Double_t GetDauPx(const std::unique_ptr<TTree>&, int) const;
-  Double_t GetDauPy(const std::unique_ptr<TTree>&, int) const;
-  Double_t GetDauPz(const std::unique_ptr<TTree>&, int) const;
-  Double_t GetDauE(const std::unique_ptr<TTree>&, int) const;
-  Double_t GetDauPDG(const std::unique_ptr<TTree>&, int) const;
-
- private:
  protected:
-  // Generalized branch access
-  Double_t GetBranchValue(const std::unique_ptr<TTree>&, unsigned) const;
-
-  // Generalized daughter variable access
-  Double_t GetDaughterValue(const std::unique_ptr<TTree>& tree, int, int) const;
-
   Double_t ztarget, zDecayVolume;
   std::unique_ptr<TFile> fInputFile;
   std::unique_ptr<TTree> fTree;
-  std::vector<double> branchVars;
-
-  enum class BranchIndices {
-    MotherPx = 0,
-    MotherPy = 1,
-    MotherPz = 2,
-    MotherE = 3,
-    DecayProb = 6,
-    Vx = 7,
-    Vy = 8,
-    Vz = 9
-  };
-
-  enum class InputFormat { FlatBranches, VectorBranches };
-
-  Bool_t BindFlatBranches();
-  Bool_t BindVectorBranches();
-  Bool_t ValidateVectorDaughters() const;
-
-  InputFormat fInputFormat = InputFormat::FlatBranches;
+  Bool_t BindBranches();
+  Bool_t ValidateDaughters() const;
   Float_t fMotherPx = 0.;
   Float_t fMotherPy = 0.;
   Float_t fMotherPz = 0.;
@@ -100,8 +59,6 @@ class EvtCalcGenerator : public SHiP::Generator {
 
   int fNevents = 0;
   int fn = 0;
-  int nBranches = 0;
-  int Ndau = 0;
 };
 
 #endif  // SHIPGEN_EVTCALCGENERATOR_H_
