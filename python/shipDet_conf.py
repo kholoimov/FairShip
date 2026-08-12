@@ -305,7 +305,11 @@ def configure(run, ship_geo):
     TargetStation.SetDesign(target_version)
     if target_version >= 2:
         TargetStation.SetLastDiskDiameter(ship_geo.target.xy2)
-    TargetStation.SetShieldingReferenceLength(ship_geo.target.length_fixed)
+    # Geometry files created before target.length_fixed was introduced do not
+    # carry this attribute. Preserve their legacy shielding placement while
+    # allowing newer target designs to provide an explicit reference length.
+    shielding_reference_length = getattr(ship_geo.target, "length_fixed", 158.64 * u.cm)
+    TargetStation.SetShieldingReferenceLength(shielding_reference_length)
     detectorList.append(TargetStation)
 
     # For SND: support multiple designs

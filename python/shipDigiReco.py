@@ -107,6 +107,17 @@ class ShipDigiReco:
         ROOT.genfit.MaterialEffects.getInstance().init(self.geoMat)
         ROOT.SetOwnership(self.geoMat, False)  # genfit::MaterialEffects singleton takes ownership
 
+        # GenFit's TGeoMaterialInterface uses gGeoManager's current navigator.
+        # Keep vertex extrapolation state separate from the navigator used by
+        # track fitting, so an aborted vertex extrapolation cannot affect fits
+        # in following events.
+        navigators = ROOT.gGeoManager.GetListOfNavigators()
+        fit_navigator = ROOT.gGeoManager.GetCurrentNavigator()
+        self._fit_navigator_index = navigators.IndexOf(fit_navigator)
+        vertex_navigator = ROOT.gGeoManager.AddNavigator()
+        self._vertex_navigator_index = navigators.IndexOf(vertex_navigator)
+        ROOT.gGeoManager.SetCurrentNavigator(self._fit_navigator_index)
+
         # init fitter, to be done before importing shipPatRec
         # fitter          = ROOT.genfit.KalmanFitter()
         # fitter          = ROOT.genfit.KalmanFitterRefTrack()
@@ -130,7 +141,11 @@ class ShipDigiReco:
             # now go for 2-track combinations
             if self.validation:
                 self.validation_stats["vertexing_calls"] += 1
-            self.Vertexing.execute()
+            try:
+                ROOT.gGeoManager.SetCurrentNavigator(self._vertex_navigator_index)
+                self.Vertexing.execute()
+            finally:
+                ROOT.gGeoManager.SetCurrentNavigator(self._fit_navigator_index)
         if self.validation:
             self.validation_stats["events_reconstructed"] += 1
             self.validation_stats["fitted_tracks_total"] += n_tracks
