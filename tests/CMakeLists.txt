@@ -50,3 +50,16 @@ target_link_libraries(
     FairLogger::FairLogger
 )
 add_test(NAME RNtupleIO COMMAND testRNtupleIO)
+
+add_executable(testEvtCalcGenerator test_evtcalc_generator.cxx)
+target_link_libraries(
+    testEvtCalcGenerator
+    ShipGen
+    ROOT::Core
+    ROOT::EGPythia8
+    ROOT::RIO
+    ROOT::Tree
+    FairRoot::Base
+    FairLogger::FairLogger
+)
+add_test(NAME EvtCalcGenerator COMMAND testEvtCalcGenerator)
