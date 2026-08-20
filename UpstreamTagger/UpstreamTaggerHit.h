@@ -51,9 +51,11 @@ class UpstreamTaggerHit : public SHiP::DetectorHit {
   /** Time accessor **/
   Double_t GetTime() const { return fTime; }
   Int_t GetADC() const { return static_cast<Int_t>(fdigi); }
+  Int_t GetTileID() const { return fTileID; }
   Bool_t IsTriggered() const { return fTriggered; }
   Bool_t GetTriggered() const { return fTriggered; }
   void SetADC(Int_t adc) { SetDigi(adc); }
+  void SetTileID(Int_t tileID) { fTileID = tileID; }
   void SetTriggered(Bool_t triggered) { fTriggered = triggered; }
 
   /** Output to screen **/
@@ -65,9 +67,10 @@ class UpstreamTaggerHit : public SHiP::DetectorHit {
   Double_t fY;        ///< Digitized y position (cm)
   Double_t fZ;        ///< Digitized z position (cm)
   Double_t fTime;     ///< Smeared time (ns)
+  Int_t fTileID;      ///< Unique constituent-tile ID on the global 2 cm grid
   Bool_t fTriggered;  ///< True when ADC is at or above the trigger threshold
 
-  ClassDefOverride(UpstreamTaggerHit, 3);
+  ClassDefOverride(UpstreamTaggerHit, 4);
 };
 
 #endif  // UPSTREAMTAGGER_UPSTREAMTAGGERHIT_H_

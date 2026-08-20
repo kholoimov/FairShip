@@ -62,6 +62,29 @@ class UpstreamTaggerDetector(BaseDetector):
         y = cls._tile_center(point.GetY(), ubt_geo.TileGridOriginY, ubt_geo.TileGridEndY, tile_size)
         return ROOT.TVector3(x, y, ubt_geo.Z_Position)
 
+    @staticmethod
+    def tile_id(position: ROOT.TVector3, tile_size: float) -> int:
+        """Return a stable unique ID for a constituent tile.
+
+        IDs are the row-major index of the tile's lower-left cell on the
+        global 2 cm UBT grid. A 4 cm tile uses the ID of its lower-left 2 cm
+        cell; because tile regions do not overlap, this remains globally
+        unique while keeping all IDs in one coordinate-based namespace.
+        """
+        ubt_geo = global_variables.ShipGeo.UpstreamTagger
+        grid_size = getattr(
+            ubt_geo,
+            "TileIDGridSize",
+            min(float(size) for size in ubt_geo.RegionTileSize.values()),
+        )
+        columns = round((ubt_geo.TileGridEndX - ubt_geo.TileGridOriginX) / grid_size)
+        rows = round((ubt_geo.TileGridEndY - ubt_geo.TileGridOriginY) / grid_size)
+        column = round((position.X() - tile_size / 2.0 - ubt_geo.TileGridOriginX) / grid_size)
+        row = round((position.Y() - tile_size / 2.0 - ubt_geo.TileGridOriginY) / grid_size)
+        if not (0 <= column < columns and 0 <= row < rows):
+            raise ValueError(f"UBT tile at ({position.X()}, {position.Y()}) is outside the tile-ID grid")
+        return row * columns + column
+
     def adc_counts(self, point, tile_center: ROOT.TVector3, tile_size: float) -> int:
         """Calculate ADC counts from deposited energy and local hit position."""
         tile_size_cm = tile_size
@@ -88,6 +111,7 @@ class UpstreamTaggerDetector(BaseDetector):
             adc_counts = self.adc_counts(aMCPoint, position, tile_size)
             hit_class = getattr(ROOT, "UpstreamTaggerHit")
             aHit = hit_class(aMCPoint, self.intree.t0, position, time_res)
+            aHit.SetTileID(self.tile_id(position, tile_size))
             aHit.SetADC(adc_counts)
             aHit.SetTriggered(adc_counts >= trigger_threshold)
             self.det.push_back(aHit)

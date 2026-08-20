@@ -308,6 +308,9 @@ def configure_upstream_tagger(yaml_file: str, upstream_tagger, ship_geo) -> None
     ship_geo.UpstreamTagger.TileGridOriginY = -config["full_size"]["y"] * u.cm / 2
     ship_geo.UpstreamTagger.TileGridEndX = config["full_size"]["x"] * u.cm / 2
     ship_geo.UpstreamTagger.TileGridEndY = config["full_size"]["y"] * u.cm / 2
+    ship_geo.UpstreamTagger.TileIDGridSize = min(
+        region["constituent_tile_size"] for region in regions
+    ) * u.cm
     ship_geo.UpstreamTagger.DetectorMap = yaml_file
     response_map_directory = os.path.join(os.environ["FAIRSHIP"], "geometry")
     ship_geo.UpstreamTagger.ADCResponseMap20mm = os.path.join(

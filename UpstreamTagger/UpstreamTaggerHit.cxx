@@ -20,12 +20,13 @@ UpstreamTaggerHit::UpstreamTaggerHit()
       fY(0.),
       fZ(0.),
       fTime(0.),
+      fTileID(-1),
       fTriggered(kFALSE) {}
 
 // -----   Constructor from UpstreamTaggerPoint   --------------
 UpstreamTaggerHit::UpstreamTaggerHit(UpstreamTaggerPoint* p, Double_t t0,
                                      Double_t pos_res, Double_t time_res)
-    : SHiP::DetectorHit(), fTriggered(kFALSE) {
+    : SHiP::DetectorHit(), fTileID(-1), fTriggered(kFALSE) {
   if (!p) {
     LOG(error) << "UpstreamTaggerHit: null UpstreamTaggerPoint pointer";
     return;
@@ -44,7 +45,7 @@ UpstreamTaggerHit::UpstreamTaggerHit(UpstreamTaggerPoint* p, Double_t t0,
 UpstreamTaggerHit::UpstreamTaggerHit(UpstreamTaggerPoint* p, Double_t t0,
                                      const TVector3& digitizedPosition,
                                      Double_t time_res)
-    : SHiP::DetectorHit(), fTriggered(kFALSE) {
+    : SHiP::DetectorHit(), fTileID(-1), fTriggered(kFALSE) {
   if (!p) {
     LOG(error) << "UpstreamTaggerHit: null UpstreamTaggerPoint pointer";
     return;
@@ -59,6 +60,7 @@ UpstreamTaggerHit::UpstreamTaggerHit(UpstreamTaggerPoint* p, Double_t t0,
 // -----   Print   ------------------------------
 void UpstreamTaggerHit::Print() const {
   cout << "-I- UpstreamTaggerHit: detector " << fDetectorID << endl;
+  cout << "    Constituent tile ID: " << fTileID << endl;
   cout << "    Position: (" << fX << ", " << fY << ", " << fZ << ") cm" << endl;
   cout << "    Time: " << fTime << " ns" << endl;
   cout << "    ADC: " << GetADC()
