@@ -50,7 +50,15 @@ class UpstreamTaggerDetector(BaseDetector):
     def _tile_center(coordinate: float, grid_origin: float, grid_end: float, tile_size: float) -> float:
         """Return the globally aligned tile center containing coordinate."""
         coordinate = min(max(coordinate, grid_origin), math.nextafter(grid_end, grid_origin))
-        tile_index = math.floor((coordinate - grid_origin) / tile_size)
+        tile_count = round((grid_end - grid_origin) / tile_size)
+        if tile_count <= 0:
+            raise ValueError(
+                f"Invalid UBT tile grid [{grid_origin}, {grid_end}] with tile size {tile_size}"
+            )
+        # At the positive boundary, floating-point subtraction and division
+        # can round nextafter(grid_end, grid_origin) back to an exact quotient
+        # of tile_count. Cap the result so the last valid tile is selected.
+        tile_index = min(math.floor((coordinate - grid_origin) / tile_size), tile_count - 1)
         return grid_origin + (tile_index + 0.5) * tile_size
 
     @classmethod
@@ -72,17 +80,27 @@ class UpstreamTaggerDetector(BaseDetector):
         unique while keeping all IDs in one coordinate-based namespace.
         """
         ubt_geo = global_variables.ShipGeo.UpstreamTagger
-        grid_size = getattr(
-            ubt_geo,
-            "TileIDGridSize",
-            min(float(size) for size in ubt_geo.RegionTileSize.values()),
-        )
+        region_grid_size = min(float(size) for size in ubt_geo.RegionTileSize.values())
+        configured_grid_size = getattr(ubt_geo, "TileIDGridSize", region_grid_size)
+        # Old geometry files can contain a stale TileIDGridSize. Never use a
+        # coarser ID grid than the smallest constituent tile represented by
+        # RegionTileSize, otherwise the last small-tile centre maps one column
+        # beyond the computed grid.
+        grid_size = min(float(configured_grid_size), region_grid_size)
+        if grid_size <= 0.0:
+            raise ValueError(f"Invalid UBT tile-ID grid size: {grid_size}")
         columns = round((ubt_geo.TileGridEndX - ubt_geo.TileGridOriginX) / grid_size)
         rows = round((ubt_geo.TileGridEndY - ubt_geo.TileGridOriginY) / grid_size)
         column = round((position.X() - tile_size / 2.0 - ubt_geo.TileGridOriginX) / grid_size)
         row = round((position.Y() - tile_size / 2.0 - ubt_geo.TileGridOriginY) / grid_size)
         if not (0 <= column < columns and 0 <= row < rows):
-            raise ValueError(f"UBT tile at ({position.X()}, {position.Y()}) is outside the tile-ID grid")
+            raise ValueError(
+                f"UBT tile at ({position.X()}, {position.Y()}) cm with size {tile_size} cm "
+                f"maps to cell ({column}, {row}), outside the {columns} x {rows} tile-ID grid; "
+                f"x bounds=({ubt_geo.TileGridOriginX}, {ubt_geo.TileGridEndX}) cm, "
+                f"y bounds=({ubt_geo.TileGridOriginY}, {ubt_geo.TileGridEndY}) cm, "
+                f"base cell size={grid_size} cm"
+            )
         return row * columns + column
 
     def adc_counts(self, point, tile_center: ROOT.TVector3, tile_size: float) -> int:
