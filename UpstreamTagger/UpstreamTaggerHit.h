@@ -67,7 +67,7 @@ class UpstreamTaggerHit : public SHiP::DetectorHit {
   Double_t fY;        ///< Digitized y position (cm)
   Double_t fZ;        ///< Digitized z position (cm)
   Double_t fTime;     ///< Smeared time (ns)
-  Int_t fTileID;      ///< Unique constituent-tile ID on the global 2 cm grid
+  Int_t fTileID;      ///< Unique position- and tile-size-aware constituent ID
   Bool_t fTriggered;  ///< True when ADC is at or above the trigger threshold
 
   ClassDefOverride(UpstreamTaggerHit, 4);

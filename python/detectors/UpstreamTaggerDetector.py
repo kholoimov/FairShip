@@ -74,10 +74,10 @@ class UpstreamTaggerDetector(BaseDetector):
     def tile_id(position: ROOT.TVector3, tile_size: float) -> int:
         """Return a stable unique ID for a constituent tile.
 
-        IDs are the row-major index of the tile's lower-left cell on the
-        global 2 cm UBT grid. A 4 cm tile uses the ID of its lower-left 2 cm
-        cell; because tile regions do not overlap, this remains globally
-        unique while keeping all IDs in one coordinate-based namespace.
+        The low part is the row-major index of the tile's lower-left cell on
+        the global 2 cm UBT grid. Separate 90000-ID namespaces are used for
+        each tile-size multiple, preventing a 2 cm tile and a 4 cm tile with
+        the same lower-left grid cell from receiving the same ID.
         """
         ubt_geo = global_variables.ShipGeo.UpstreamTagger
         region_grid_size = min(float(size) for size in ubt_geo.RegionTileSize.values())
@@ -101,7 +101,17 @@ class UpstreamTaggerDetector(BaseDetector):
                 f"y bounds=({ubt_geo.TileGridOriginY}, {ubt_geo.TileGridEndY}) cm, "
                 f"base cell size={grid_size} cm"
             )
-        return row * columns + column
+        tile_size_multiple = round(tile_size / grid_size)
+        if tile_size_multiple <= 0 or not math.isclose(
+            tile_size, tile_size_multiple * grid_size, rel_tol=0.0, abs_tol=1.0e-9
+        ):
+            raise ValueError(
+                f"UBT tile size {tile_size} cm is not an integer multiple of "
+                f"the tile-ID base cell size {grid_size} cm"
+            )
+        cells_per_grid = columns * rows
+        size_namespace = tile_size_multiple - 1
+        return size_namespace * cells_per_grid + row * columns + column
 
     def adc_counts(self, point, tile_center: ROOT.TVector3, tile_size: float) -> int:
         """Calculate ADC counts from deposited energy and local hit position."""
